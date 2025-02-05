@@ -1,3 +1,6 @@
+import Link from 'next/link.js';
+import { getProducts } from '../database/products.js';
+
 export const metadata = {
   title: 'Products',
   description:
@@ -5,5 +8,24 @@ export const metadata = {
 };
 
 export default function ProductPage() {
-  return <h1>Our products</h1>;
+  const products = getProducts();
+
+  return (
+    <div>
+      <h1>Our products</h1>
+      {products.map((product) => {
+        return (
+          <Link href={`products/${product.id}`}>
+            Name: {product.name}
+            <br />
+            Image: {product.image}
+            <br />
+            Price: {product.price}
+            <br />
+            <br />
+          </Link>
+        );
+      })}
+    </div>
+  );
 }

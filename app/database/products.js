@@ -25,10 +25,10 @@ const products = [
   },
 ];
 
-export default function getProducts() {
+export function getProducts() {
   return products;
 }
 
-export default function getProduct(id) {
-  return products.find(product => product.id === id);
+export function getProduct(id) {
+  return products.find((product) => product.id === id);
 }
