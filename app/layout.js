@@ -1,5 +1,12 @@
 import './globals.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import localFont from 'next/font/local';
+import Link from 'next/link';
+
+config.autoAddCss = false;
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -27,6 +34,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <header>
+          <img src="/logo.png" width="200px" alt="Site logo" />
+          <Link href="/cart">
+            <FontAwesomeIcon
+              icon={faCartFlatbedSuitcase}
+              size="2x"
+              className="cart-icon"
+            />
+          </Link>
+        </header>
         {children}
       </body>
     </html>
