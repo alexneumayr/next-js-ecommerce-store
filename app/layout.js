@@ -35,7 +35,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header>
-          <img src="/logo.png" width="200px" alt="Site logo" />
+          <Link href="/">
+            <img src="/logo.png" width="200px" alt="Site logo" />
+          </Link>
           <Link href="/cart">
             <FontAwesomeIcon
               icon={faCartFlatbedSuitcase}
