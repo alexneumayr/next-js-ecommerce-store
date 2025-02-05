@@ -38,13 +38,23 @@ export default function RootLayout({ children }) {
           <Link href="/">
             <img src="/logo.png" width="200px" alt="Site logo" />
           </Link>
-          <Link href="/cart">
-            <FontAwesomeIcon
-              icon={faCartFlatbedSuitcase}
-              size="2x"
-              className="cart-icon"
-            />
-          </Link>
+
+          <nav>
+            <ul>
+              <li>
+                <Link href="/products">Products</Link>
+              </li>
+              <li>
+                <Link href="/cart">
+                  <FontAwesomeIcon
+                    icon={faCartFlatbedSuitcase}
+                    size="2x"
+                    className="cart-icon"
+                  />
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </header>
         {children}
       </body>
