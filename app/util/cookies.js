@@ -28,3 +28,7 @@ export async function createOrUpdateCookie(productId, amount) {
   }
   (await cookies()).set('cart', JSON.stringify(cart), { maxAge: 31556952000 });
 }
+
+export async function removeCookie() {
+  (await cookies()).set('cart', JSON.stringify([]), { maxAge: 0 });
+}

@@ -1,6 +1,7 @@
 import { getProducts } from '../database/products';
 import { createOrUpdateCookie, getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
+import CheckoutButton from './CheckoutButton';
 import RemoveButton from './RemoveButton';
 
 export const metadata = {
@@ -22,7 +23,10 @@ export default async function CartPage() {
           const correlatingCartProduct = cart.find(
             (item) => item.id === product.id,
           );
-          if (correlatingCartProduct !== undefined) {
+          if (
+            correlatingCartProduct !== undefined &&
+            correlatingCartProduct.amount >= 0
+          ) {
             const subtotal = product.price * correlatingCartProduct.amount;
             total = total + subtotal;
             return (
@@ -45,6 +49,8 @@ export default async function CartPage() {
           }
         })}
         Total: {total}
+        <br />
+        <CheckoutButton />
       </div>
     </>
   );

@@ -1,3 +1,5 @@
+import CheckoutForm from './CheckoutForm';
+
 export const metadata = {
   title: 'Checkout',
   description:
@@ -5,5 +7,10 @@ export const metadata = {
 };
 
 export default function CheckoutPage() {
-  return <div>Checkout Page</div>;
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <CheckoutForm />
+    </div>
+  );
 }
