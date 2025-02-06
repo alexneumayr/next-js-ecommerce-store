@@ -30,5 +30,7 @@ export async function createOrUpdateCookie(productId, amount) {
 }
 
 export async function removeCookie() {
-  (await cookies()).set('cart', JSON.stringify([]), { maxAge: 0 });
+  (await cookies()).set('cart', JSON.stringify([]), {
+    maxAge: 0,
+  });
 }

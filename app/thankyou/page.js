@@ -1,3 +1,5 @@
+import ThankYouMain from './ThankYouMain';
+
 export const metadata = {
   title: 'Thank you for your order',
   description:
@@ -5,5 +7,5 @@ export const metadata = {
 };
 
 export default function ThankYouPage() {
-  return <div>Thank You Page</div>;
+  return <ThankYouMain />;
 }

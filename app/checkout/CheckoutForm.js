@@ -34,7 +34,7 @@ export default function CheckoutForm() {
             onChange={(event) => setFirstName(event.currentTarget.value)}
             pattern="\D+"
             title="Please only use letters."
-            /* require*/ d
+            required
             data-test-id="checkout-first-name"
           />
         </div>
@@ -46,7 +46,7 @@ export default function CheckoutForm() {
             onChange={(event) => setLastName(event.currentTarget.value)}
             pattern="\D+"
             title="Please only use letters."
-            /*required*/
+            required
             data-test-id="checkout-last-name"
           />
         </div>
@@ -57,7 +57,7 @@ export default function CheckoutForm() {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.currentTarget.value)}
-            /*required*/
+            required
             data-test-id="checkout-email"
           />
         </div>
@@ -67,7 +67,7 @@ export default function CheckoutForm() {
             id="address-input"
             value={address}
             onChange={(event) => setAddress(event.currentTarget.value)}
-            /*required*/
+            required
             data-test-id="checkout-address"
           />
         </div>
@@ -77,7 +77,7 @@ export default function CheckoutForm() {
             id="postal-code-input"
             value={postalCode}
             onChange={(event) => setPostalCode(event.currentTarget.value)}
-            /*required*/
+            required
             data-test-id="checkout-postal-code"
           />
         </div>
@@ -89,7 +89,7 @@ export default function CheckoutForm() {
             onChange={(event) => setCity(event.currentTarget.value)}
             pattern="\D+"
             title="Please only use letters."
-            /*required*/
+            required
             data-test-id="checkout-city"
           />
         </div>
@@ -101,7 +101,7 @@ export default function CheckoutForm() {
             onChange={(event) => setCountry(event.currentTarget.value)}
             pattern="\D+"
             title="Please only use letters."
-            /*required*/
+            required
             data-test-id="checkout-country"
           />
         </div>
@@ -115,7 +115,7 @@ export default function CheckoutForm() {
             type="number"
             value={cardNumber}
             onChange={(event) => setCardNumber(event.currentTarget.value)}
-            /*required*/
+            required
             data-test-id="checkout-credit-card"
           />
         </div>
@@ -127,7 +127,7 @@ export default function CheckoutForm() {
             onChange={(event) => setExpirationDate(event.currentTarget.value)}
             pattern="\d{2}/\d{2}"
             title="Please use the format MM/YY."
-            /*required*/
+            required
             data-test-id="checkout-expiration-date"
           />
         </div>
@@ -139,7 +139,7 @@ export default function CheckoutForm() {
             onChange={(event) => setSecurityCode(event.currentTarget.value)}
             pattern="\d{3,4}"
             title="Please type in the security code correctly."
-            /*required*/
+            required
             data-test-id="checkout-security-code"
           />
         </div>
