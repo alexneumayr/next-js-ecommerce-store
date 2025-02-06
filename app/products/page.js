@@ -15,7 +15,10 @@ export default function ProductPage() {
       <h1>Our products</h1>
       {products.map((product) => {
         return (
-          <Link href={`products/${product.id}`}>
+          <Link
+            href={`products/${product.id}`}
+            data-test-id="product-<product id>"
+          >
             Name: {product.name}
             <br />
             Image: {product.image}

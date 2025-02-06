@@ -30,14 +30,17 @@ export default async function CartPage() {
             const subtotal = product.price * correlatingCartProduct.amount;
             total = total + subtotal;
             return (
-              <div>
+              <div data-test-id="cart-product-<product id>">
                 Id: {product.id}
                 <br />
                 Name: {product.name}
                 <br />
                 Price: {product.price}
                 <br />
-                Amount: {correlatingCartProduct.amount}
+                Amount:
+                <span data-test-id="cart-product-quantity-<product id>">
+                  {correlatingCartProduct.amount}
+                </span>
                 <br />
                 Subtotal: {subtotal}
                 <br />
@@ -48,7 +51,7 @@ export default async function CartPage() {
             );
           }
         })}
-        Total: {total}
+        Total: <span data-test-id="cart-total">{total}</span>
         <br />
         <CheckoutButton />
       </div>

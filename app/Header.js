@@ -21,16 +21,18 @@ export default async function Header() {
       <nav>
         <ul>
           <li>
-            <Link href="/products">Products</Link>
+            <Link href="/products" data-test-id="products-link">
+              Products
+            </Link>
           </li>
           <li>
-            <Link href="/cart">
+            <Link href="/cart" data-test-id="cart-link">
               <FontAwesomeIcon
                 icon={faCartFlatbedSuitcase}
                 size="2x"
                 className="cart-icon"
               />
-              {cartSize}
+              <span data-test-id="cart-count">{cartSize}</span>
             </Link>
           </li>
         </ul>

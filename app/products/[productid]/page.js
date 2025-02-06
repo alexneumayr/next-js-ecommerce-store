@@ -14,9 +14,13 @@ export default async function SingleProduct(props) {
   return (
     <div>
       <h1>{singleProduct.name}</h1>
-      Image: {singleProduct.image}
+      Image: <span data-test-id="product-image">{singleProduct.image}</span>
       <br />
-      Price: <div style={{ display: 'inline' }}>{singleProduct.price}</div> €
+      Price:
+      <div style={{ display: 'inline' }} data-test-id="product-price">
+        {singleProduct.price}
+      </div>{' '}
+      €
       <AddToCartForm id={singleProduct.id} />
     </div>
   );
