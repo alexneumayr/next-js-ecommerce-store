@@ -1,5 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
+import { parseJson } from './json';
 
 export async function getCookie(name) {
   const cookie = (await cookies()).get(name);
@@ -11,16 +12,19 @@ export async function getCookie(name) {
 }
 
 export async function createOrUpdateCookie(productId, amount) {
-  const cartCookie = (await cookies()).get('cart');
-  const cart = !cartCookie ? [] : JSON.parse(cartCookie.value);
+  const cartCookie = await getCookie('cart');
+  let cart = !cartCookie ? [] : parseJson(cartCookie);
   const productToUpdate = cart.find((productInCart) => {
     return productInCart.id === productId;
   });
-  if (!productToUpdate) {
+  if (!productToUpdate && amount !== '0') {
     cart.push({ id: productId, amount: amount });
-    console.log('Hi');
   } else {
-    productToUpdate.amount = amount;
+    if (amount === '0') {
+      cart = cart.filter((product) => product.id !== productToUpdate.id);
+    } else {
+      productToUpdate.amount = amount;
+    }
   }
-  (await cookies()).set('cart', JSON.stringify(cart));
+  (await cookies()).set('cart', JSON.stringify(cart), { maxAge: 31556952000 });
 }

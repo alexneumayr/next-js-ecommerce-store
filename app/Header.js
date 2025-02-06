@@ -3,10 +3,11 @@ import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { getCookie } from './util/cookies';
+import { parseJson } from './util/json';
 
 export default async function Header() {
   const cartCookie = await getCookie('cart');
-  const cart = JSON.parse(cartCookie) || [];
+  const cart = parseJson(cartCookie) || [];
   const cartSize = cart.reduce(
     (prevValue, currentValue) => +prevValue + +currentValue.amount,
     0,
