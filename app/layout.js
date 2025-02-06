@@ -1,12 +1,6 @@
 import './globals.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import localFont from 'next/font/local';
-import Link from 'next/link';
-
-config.autoAddCss = false;
+import Header from './Header.js';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,32 +24,11 @@ export const metadata = {
     'Discover the latest tech gadgets, electronics, and accessories at unbeatable prices. Shop smartphones, laptops, gaming gear, and more with fast shipping and secure checkout. Upgrade your tech today!',
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header>
-          <Link href="/">
-            <img src="/logo.png" width="200px" alt="Site logo" />
-          </Link>
-
-          <nav>
-            <ul>
-              <li>
-                <Link href="/products">Products</Link>
-              </li>
-              <li>
-                <Link href="/cart">
-                  <FontAwesomeIcon
-                    icon={faCartFlatbedSuitcase}
-                    size="2x"
-                    className="cart-icon"
-                  />
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <Header />
         {children}
       </body>
     </html>
