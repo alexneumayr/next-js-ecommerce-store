@@ -1,6 +1,6 @@
 'use client';
-import { createOrUpdateCookie } from '@/app/util/cookies';
 import { useState } from 'react';
+import { createOrUpdateCookie } from '../../util/cookies';
 
 export default function AddToCartForm(props) {
   const [amount, setAmount] = useState(1);

@@ -1,4 +1,4 @@
-import { getProduct } from '@/app/database/products';
+import { getProduct } from '../../database/products';
 import AddToCartForm from './AddToCartForm';
 
 export async function generateMetadata(props) {
@@ -10,7 +10,9 @@ export async function generateMetadata(props) {
 }
 
 export default async function SingleProduct(props) {
-  const singleProduct = getProduct(Number((await props.params).productId));
+  const singleProduct = await getProduct(
+    Number((await props.params).productId),
+  );
   return (
     <div>
       <h1>{singleProduct.name}</h1>

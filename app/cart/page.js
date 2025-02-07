@@ -1,5 +1,5 @@
 import { getProducts } from '../database/products';
-import { createOrUpdateCookie, getCookie } from '../util/cookies';
+import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
 import CheckoutButton from './CheckoutButton';
 import RemoveButton from './RemoveButton';
@@ -13,48 +13,49 @@ export const metadata = {
 export default async function CartPage() {
   const cartCookie = await getCookie('cart');
   const cart = parseJson(cartCookie) || [];
-  const allProducts = getProducts();
+  const allProducts = await getProducts();
   let total = 0;
   return (
-    <>
-      <div>
-        <h1>Cart</h1>
-        {allProducts.map((product) => {
-          const correlatingCartProduct = cart.find(
-            (item) => item.id === product.id,
+    <div>
+      <h1>Cart</h1>
+      {allProducts.map((product) => {
+        const correlatingCartProduct = cart.find(
+          (item) => item.id === product.id,
+        );
+        if (
+          correlatingCartProduct !== undefined &&
+          correlatingCartProduct.amount >= 0
+        ) {
+          const subtotal = product.price * correlatingCartProduct.amount;
+          total = total + subtotal;
+          return (
+            <div
+              data-test-id="cart-product-<product id>"
+              key={`product-${product.id}`}
+            >
+              Id: {product.id}
+              <br />
+              Name: {product.name}
+              <br />
+              Price: {product.price}
+              <br />
+              Amount:
+              <span data-test-id="cart-product-quantity-<product id>">
+                {correlatingCartProduct.amount}
+              </span>
+              <br />
+              Subtotal: {subtotal}
+              <br />
+              <RemoveButton id={product.id} />
+              <br />
+              <br />
+            </div>
           );
-          if (
-            correlatingCartProduct !== undefined &&
-            correlatingCartProduct.amount >= 0
-          ) {
-            const subtotal = product.price * correlatingCartProduct.amount;
-            total = total + subtotal;
-            return (
-              <div data-test-id="cart-product-<product id>">
-                Id: {product.id}
-                <br />
-                Name: {product.name}
-                <br />
-                Price: {product.price}
-                <br />
-                Amount:
-                <span data-test-id="cart-product-quantity-<product id>">
-                  {correlatingCartProduct.amount}
-                </span>
-                <br />
-                Subtotal: {subtotal}
-                <br />
-                <RemoveButton id={product.id} />
-                <br />
-                <br />
-              </div>
-            );
-          }
-        })}
-        Total: <span data-test-id="cart-total">{total}</span>
-        <br />
-        <CheckoutButton />
-      </div>
-    </>
+        }
+      })}
+      Total: <span data-test-id="cart-total">{total}</span>
+      <br />
+      <CheckoutButton />
+    </div>
   );
 }
