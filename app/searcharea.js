@@ -1,10 +1,19 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 
 export default function SearchArea() {
+  const pathname = usePathname();
   const [searchText, setSearchText] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    if (pathname !== '/search') {
+      console.log('Path', pathname);
+      setSearchText('');
+    }
+  }, [pathname]);
+
   function handleFormSubmit(event) {
     event.preventDefault();
     const params = new URLSearchParams();

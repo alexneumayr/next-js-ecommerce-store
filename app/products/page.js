@@ -1,6 +1,5 @@
 import Link from 'next/link.js';
 import { getProducts } from '../database/products';
-import SearchArea from './searcharea';
 
 export const metadata = {
   title: 'Products',
@@ -13,7 +12,7 @@ export default async function ProductPage() {
   return (
     <div>
       <h1>Our products</h1>
-      <SearchArea />
+
       {products.map((product) => {
         return (
           <Link

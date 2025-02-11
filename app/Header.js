@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { authOptions } from './api/auth/[...nextauth]/route';
+import SearchArea from './searcharea';
 import { getCookie } from './util/cookies';
 import { parseJson } from './util/json';
 
@@ -21,7 +22,7 @@ export default async function Header() {
       <Link href="/">
         <img src="/logo.png" width="200px" alt="Site logo" />
       </Link>
-
+      <SearchArea />
       <nav>
         <ul>
           {session?.user?.role === 'admin' && (
