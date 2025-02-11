@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createProduct } from '../../database/products';
+import { deleteProduct } from '../../database/products';
 
 export async function PUT(request: Request) {
   const requestBody = await request.json();
@@ -24,6 +24,20 @@ export async function POST(request: Request) {
   } else {
     return NextResponse.json(
       { error: 'Creating product failed' },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  const requestBody = await request.json();
+  const { id } = requestBody;
+  const createdProduct = await deleteProduct(id);
+  if (createdProduct) {
+    return NextResponse.json(createdProduct);
+  } else {
+    return NextResponse.json(
+      { error: 'Deleting product failed' },
       { status: 500 },
     );
   }

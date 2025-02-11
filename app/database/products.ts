@@ -69,3 +69,18 @@ export const createProduct = cache(async (name, image, price) => {
     return product[0];
   }
 });
+
+export const deleteProduct = cache(async (id) => {
+  const session = await getServerSession(authOptions);
+  console.log('Deletion ID', id);
+  if (session?.user?.role === 'admin') {
+    const product = await sql`
+      DELETE FROM products
+      WHERE
+        id = ${id}
+      RETURNING
+        products.*
+    `;
+    return product[0];
+  }
+});
