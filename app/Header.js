@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { getCookie } from './util/cookies';
 import { parseJson } from './util/json';
@@ -12,6 +13,8 @@ export default async function Header() {
     (prevValue, currentValue) => +prevValue + +currentValue.amount,
     0,
   );
+  const session = await getServerSession();
+
   return (
     <header>
       <Link href="/">
@@ -24,6 +27,10 @@ export default async function Header() {
             <Link href="/products" data-test-id="products-link">
               Products
             </Link>
+          </li>
+          <li>
+            {session && <Link href="/logout">Logout</Link>}
+            {!session && <Link href="/login">Login</Link>}
           </li>
           <li>
             <Link href="/cart" data-test-id="cart-link">
