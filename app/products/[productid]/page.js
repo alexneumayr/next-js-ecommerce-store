@@ -21,7 +21,7 @@ export default async function SingleProduct(props) {
       Price:
       <div style={{ display: 'inline' }} data-test-id="product-price">
         {singleProduct.price}
-      </div>{' '}
+      </div>
       €
       <AddToCartForm id={singleProduct.id} />
     </div>
