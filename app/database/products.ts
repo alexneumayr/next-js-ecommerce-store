@@ -84,3 +84,17 @@ export const deleteProduct = cache(async (id) => {
     return product[0];
   }
 });
+
+export const findProductsInsecure = cache(async (text) => {
+  console.log('Search text', text);
+
+  const products = await sql`
+    SELECT
+      *
+    FROM
+      products
+    WHERE
+      name ILIKE ${'%' + text + '%'}
+  `;
+  return products;
+});

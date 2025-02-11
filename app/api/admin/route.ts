@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { deleteProduct } from '../../database/products';
+import { deleteProduct, updateProduct } from '../../database/products';
 
 export async function PUT(request: Request) {
   const requestBody = await request.json();

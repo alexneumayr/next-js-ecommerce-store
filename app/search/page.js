@@ -1,19 +1,19 @@
 import Link from 'next/link.js';
-import { getProducts } from '../database/products';
-import SearchArea from './searcharea';
+import { findProductsInsecure } from '../database/products';
 
 export const metadata = {
-  title: 'Products',
+  title: 'Search Results',
   description:
     'Explore the latest tech at great prices. From smartphones to accessories, we have everything you need to stay connected.',
 };
 
-export default async function ProductPage() {
-  const products = await getProducts();
+export default async function SearchPage(props) {
+  const searchText = (await props.searchParams).text;
+
+  const products = await findProductsInsecure(searchText);
   return (
     <div>
-      <h1>Our products</h1>
-      <SearchArea />
+      <h1>Search results</h1>
       {products.map((product) => {
         return (
           <Link

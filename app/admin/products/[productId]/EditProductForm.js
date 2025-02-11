@@ -59,7 +59,7 @@ export default function EditProductForm(props) {
           value={image}
           id="image-input"
           onChange={(event) => setImage(event.currentTarget.value)}
-          pattern="\w+\.(jpg|png)"
+          pattern="[\w\-]+\.(jpg|png)$"
           title="Only .jpg and .png files are supported."
           required
         />
