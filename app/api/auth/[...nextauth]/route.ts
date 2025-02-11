@@ -1,9 +1,10 @@
 import { compare } from 'bcrypt';
+import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { sql } from '../../../database/connect';
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -36,10 +37,11 @@ const handler = NextAuth({
           );
           console.log('Password Correct', passwordCorrect);
           if (passwordCorrect) {
-            console.log('Login Successful!');
+            console.log('Login Successful!', user.id, user.username, user.role);
             return {
               id: user?.id,
               username: user?.username,
+              role: user?.role,
             };
           }
         }
@@ -47,6 +49,18 @@ const handler = NextAuth({
       },
     }),
   ],
-});
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) token.role = user.role;
+      return token;
+    },
+    session({ session, token }) {
+      session.user.role = token.role;
+      return session;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

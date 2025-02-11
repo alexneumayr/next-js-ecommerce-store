@@ -3,6 +3,7 @@ import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
+import { authOptions } from './api/auth/[...nextauth]/route';
 import { getCookie } from './util/cookies';
 import { parseJson } from './util/json';
 
@@ -13,7 +14,7 @@ export default async function Header() {
     (prevValue, currentValue) => +prevValue + +currentValue.amount,
     0,
   );
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <header>
@@ -23,6 +24,11 @@ export default async function Header() {
 
       <nav>
         <ul>
+          {session?.user?.role === 'admin' && (
+            <li>
+              <Link href="/admin">Admin</Link>
+            </li>
+          )}
           <li>
             <Link href="/products" data-test-id="products-link">
               Products
