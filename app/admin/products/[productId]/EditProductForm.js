@@ -1,7 +1,9 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function EditProductForm(props) {
+  const router = useRouter();
   const [productName, setProductName] = useState(props.productName);
   const [image, setImage] = useState(props.image);
   const [price, setPrice] = useState(props.price);
@@ -22,6 +24,11 @@ export default function EditProductForm(props) {
     });
     const data = await response.json();
     console.log(data);
+    if (data) {
+      alert('Changes successfully saved.');
+    } else {
+      alert('Error saving changes.');
+    }
   }
 
   function handleDiscardChangesButtonClick() {
@@ -40,6 +47,7 @@ export default function EditProductForm(props) {
     });
     const data = await response.json();
     console.log(data);
+    router.push('/admin/products');
   }
 
   return (
