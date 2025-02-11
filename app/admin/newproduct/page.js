@@ -1,20 +1,19 @@
 'use client';
 import { useState } from 'react';
 
-export default function EditProductForm(props) {
-  const [productName, setProductName] = useState(props.productName);
-  const [image, setImage] = useState(props.image);
-  const [price, setPrice] = useState(props.price);
+export default function NewProductPage() {
+  const [productName, setProductName] = useState('');
+  const [image, setImage] = useState('');
+  const [price, setPrice] = useState('');
 
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch('/api/admin', {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: props.id,
         name: productName,
         image: image,
         price: Number(price),
@@ -24,10 +23,10 @@ export default function EditProductForm(props) {
     console.log(data);
   }
 
-  function handleDiscardChangesButtonClick() {
-    setProductName(props.productName);
-    setImage(props.image);
-    setPrice(props.price);
+  function handleClearButtonClick() {
+    setProductName('');
+    setImage('');
+    setPrice('');
   }
 
   return (
@@ -63,8 +62,10 @@ export default function EditProductForm(props) {
           required
         />
       </div>
-      <button>Save changes</button>
-      <button onClick={handleDiscardChangesButtonClick}>Discard changes</button>
+      <button>Add product</button>
+      <button type="button" onClick={handleClearButtonClick}>
+        Reset
+      </button>
     </form>
   );
 }

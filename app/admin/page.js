@@ -4,7 +4,9 @@ export default function AdminPage() {
   return (
     <div>
       <h1>Admin</h1>
-      <Link href="/admin/products">Go to Products Overview for edit</Link>
+      <Link href="/admin/newproduct">Add new product</Link>
+      <br />
+      <Link href="/admin/products">Edit existing products</Link>
     </div>
   );
 }

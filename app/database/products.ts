@@ -50,3 +50,22 @@ export const updateProduct = cache(async (productId, name, image, price) => {
     return product[0];
   }
 });
+
+export const createProduct = cache(async (name, image, price) => {
+  const session = await getServerSession(authOptions);
+  if (session?.user?.role === 'admin') {
+    const product = await sql`
+      INSERT INTO
+        products (name, image, price)
+      VALUES
+        (
+          ${name},
+          ${image},
+          ${price}
+        )
+      RETURNING
+        products.*
+    `;
+    return product[0];
+  }
+});
