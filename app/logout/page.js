@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoutMain from './logoutmain';
+import LogoutMain from './LogoutMain';
 
 export const metadata = {
   title: 'Logout',

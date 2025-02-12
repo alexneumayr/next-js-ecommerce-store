@@ -1,4 +1,4 @@
-import AddProductForm from './addproductform';
+import AddProductForm from './AddProductForm';
 
 export const metadata = {
   title: 'Admin',

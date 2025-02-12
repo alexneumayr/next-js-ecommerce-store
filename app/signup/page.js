@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import SignUpForm from './signupform';
+import SignUpForm from './SignUpForm';
 
 export const metadata = {
   title: 'Sign Up',
