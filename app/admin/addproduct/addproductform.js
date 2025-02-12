@@ -2,23 +2,22 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function EditProductForm({ product }) {
+export default function AddProductForm() {
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [price, setPrice] = useState('');
+  const [slug, setSlug] = useState('');
+  const [description, setDescription] = useState('');
   const router = useRouter();
-  const [name, setName] = useState(product.name);
-  const [image, setImage] = useState(product.image);
-  const [price, setPrice] = useState(product.price);
-  const [slug, setSlug] = useState(product.slug);
-  const [description, setDescription] = useState(product.description);
 
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch('/api/admin', {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: product.id,
         name: name,
         slug: slug,
         image: image,
@@ -27,29 +26,14 @@ export default function EditProductForm({ product }) {
       }),
     });
     const data = await response.json();
-    console.log('Data', data);
-    if (data) {
-      alert('Changes successfully saved.');
-    }
-  }
-
-  function handleDiscardChangesButtonClick() {
-    setName(product.productName);
-    setImage(product.image);
-    setPrice(product.price);
-  }
-
-  async function handleDeleteButtonClick() {
-    const response = await fetch('/api/admin', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: product.id }),
-    });
-    const data = await response.json();
     console.log(data);
     router.push('/admin/products');
+  }
+
+  function handleClearButtonClick() {
+    setName('');
+    setImage('');
+    setPrice('');
   }
 
   return (
@@ -69,7 +53,7 @@ export default function EditProductForm({ product }) {
           value={slug}
           id="slug-input"
           onChange={(event) => setSlug(event.currentTarget.value)}
-          pattern="[a-z0-9\-]+"
+          pattern="[a-z\-]+"
           title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
           required
         />
@@ -85,7 +69,6 @@ export default function EditProductForm({ product }) {
           required
         />
       </div>
-
       <div>
         <label htmlFor="price-input">Price:</label>
         <input
@@ -109,10 +92,9 @@ export default function EditProductForm({ product }) {
           required
         />
       </div>
-      <button>Save changes</button>
-      <button onClick={handleDiscardChangesButtonClick}>Discard changes</button>
-      <button type="button" onClick={handleDeleteButtonClick}>
-        Delete product
+      <button>Add product</button>
+      <button type="button" onClick={handleClearButtonClick}>
+        Reset
       </button>
     </form>
   );

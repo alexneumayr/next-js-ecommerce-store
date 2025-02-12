@@ -2,9 +2,8 @@ import Link from 'next/link';
 import { getProducts } from '../../database/products';
 
 export const metadata = {
-  title: 'Products',
-  description:
-    'Explore the latest tech at great prices. From smartphones to accessories, we have everything you need to stay connected.',
+  title: 'Admin',
+  description: 'This is the admin area for managing the products.',
 };
 
 export default async function AdminProductPage() {

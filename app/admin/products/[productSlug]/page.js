@@ -4,8 +4,8 @@ import EditProductForm from './EditProductForm';
 export async function generateMetadata(props) {
   const singleProduct = getProductBySlug((await props.params).productSlug);
   return {
-    title: singleProduct.name,
-    description: `Read all the details about our offers for ${singleProduct.name}`,
+    title: 'Admin',
+    description: `This is the admin page for managing the product information for ${singleProduct.name}`,
   };
 }
 
