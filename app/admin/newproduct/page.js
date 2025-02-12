@@ -56,7 +56,7 @@ export default function NewProductPage() {
             id="slug-input"
             onChange={(event) => setSlug(event.currentTarget.value)}
             pattern="[a-z\-]+"
-            title="Please use hyphens instead of spaces, all lowercase, no special characters."
+            title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
             required
           />
         </div>

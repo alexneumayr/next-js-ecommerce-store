@@ -2,7 +2,7 @@
 CREATE TABLE products (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name varchar(150) NOT NULL,
-  slug varchar(150) NOT NULL,
+  slug varchar(150) NOT NULL UNIQUE,
   image varchar(50) NOT NULL,
   price numeric(8, 0) NOT NULL,
   description varchar(2000) NOT NULL
@@ -20,7 +20,7 @@ INSERT INTO
 VALUES
   (
     'Intenso Speed Line 64GB Memory Stick USB 3.2 Gen 1x1, Black',
-    'intenso-speed-line-64gb',
+    'intenso-speed-line-64b',
     'intenso.png',
     2000,
     'The Intenso Speed Line is a powerful USB stick for all users who value fast data transfer. Thanks to its USB 3.2 Gen1x1 interface, it can reach up to 10 times higher transfer speeds than standard USB 2.0 sticks. Furthermore, the Speed Line is characterised by particularly high storage capacities of up to 256 GB, which is why it offers sufficient storage space for countless photos, videos, music and other memory-intensive files.'
