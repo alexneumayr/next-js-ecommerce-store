@@ -17,7 +17,7 @@ export async function createOrUpdateCookie(productId, amount) {
   const productToUpdate = cart.find((productInCart) => {
     return productInCart.id === productId;
   });
-  if (!productToUpdate && amount !== '0') {
+  if (!productToUpdate && amount !== 0) {
     cart.push({ id: productId, amount: amount });
   } else {
     if (amount === '0') {

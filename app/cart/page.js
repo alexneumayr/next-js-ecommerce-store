@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import { useState } from 'react';
 import { getProducts } from '../database/products';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
 import CheckoutButton from './CheckoutButton';
+import DecrementButton from './DecrementButton';
+import IncrementButton from './IncrementButton';
 import RemoveButton from './RemoveButton';
 
 export const metadata = {
@@ -25,7 +28,7 @@ export default async function CartPage() {
         );
         if (
           correlatingCartProduct !== undefined &&
-          correlatingCartProduct.amount >= 0
+          correlatingCartProduct.amount > 0
         ) {
           const subtotal = product.price * correlatingCartProduct.amount;
           total = total + subtotal;
@@ -48,11 +51,22 @@ export default async function CartPage() {
               <br />
               Subtotal: {(subtotal / 100).toFixed(2)}
               <br />
+              <IncrementButton
+                id={product.id}
+                currentAmount={correlatingCartProduct.amount}
+              />
+              <DecrementButton
+                id={product.id}
+                currentAmount={correlatingCartProduct.amount}
+              />
+              <br />
               <RemoveButton id={product.id} slug={product.slug} />
               <br />
               <br />
             </div>
           );
+        } else {
+          return null;
         }
       })}
       Total: <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>

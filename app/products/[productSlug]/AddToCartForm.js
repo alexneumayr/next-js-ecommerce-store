@@ -17,7 +17,7 @@ export default function AddToCartForm(props) {
       />
       <br />
       <button
-        formAction={() => createOrUpdateCookie(props.id, amount)}
+        formAction={() => createOrUpdateCookie(props.id, Number(amount))}
         data-test-id="product-add-to-cart"
       >
         Add to cart
