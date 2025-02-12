@@ -48,7 +48,6 @@ export default function EditProductForm({ product }) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ id: product.id }),
-      s,
     });
     const data = await response.json();
     console.log(data);
