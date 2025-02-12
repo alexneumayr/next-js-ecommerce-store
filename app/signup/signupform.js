@@ -2,20 +2,20 @@
 import { getServerSession } from 'next-auth';
 import { useState } from 'react';
 
-export default function LoginForm() {
+export default function SignUpForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   async function handleFormSubmit(event) {
     event.preventDefault();
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
         username: username,
         password: password,
       }),
     });
-    console.log('Register response', response);
+    console.log('Sign up response', response);
   }
 
   return (
@@ -27,6 +27,7 @@ export default function LoginForm() {
           id="username"
           value={username}
           onChange={(event) => setUsername(event.currentTarget.value)}
+          required
         />
       </div>
       <div>
@@ -37,9 +38,10 @@ export default function LoginForm() {
           type="password"
           value={password}
           onChange={(event) => setPassword(event.currentTarget.value)}
+          required
         />
       </div>
-      <button>Register</button>
+      <button>Sign Up</button>
     </form>
   );
 }

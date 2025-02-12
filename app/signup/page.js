@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import RegisterForm from './RegisterForm';
+import SignUpForm from './signupform';
 
 export const metadata = {
   title: 'Sign Up',
@@ -14,5 +14,10 @@ export default async function RegisterPage() {
   if (session) {
     redirect('/');
   }
-  return <RegisterForm />;
+  return (
+    <>
+      <h1>Create an account</h1>
+      <SignUpForm />
+    </>
+  );
 }
