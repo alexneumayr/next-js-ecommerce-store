@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import { getProducts } from '../database/products';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
@@ -18,56 +17,63 @@ export default async function CartPage() {
   const cartCookie = await getCookie('cart');
   const cart = parseJson(cartCookie) || [];
   const allProducts = await getProducts();
-  let total = 0;
+  const cartProducts = allProducts
+    .map((product) => {
+      const correlatingCartProduct = cart.find(
+        (item) => item.id === product.id,
+      );
+      if (
+        correlatingCartProduct !== undefined &&
+        correlatingCartProduct.amount > 0
+      ) {
+        return {
+          id: product.id,
+          name: product.name,
+          slug: product.slug,
+          price: product.price,
+          amount: correlatingCartProduct.amount,
+          subtotal: product.price * correlatingCartProduct.amount,
+        };
+      } else {
+        return null;
+      }
+    })
+    .filter((product) => product !== null);
+  const total = cartProducts.reduce(
+    (prevValue, currentValue) => prevValue + currentValue.subtotal,
+    0,
+  );
   return (
     <div>
       <h1>Cart</h1>
-      {allProducts.map((product) => {
-        const correlatingCartProduct = cart.find(
-          (item) => item.id === product.id,
+      {cartProducts.map((product) => {
+        return (
+          <div
+            data-test-id={`cart-product-${product.slug}`}
+            key={`product-${product.slug}`}
+          >
+            Id: {product.id}
+            <br />
+            Name:
+            <Link href={`/products/${product.slug}`}>{product.name}</Link>
+            <br />
+            Price: {(product.price / 100).toFixed(2)}
+            <br />
+            Amount:
+            <span data-test-id={`cart-product-quantity-${product.slug}`}>
+              {product.amount}
+            </span>
+            <br />
+            Subtotal: {(product.subtotal / 100).toFixed(2)}
+            <br />
+            <IncrementButton id={product.id} currentAmount={product.amount} />
+            <DecrementButton id={product.id} currentAmount={product.amount} />
+            <br />
+            <RemoveButton id={product.id} slug={product.slug} />
+            <br />
+            <br />
+          </div>
         );
-        if (
-          correlatingCartProduct !== undefined &&
-          correlatingCartProduct.amount > 0
-        ) {
-          const subtotal = product.price * correlatingCartProduct.amount;
-          total = total + subtotal;
-          return (
-            <div
-              data-test-id={`cart-product-${product.slug}`}
-              key={`product-${product.slug}`}
-            >
-              Id: {product.id}
-              <br />
-              Name:
-              <Link href={`/products/${product.slug}`}>{product.name}</Link>
-              <br />
-              Price: {(product.price / 100).toFixed(2)}
-              <br />
-              Amount:
-              <span data-test-id={`cart-product-quantity-${product.slug}`}>
-                {correlatingCartProduct.amount}
-              </span>
-              <br />
-              Subtotal: {(subtotal / 100).toFixed(2)}
-              <br />
-              <IncrementButton
-                id={product.id}
-                currentAmount={correlatingCartProduct.amount}
-              />
-              <DecrementButton
-                id={product.id}
-                currentAmount={correlatingCartProduct.amount}
-              />
-              <br />
-              <RemoveButton id={product.id} slug={product.slug} />
-              <br />
-              <br />
-            </div>
-          );
-        } else {
-          return null;
-        }
       })}
       Total: <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
       <br />
