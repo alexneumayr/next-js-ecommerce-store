@@ -7,8 +7,15 @@ import {
 
 export async function PUT(request: Request) {
   const requestBody = await request.json();
-  const { id, name, image, price } = requestBody;
-  const updatedProduct = await updateProduct(id, name, image, price);
+  const { id, name, slug, image, price, description } = requestBody;
+  const updatedProduct = await updateProduct(
+    id,
+    name,
+    slug,
+    image,
+    price,
+    description,
+  );
   if (updatedProduct) {
     return NextResponse.json(updatedProduct);
   } else {
@@ -21,8 +28,14 @@ export async function PUT(request: Request) {
 
 export async function POST(request: Request) {
   const requestBody = await request.json();
-  const { name, image, price } = requestBody;
-  const createdProduct = await createProduct(name, image, price);
+  const { name, slug, image, price, description } = requestBody;
+  const createdProduct = await createProduct(
+    name,
+    slug,
+    image,
+    price,
+    description,
+  );
   if (createdProduct) {
     return NextResponse.json(createdProduct);
   } else {

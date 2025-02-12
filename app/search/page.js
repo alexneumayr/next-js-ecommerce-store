@@ -17,9 +17,9 @@ export default async function SearchPage(props) {
       {products.map((product) => {
         return (
           <Link
-            href={`products/${product.id}`}
-            data-test-id="product-<product id>"
-            key={`product-${product.id}`}
+            href={`products/${product.slug}`}
+            data-test-id={`product-${product.slug}`}
+            key={`product-${product.slug}`}
           >
             Name: {product.name}
             <br />

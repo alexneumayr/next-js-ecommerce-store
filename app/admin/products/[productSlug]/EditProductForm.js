@@ -2,11 +2,13 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function EditProductForm(props) {
+export default function EditProductForm({ product }) {
   const router = useRouter();
-  const [productName, setProductName] = useState(props.productName);
-  const [image, setImage] = useState(props.image);
-  const [price, setPrice] = useState(props.price);
+  const [name, setName] = useState(product.name);
+  const [image, setImage] = useState(product.image);
+  const [price, setPrice] = useState(product.price);
+  const [slug, setSlug] = useState(product.slug);
+  const [description, setDescription] = useState(product.description);
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -16,10 +18,12 @@ export default function EditProductForm(props) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: props.id,
-        name: productName,
+        id: product.id,
+        name: name,
+        slug: slug,
         image: image,
-        price: Number(price),
+        price: price * 100,
+        description: description,
       }),
     });
     const data = await response.json();
@@ -32,9 +36,9 @@ export default function EditProductForm(props) {
   }
 
   function handleDiscardChangesButtonClick() {
-    setProductName(props.productName);
-    setImage(props.image);
-    setPrice(props.price);
+    setName(product.productName);
+    setImage(product.image);
+    setPrice(product.price);
   }
 
   async function handleDeleteButtonClick() {
@@ -43,7 +47,8 @@ export default function EditProductForm(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: props.id }),
+      body: JSON.stringify({ id: product.id }),
+      s,
     });
     const data = await response.json();
     console.log(data);
@@ -55,9 +60,20 @@ export default function EditProductForm(props) {
       <div>
         <label htmlFor="product-name-input">Product Name:</label>
         <input
-          value={productName}
+          value={name}
           id="product-name-input"
-          onChange={(event) => setProductName(event.currentTarget.value)}
+          onChange={(event) => setName(event.currentTarget.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="slug-input">Slug:</label>
+        <input
+          value={slug}
+          id="slug-input"
+          onChange={(event) => setSlug(event.currentTarget.value)}
+          pattern="[a-z\-]+"
+          title="Please use hyphens instead of spaces, all lowercase, no special characters."
           required
         />
       </div>
@@ -72,6 +88,7 @@ export default function EditProductForm(props) {
           required
         />
       </div>
+
       <div>
         <label htmlFor="price-input">Price:</label>
         <input
@@ -80,6 +97,18 @@ export default function EditProductForm(props) {
           onChange={(event) => setPrice(event.currentTarget.value)}
           pattern="\d+\.\d\d"
           title="Please input a number with 2 decimal places."
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="description-input">Description:</label>
+        <br />
+        <textarea
+          id="description"
+          rows="10"
+          cols="50"
+          value={description}
+          onChange={(event) => setDescription(event.currentTarget.value)}
           required
         />
       </div>

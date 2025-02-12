@@ -31,44 +31,70 @@ export const getProduct = cache(async (id: number) => {
   return product[0];
 });
 
+export const getProductBySlug = cache(async (slug: string) => {
+  const product = await sql<Product[]>`
+    SELECT
+      *
+    FROM
+      products
+    WHERE
+      slug = ${slug}
+  `;
+  return product[0];
+});
+
 // Evtl. Validierung mit zod einfügen!
 
-export const updateProduct = cache(async (productId, name, image, price) => {
-  const session = await getServerSession(authOptions);
-  if (session?.user?.role === 'admin') {
-    const product = await sql`
-      UPDATE products
-      SET
-        name = ${name},
-        image = ${image},
-        price = ${price}
-      WHERE
-        id = ${productId}
-      RETURNING
-        products.*
-    `;
-    return product[0];
-  }
-});
+export const updateProduct = cache(
+  async (productId, name, slug, image, price, description) => {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.role === 'admin') {
+      const product = await sql`
+        UPDATE products
+        SET
+          name = ${name},
+          slug = ${slug},
+          image = ${image},
+          price = ${price},
+          description = ${description}
+        WHERE
+          id = ${productId}
+        RETURNING
+          products.*
+      `;
+      return product[0];
+    }
+  },
+);
 
-export const createProduct = cache(async (name, image, price) => {
-  const session = await getServerSession(authOptions);
-  if (session?.user?.role === 'admin') {
-    const product = await sql`
-      INSERT INTO
-        products (name, image, price)
-      VALUES
-        (
-          ${name},
-          ${image},
-          ${price}
-        )
-      RETURNING
-        products.*
-    `;
-    return product[0];
-  }
-});
+export const createProduct = cache(
+  async (name, slug, image, price, description) => {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.role === 'admin') {
+      const product = await sql`
+        INSERT INTO
+          products (
+            name,
+            slug,
+            image,
+            price,
+            description
+          )
+        VALUES
+          (
+            ${name},
+            ${slug},
+            ${image},
+            ${price},
+            ${description}
+          )
+        RETURNING
+          products.*
+      `;
+      return product[0];
+    }
+  },
+);
 
 export const deleteProduct = cache(async (id) => {
   const session = await getServerSession(authOptions);

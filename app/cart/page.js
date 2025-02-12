@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getProducts } from '../database/products';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
@@ -30,30 +31,31 @@ export default async function CartPage() {
           total = total + subtotal;
           return (
             <div
-              data-test-id="cart-product-<product id>"
-              key={`product-${product.id}`}
+              data-test-id={`cart-product-${product.slug}`}
+              key={`product-${product.slug}`}
             >
               Id: {product.id}
               <br />
-              Name: {product.name}
+              Name:
+              <Link href={`/products/${product.slug}`}>{product.name}</Link>
               <br />
-              Price: {product.price}
+              Price: {(product.price / 100).toFixed(2)}
               <br />
               Amount:
-              <span data-test-id="cart-product-quantity-<product id>">
+              <span data-test-id={`cart-product-quantity-${product.slug}`}>
                 {correlatingCartProduct.amount}
               </span>
               <br />
-              Subtotal: {subtotal}
+              Subtotal: {(subtotal / 100).toFixed(2)}
               <br />
-              <RemoveButton id={product.id} />
+              <RemoveButton id={product.id} slug={product.slug} />
               <br />
               <br />
             </div>
           );
         }
       })}
-      Total: <span data-test-id="cart-total">{total}</span>
+      Total: <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
       <br />
       <CheckoutButton />
     </div>
