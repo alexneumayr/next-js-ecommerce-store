@@ -2,7 +2,9 @@ import { getProductBySlug } from '../../database/products';
 import AddToCartForm from './AddToCartForm';
 
 export async function generateMetadata(props) {
-  const singleProduct = getProductBySlug((await props.params).productSlug);
+  const singleProduct = await getProductBySlug(
+    (await props.params).productSlug,
+  );
   return {
     title: singleProduct.name,
     description: `Read all the details about our offers for ${singleProduct.name}`,
