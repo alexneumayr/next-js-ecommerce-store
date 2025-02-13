@@ -1,5 +1,6 @@
 'use client';
 import { getServerSession } from 'next-auth';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function SignUpForm() {
@@ -17,6 +18,8 @@ export default function SignUpForm() {
     });
     console.log('Sign up response', response);
   }
+
+  const router = useRouter();
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -42,6 +45,9 @@ export default function SignUpForm() {
         />
       </div>
       <button>Sign Up</button>
+      <button type="button" onClick={() => router.push('/login')}>
+        Login
+      </button>
     </form>
   );
 }
