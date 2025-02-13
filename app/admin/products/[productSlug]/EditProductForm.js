@@ -1,6 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import sanitizeHtml from 'sanitize-html';
+import SimpleEditor from '../../../components/SimpleEditor';
 
 export default function EditProductForm({ product }) {
   const router = useRouter();
@@ -23,7 +25,22 @@ export default function EditProductForm({ product }) {
         slug: slug,
         image: image,
         price: price * 100,
-        description: description,
+        description: sanitizeHtml(description, {
+          allowedTags: [
+            'b',
+            'i',
+            'u',
+            'h1',
+            'h2',
+            'h3',
+            'div',
+            'ul',
+            'ol',
+            'li',
+            'pre',
+            'br',
+          ],
+        }),
       }),
     });
     const data = await response.json();
@@ -100,14 +117,7 @@ export default function EditProductForm({ product }) {
       <div>
         <label htmlFor="description-input">Description:</label>
         <br />
-        <textarea
-          id="description"
-          rows="10"
-          cols="50"
-          value={description}
-          onChange={(event) => setDescription(event.currentTarget.value)}
-          required
-        />
+        <SimpleEditor state={description} stateSetter={setDescription} />
       </div>
       <button>Save changes</button>
       <button onClick={handleDiscardChangesButtonClick}>Discard changes</button>
