@@ -51,6 +51,8 @@ export default function AddProductForm() {
     setName('');
     setImage('');
     setPrice('');
+    setSlug('');
+    setDescription('');
   }
 
   return (

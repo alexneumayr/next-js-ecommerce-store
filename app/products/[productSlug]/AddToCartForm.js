@@ -4,6 +4,11 @@ import { createOrUpdateCookie } from '../../util/cookies';
 
 export default function AddToCartForm(props) {
   const [amount, setAmount] = useState(1);
+  async function handleAddToCartButtonClick() {
+    if (amount > 0) {
+      await createOrUpdateCookie(props.id, Number(amount));
+    }
+  }
   return (
     <form>
       <label htmlFor="inputamount">Amount:</label>
@@ -17,7 +22,7 @@ export default function AddToCartForm(props) {
       />
       <br />
       <button
-        formAction={() => createOrUpdateCookie(props.id, Number(amount))}
+        formAction={handleAddToCartButtonClick}
         data-test-id="product-add-to-cart"
       >
         Add to cart

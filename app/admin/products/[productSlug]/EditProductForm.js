@@ -51,9 +51,11 @@ export default function EditProductForm({ product }) {
   }
 
   function handleDiscardChangesButtonClick() {
-    setName(product.productName);
+    setName(product.name);
     setImage(product.image);
     setPrice(product.price);
+    setSlug(product.slug);
+    setDescription(product.description);
   }
 
   async function handleDeleteButtonClick() {
@@ -122,7 +124,9 @@ export default function EditProductForm({ product }) {
         <SimpleEditor state={description} stateSetter={setDescription} />
       </div>
       <button>Save changes</button>
-      <button onClick={handleDiscardChangesButtonClick}>Discard changes</button>
+      <button type="button" onClick={handleDiscardChangesButtonClick}>
+        Discard changes
+      </button>
       <button type="button" onClick={handleDeleteButtonClick}>
         Delete product
       </button>
