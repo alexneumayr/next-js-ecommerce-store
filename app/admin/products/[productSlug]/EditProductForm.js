@@ -57,16 +57,18 @@ export default function EditProductForm({ product }) {
   }
 
   async function handleDeleteButtonClick() {
-    const response = await fetch('/api/admin', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: product.id }),
-    });
-    const data = await response.json();
-    console.log(data);
-    router.push('/admin/products');
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      const response = await fetch('/api/admin', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: product.id }),
+      });
+      const data = await response.json();
+      console.log(data);
+      router.push('/admin/products');
+    }
   }
 
   return (
