@@ -25,7 +25,7 @@ export default async function SearchPage(props) {
             <br />
             Image: {product.image}
             <br />
-            Price: {product.price}
+            Price: {(product.price / 100).toFixed(2)}
             <br />
             <br />
           </Link>
