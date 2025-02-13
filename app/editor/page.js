@@ -6,7 +6,6 @@ import {
   BtnItalic,
   BtnNumberedList,
   BtnRedo,
-  BtnStyles,
   BtnUnderline,
   BtnUndo,
   Editor,
@@ -37,9 +36,7 @@ export default function App() {
           'pre',
           'br',
         ],
-      })
-        .replaceAll('h2>', 'h3>')
-        .replaceAll('h1>', 'h2>'),
+      }),
     );
     console.log(clean);
   }, [html]);
@@ -63,8 +60,6 @@ export default function App() {
               <Separator />
               <BtnNumberedList />
               <BtnBulletList />
-              <Separator />
-              <BtnStyles />
             </Toolbar>
           </Editor>
         </EditorProvider>

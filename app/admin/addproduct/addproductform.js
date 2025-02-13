@@ -1,6 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import sanitizeHtml from 'sanitize-html';
+import SimpleEditor from '../../components/SimpleEditor';
 
 export default function AddProductForm() {
   const [name, setName] = useState('');
@@ -22,7 +24,22 @@ export default function AddProductForm() {
         slug: slug,
         image: image,
         price: price * 100,
-        description: description,
+        description: sanitizeHtml(description, {
+          allowedTags: [
+            'b',
+            'i',
+            'u',
+            'h1',
+            'h2',
+            'h3',
+            'div',
+            'ul',
+            'ol',
+            'li',
+            'pre',
+            'br',
+          ],
+        }),
       }),
     });
     const data = await response.json();
@@ -53,7 +70,7 @@ export default function AddProductForm() {
           value={slug}
           id="slug-input"
           onChange={(event) => setSlug(event.currentTarget.value)}
-          pattern="[a-z\-]+"
+          pattern="[a-z0-9\-]+"
           title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
           required
         />
@@ -83,14 +100,7 @@ export default function AddProductForm() {
       <div>
         <label htmlFor="description-input">Description:</label>
         <br />
-        <textarea
-          id="description"
-          rows="10"
-          cols="50"
-          value={description}
-          onChange={(event) => setDescription(event.currentTarget.value)}
-          required
-        />
+        <SimpleEditor state={description} stateSetter={setDescription} />
       </div>
       <button>Add product</button>
       <button type="button" onClick={handleClearButtonClick}>

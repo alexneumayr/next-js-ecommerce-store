@@ -5,7 +5,7 @@ CREATE TABLE products (
   slug varchar(150) NOT NULL UNIQUE,
   image varchar(50) NOT NULL,
   price numeric(8, 0) NOT NULL,
-  description varchar(2000) NOT NULL
+  description varchar NOT NULL
 );
 
 -- Inserting data

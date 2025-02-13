@@ -75,3 +75,9 @@ ol {
 .editor {
   width: 500px;
 }
+
+.description {
+  border: 1px solid black;
+  max-width: 800px;
+  padding: 10px;
+}

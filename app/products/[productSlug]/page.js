@@ -19,7 +19,10 @@ export default async function SingleProduct(props) {
     <div>
       <h1>{singleProduct.name}</h1>
       <br />
-      <div>{singleProduct.description}</div>
+      <div
+        className="description"
+        dangerouslySetInnerHTML={{ __html: singleProduct.description }}
+      />
       <br />
       Image: <span data-test-id="product-image">{singleProduct.image}</span>
       <br />
