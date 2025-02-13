@@ -14,5 +14,10 @@ export default async function LoginPage() {
   if (session) {
     redirect('/');
   }
-  return <LoginForm />;
+  return (
+    <>
+      <h1>Login</h1>
+      <LoginForm />
+    </>
+  );
 }
