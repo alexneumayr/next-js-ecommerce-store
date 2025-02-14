@@ -1,14 +1,7 @@
 import { compare } from 'bcrypt';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { sql } from '../../../database/connect';
-
-type User = {
-  id: number;
-  password: string;
-  username: string;
-  role: string;
-};
+import { getUserInsecure } from '../../../database/user';
 
 export const authOptions = {
   session: {
@@ -18,23 +11,15 @@ export const authOptions = {
     signIn: '/login',
   },
   providers: [
-    CredentialsProvider({
+    CredentialsProvider.default({
       credentials: {
         username: {},
         password: {},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         console.log('Credentials', credentials);
         if (credentials?.username) {
-          const response = await sql<User[]>`
-            SELECT
-              *
-            FROM
-              users
-            WHERE
-              username = ${credentials.username}
-          `;
-
+          const response = await getUserInsecure(credentials.username);
           console.log('Login Response', response);
           const user = response[0];
           if (user) {
@@ -74,6 +59,6 @@ export const authOptions = {
   },
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth.default(authOptions);
 
 export { handler as GET, handler as POST };

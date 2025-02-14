@@ -29,7 +29,7 @@ export default async function SingleProduct(props: Props) {
     id: singleProduct.id,
     name: singleProduct.name,
     image: singleProduct.image,
-    price: Number((singleProduct.price / 100).toFixed(2)),
+    price: singleProduct.price,
     slug: singleProduct.slug,
     description: singleProduct.description,
   };

@@ -14,14 +14,13 @@ export default function CheckoutForm() {
   const [cardNumber, setCardNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
+  const router = useRouter();
 
-  function handleFormSubmit(event) {
+  async function handleFormSubmit(event) {
     event.preventDefault();
-    removeCookie();
+    await removeCookie();
     router.push('/thankyou');
   }
-
-  const router = useRouter();
 
   return (
     <form onSubmit={handleFormSubmit}>

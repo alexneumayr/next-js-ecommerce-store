@@ -9,7 +9,7 @@ export default function EditProductForm(props) {
   const router = useRouter();
   const [name, setName] = useState(product.name);
   const [image, setImage] = useState(product.image);
-  const [price, setPrice] = useState(product.price);
+  const [price, setPrice] = useState((product.price / 100).toFixed(2));
   const [slug, setSlug] = useState(product.slug);
   const [description, setDescription] = useState(product.description);
 
@@ -113,7 +113,7 @@ export default function EditProductForm(props) {
         <input
           value={price}
           id="price-input"
-          onChange={(event) => setPrice(Number(event.currentTarget.value))}
+          onChange={(event) => setPrice(event.currentTarget.value)}
           pattern="\d+\.\d\d"
           title="Please input a number with 2 decimal places."
           required

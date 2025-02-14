@@ -1,6 +1,5 @@
-import { getServerSession } from 'next-auth';
 import { cache } from 'react';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { checkAdmin } from '../util/checkAdmin';
 import { sql } from './connect';
 
 export type Product = {
@@ -42,6 +41,8 @@ export const getProductBySlug = cache(async (slug: string) => {
     WHERE
       slug = ${slug}
   `;
+  console.log(product);
+
   return product[0];
 });
 
@@ -56,8 +57,7 @@ export const updateProduct = cache(
     price: number,
     description: string,
   ) => {
-    const session = await getServerSession(authOptions);
-    if (session?.user?.role === 'admin') {
+    if (await checkAdmin()) {
       const product = await sql<Product[]>`
         UPDATE products
         SET
@@ -84,8 +84,7 @@ export const createProduct = cache(
     price: number,
     description: string,
   ) => {
-    const session = await getServerSession(authOptions);
-    if (session?.user?.role === 'admin') {
+    if (await checkAdmin()) {
       const product = await sql<Product[]>`
         INSERT INTO
           products (
@@ -112,9 +111,8 @@ export const createProduct = cache(
 );
 
 export const deleteProduct = cache(async (id: number) => {
-  const session = await getServerSession(authOptions);
   console.log('Deletion ID', id);
-  if (session?.user?.role === 'admin') {
+  if (await checkAdmin()) {
     const product = await sql<Product[]>`
       DELETE FROM products
       WHERE

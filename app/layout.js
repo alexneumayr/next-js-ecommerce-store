@@ -24,7 +24,7 @@ export const metadata = {
     'Discover the latest tech gadgets, electronics, and accessories at unbeatable prices. Shop smartphones, laptops, gaming gear, and more with fast shipping and secure checkout. Upgrade your tech today!',
 };
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

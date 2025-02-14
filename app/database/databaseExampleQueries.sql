@@ -4,7 +4,7 @@ CREATE TABLE products (
   name varchar(150) NOT NULL,
   slug varchar(150) NOT NULL UNIQUE,
   image varchar(50) NOT NULL,
-  price numeric(8, 0) NOT NULL,
+  price integer NOT NULL,
   description varchar NOT NULL
 );
 
