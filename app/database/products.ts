@@ -3,11 +3,13 @@ import { cache } from 'react';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { sql } from './connect';
 
-type Product = {
+export type Product = {
   id: number;
   name: string;
   image: string;
   price: number;
+  slug: string;
+  description: string;
 };
 
 export const getProducts = cache(async () => {
@@ -46,10 +48,17 @@ export const getProductBySlug = cache(async (slug: string) => {
 // Evtl. Validierung mit zod einfügen!
 
 export const updateProduct = cache(
-  async (productId, name, slug, image, price, description) => {
+  async (
+    productId: number,
+    name: string,
+    slug: string,
+    image: string,
+    price: number,
+    description: string,
+  ) => {
     const session = await getServerSession(authOptions);
     if (session?.user?.role === 'admin') {
-      const product = await sql`
+      const product = await sql<Product[]>`
         UPDATE products
         SET
           name = ${name},
@@ -68,10 +77,16 @@ export const updateProduct = cache(
 );
 
 export const createProduct = cache(
-  async (name, slug, image, price, description) => {
+  async (
+    name: string,
+    slug: string,
+    image: string,
+    price: number,
+    description: string,
+  ) => {
     const session = await getServerSession(authOptions);
     if (session?.user?.role === 'admin') {
-      const product = await sql`
+      const product = await sql<Product[]>`
         INSERT INTO
           products (
             name,
@@ -96,11 +111,11 @@ export const createProduct = cache(
   },
 );
 
-export const deleteProduct = cache(async (id) => {
+export const deleteProduct = cache(async (id: number) => {
   const session = await getServerSession(authOptions);
   console.log('Deletion ID', id);
   if (session?.user?.role === 'admin') {
-    const product = await sql`
+    const product = await sql<Product[]>`
       DELETE FROM products
       WHERE
         id = ${id}
@@ -111,10 +126,10 @@ export const deleteProduct = cache(async (id) => {
   }
 });
 
-export const findProductsInsecure = cache(async (text) => {
+export const findProductsInsecure = cache(async (text: string) => {
   console.log('Search text', text);
 
-  const products = await sql`
+  const products = await sql<Product[]>`
     SELECT
       *
     FROM

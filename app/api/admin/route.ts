@@ -1,11 +1,16 @@
 import { NextResponse } from 'next/server';
+import type { Product } from '../../database/products';
 import {
   createProduct,
   deleteProduct,
   updateProduct,
 } from '../../database/products';
 
-export async function PUT(request: Request) {
+type ResponseBodyProduct = Product | { error: string };
+
+export async function PUT(
+  request: Request,
+): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
   const { id, name, slug, image, price, description } = requestBody;
   const updatedProduct = await updateProduct(
@@ -26,7 +31,9 @@ export async function PUT(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
   const { name, slug, image, price, description } = requestBody;
   const createdProduct = await createProduct(
@@ -46,7 +53,9 @@ export async function POST(request: Request) {
   }
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(
+  request: Request,
+): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
   const { id } = requestBody;
   const createdProduct = await deleteProduct(id);

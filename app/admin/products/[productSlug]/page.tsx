@@ -1,0 +1,43 @@
+import { notFound } from 'next/navigation';
+import { getProductBySlug, type Product } from '../../../database/products';
+import EditProductForm from './EditProductForm';
+
+type Props = {
+  params: Promise<{ productSlug: string }>;
+};
+
+export async function generateMetadata(props: Props) {
+  const singleProduct = await getProductBySlug(
+    (await props.params).productSlug,
+  );
+  return {
+    title: 'Admin',
+    description: `This is the admin page for managing the product information for ${singleProduct?.name}`,
+  };
+}
+
+export default async function SingleProduct(props: Props) {
+  const singleProduct = await getProductBySlug(
+    (await props.params).productSlug,
+  );
+
+  if (!singleProduct) {
+    notFound();
+  }
+
+  const product: Product = {
+    id: singleProduct.id,
+    name: singleProduct.name,
+    image: singleProduct.image,
+    price: Number((singleProduct.price / 100).toFixed(2)),
+    slug: singleProduct.slug,
+    description: singleProduct.description,
+  };
+
+  return (
+    <div>
+      <h1>Edit Product Details</h1>
+      <EditProductForm product={product} />
+    </div>
+  );
+}

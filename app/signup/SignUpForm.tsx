@@ -1,5 +1,4 @@
 'use client';
-import { getServerSession } from 'next-auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -7,7 +6,7 @@ export default function SignUpForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleFormSubmit(event) {
+  async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
     const response = await fetch('/api/auth/signup', {
       method: 'POST',

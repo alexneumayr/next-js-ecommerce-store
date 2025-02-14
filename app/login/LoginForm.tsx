@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
 
-  async function handleFormSubmit(event) {
+  async function handleFormSubmit(event: React.FormEvent) {
     event.preventDefault();
     const response = await signIn('credentials', {
       username: username,

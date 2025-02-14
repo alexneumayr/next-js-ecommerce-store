@@ -2,12 +2,14 @@
 import { useState } from 'react';
 import { createOrUpdateCookie } from '../../util/cookies';
 
-export default function AddToCartForm(props) {
+type Props = {
+  id: number;
+};
+
+export default function AddToCartForm(props: Props) {
   const [amount, setAmount] = useState(1);
   async function handleAddToCartButtonClick() {
-    if (amount > 0) {
-      await createOrUpdateCookie(props.id, Number(amount));
-    }
+    await createOrUpdateCookie(props.id, Number(amount));
   }
   return (
     <form>
@@ -15,9 +17,9 @@ export default function AddToCartForm(props) {
       <input
         type="number"
         id="inputamount"
-        min="0"
+        min="1"
         value={amount}
-        onChange={(event) => setAmount(event.currentTarget.value)}
+        onChange={(event) => setAmount(Number(event.currentTarget.value))}
         data-test-id="product-quantity"
       />
       <br />

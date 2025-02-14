@@ -21,6 +21,7 @@
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "@types/sanitize-html": "^2.13.0",
     "bcrypt": "^5.1.1",
     "dotenv-safe": "9.1.0",
     "draft-js": "^0.11.7",
@@ -38,6 +39,7 @@
     "sanitize-html": "^2.14.0",
     "sass": "1.84.0",
     "secure-json-parse": "3.0.2",
+    "server-only": "^0.0.1",
     "tsx": "4.19.2"
   },
   "devDependencies": {

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import sanitizeHtml from 'sanitize-html';
 import SimpleEditor from '../../../components/SimpleEditor';
 
-export default function EditProductForm({ product }) {
+export default function EditProductForm(props) {
+  const product = props.product;
   const router = useRouter();
   const [name, setName] = useState(product.name);
   const [image, setImage] = useState(product.image);
@@ -24,7 +25,7 @@ export default function EditProductForm({ product }) {
         name: name,
         slug: slug,
         image: image,
-        price: price * 100,
+        price: Number(price * 100),
         description: sanitizeHtml(description, {
           allowedTags: [
             'b',
@@ -112,7 +113,7 @@ export default function EditProductForm({ product }) {
         <input
           value={price}
           id="price-input"
-          onChange={(event) => setPrice(event.currentTarget.value)}
+          onChange={(event) => setPrice(Number(event.currentTarget.value))}
           pattern="\d+\.\d\d"
           title="Please input a number with 2 decimal places."
           required

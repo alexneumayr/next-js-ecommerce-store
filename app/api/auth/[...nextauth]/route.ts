@@ -1,10 +1,16 @@
 import { compare } from 'bcrypt';
-import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { sql } from '../../../database/connect';
 
-export const authOptions: NextAuthOptions = {
+type User = {
+  id: number;
+  password: string;
+  username: string;
+  role: string;
+};
+
+export const authOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -20,29 +26,36 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         console.log('Credentials', credentials);
         if (credentials?.username) {
-          const response = await sql`
+          const response = await sql<User[]>`
             SELECT
               *
             FROM
               users
             WHERE
-              username = ${credentials?.username}
+              username = ${credentials.username}
           `;
 
           console.log('Login Response', response);
           const user = response[0];
-          const passwordCorrect = await compare(
-            credentials?.password || '',
-            user?.password,
-          );
-          console.log('Password Correct', passwordCorrect);
-          if (passwordCorrect) {
-            console.log('Login Successful!', user.id, user.username, user.role);
-            return {
-              id: user?.id,
-              username: user?.username,
-              role: user?.role,
-            };
+          if (user) {
+            const passwordCorrect = await compare(
+              credentials.password || '',
+              user.password,
+            );
+            console.log('Password Correct', passwordCorrect);
+            if (passwordCorrect) {
+              console.log(
+                'Login Successful!',
+                user.id,
+                user.username,
+                user.role,
+              );
+              return {
+                id: user.id,
+                username: user.username,
+                role: user.role,
+              };
+            }
           }
         }
         return null;

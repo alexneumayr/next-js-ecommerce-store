@@ -1,20 +1,30 @@
+import { notFound } from 'next/navigation';
 import { getProductBySlug } from '../../database/products';
 import AddToCartForm from './AddToCartForm';
 
-export async function generateMetadata(props) {
+type Props = {
+  params: Promise<{ productSlug: string }>;
+};
+
+export async function generateMetadata(props: Props) {
   const singleProduct = await getProductBySlug(
     (await props.params).productSlug,
   );
   return {
-    title: singleProduct.name,
-    description: `Read all the details about our offers for ${singleProduct.name}`,
+    title: singleProduct?.name,
+    description: `Read all the details about our offers for ${singleProduct?.name}`,
   };
 }
 
-export default async function SingleProduct(props) {
+export default async function SingleProduct(props: Props) {
   const singleProduct = await getProductBySlug(
     (await props.params).productSlug,
   );
+
+  if (!singleProduct) {
+    notFound();
+  }
+
   return (
     <div>
       <h1>{singleProduct.name}</h1>

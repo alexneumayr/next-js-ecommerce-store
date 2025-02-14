@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useState } from 'react';
 import {
   BtnBold,
   BtnBulletList,
@@ -8,14 +7,20 @@ import {
   BtnRedo,
   BtnUnderline,
   BtnUndo,
+  type ContentEditableEvent,
   Editor,
   EditorProvider,
   Separator,
   Toolbar,
 } from 'react-simple-wysiwyg';
 
-export default function SimpleEditor(props) {
-  function onChange(e) {
+type Props = {
+  state: string;
+  stateSetter: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function SimpleEditor(props: Props) {
+  function onChange(e: ContentEditableEvent) {
     props.stateSetter(e.target.value);
   }
 
@@ -39,5 +44,3 @@ export default function SimpleEditor(props) {
     </div>
   );
 }
-/*   <h2>Output</h2>
-<div dangerouslySetInnerHTML={{ __html: clean }} /> */

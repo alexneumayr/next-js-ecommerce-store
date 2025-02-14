@@ -2,8 +2,11 @@ import { hash } from 'bcrypt';
 import { NextResponse } from 'next/server';
 import { sql } from '../../../database/connect';
 
-// eslint-disable-next-line no-restricted-syntax
-export async function POST(request: Request) {
+type ResponseBodySignup = { message: string };
+
+export async function POST(
+  request: Request,
+): Promise<NextResponse<ResponseBodySignup>> {
   try {
     const { username, password } = await request.json();
     console.log({ username, password });

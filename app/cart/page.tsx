@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getProducts } from '../database/products';
+import { getProducts, type Product } from '../database/products';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
 import CheckoutButton from './CheckoutButton';
@@ -13,19 +13,22 @@ export const metadata = {
     'Review your cart and proceed to checkout securely. Enjoy fast shipping and great deals on the latest tech gadgets, electronics, and accessories. Shop with confidence!',
 };
 
+type Cart = {
+  id: number;
+  amount: number;
+};
+
 export default async function CartPage() {
   const cartCookie = await getCookie('cart');
-  const cart = parseJson(cartCookie) || [];
+  const cart: Cart[] = parseJson(cartCookie) || [];
+  console.log('Cartinsky', cart);
   const allProducts = await getProducts();
   const cartProducts = allProducts
     .map((product) => {
       const correlatingCartProduct = cart.find(
-        (item) => item.id === product.id,
+        (item: Product) => item.id === product.id,
       );
-      if (
-        correlatingCartProduct !== undefined &&
-        correlatingCartProduct.amount > 0
-      ) {
+      if (correlatingCartProduct !== undefined) {
         return {
           id: product.id,
           name: product.name,

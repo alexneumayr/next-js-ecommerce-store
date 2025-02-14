@@ -12,6 +12,7 @@ export async function getCookie(name) {
 }
 
 export async function createOrUpdateCookie(productId, amount) {
+  console.log('current amount', amount);
   const cartCookie = await getCookie('cart');
   let cart = !cartCookie ? [] : parseJson(cartCookie);
   const productToUpdate = cart.find((productInCart) => {
@@ -20,7 +21,7 @@ export async function createOrUpdateCookie(productId, amount) {
   if (!productToUpdate && amount !== 0) {
     cart.push({ id: productId, amount: amount });
   } else {
-    if (amount === '0') {
+    if (amount === 0) {
       cart = cart.filter((product) => product.id !== productToUpdate.id);
     } else {
       productToUpdate.amount = amount;
