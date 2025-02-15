@@ -8,7 +8,7 @@ export default function ThankYouMain() {
 
   useEffect(() => {
     router.refresh();
-  }, []);
+  }, [router]);
 
   return <h1>Thank you</h1>;
 }

@@ -8,7 +8,7 @@ export default function LogoutMain() {
     setTimeout(() => {
       signOut({ callbackUrl: '/' })
         .then(() => console.log('Sign Out Successful'))
-        .catch((e) => console.log('Sign out failed'));
+        .catch(() => console.log('Sign out failed'));
     }, 500);
   }, []);
 

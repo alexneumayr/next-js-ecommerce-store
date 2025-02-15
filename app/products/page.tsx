@@ -20,9 +20,17 @@ export default async function ProductPage() {
             data-test-id={`product-${product.slug}`}
             key={`product-${product.slug}`}
           >
+            {product.image && (
+              <div className="product-image-container-overview">
+                <img
+                  data-test-id="product-image"
+                  src={product.image}
+                  alt={product.name}
+                  className="product-image-overview"
+                />
+              </div>
+            )}
             Name: {product.name}
-            <br />
-            Image: {product.image}
             <br />
             Price: {(product.price / 100).toFixed(2)}
             <br />

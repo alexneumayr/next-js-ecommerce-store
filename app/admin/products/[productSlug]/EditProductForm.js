@@ -12,6 +12,8 @@ export default function EditProductForm(props) {
   const [price, setPrice] = useState((product.price / 100).toFixed(2));
   const [slug, setSlug] = useState(product.slug);
   const [description, setDescription] = useState(product.description);
+  const [errorMessage, setErrorMessage] = useState();
+  const [successMessage, setSuccessMessage] = useState();
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -44,10 +46,13 @@ export default function EditProductForm(props) {
         }),
       }),
     });
-    const data = await response.json();
-    console.log('Data', data);
-    if (data) {
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
       alert('Changes successfully saved.');
+    } else {
+      setErrorMessage('Changing product data failed. Please check your input.');
     }
   }
 
@@ -74,63 +79,102 @@ export default function EditProductForm(props) {
     }
   }
 
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <div>
-        <label htmlFor="product-name-input">Product Name:</label>
-        <input
-          value={name}
-          id="product-name-input"
-          onChange={(event) => setName(event.currentTarget.value)}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="slug-input">Slug:</label>
-        <input
-          value={slug}
-          id="slug-input"
-          onChange={(event) => setSlug(event.currentTarget.value)}
-          pattern="[a-z0-9\-]+"
-          title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="image-input">Image:</label>
-        <input
-          value={image}
-          id="image-input"
-          onChange={(event) => setImage(event.currentTarget.value)}
-          pattern="[\w\-]+\.(jpg|png)$"
-          title="Only .jpg and .png files are supported."
-          required
-        />
-      </div>
+  async function handleUpload(event) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
-      <div>
-        <label htmlFor="price-input">Price:</label>
-        <input
-          value={price}
-          id="price-input"
-          onChange={(event) => setPrice(event.currentTarget.value)}
-          pattern="\d+\.\d\d"
-          title="Please input a number with 2 decimal places."
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description-input">Description:</label>
-        <br />
-        <SimpleEditor state={description} stateSetter={setDescription} />
-      </div>
-      <button>Save changes</button>
-      <button type="button" onClick={handleDiscardChangesButtonClick}>
-        Discard changes
-      </button>
-      <button type="button" onClick={handleDeleteButtonClick}>
-        Delete product
-      </button>
-    </form>
+    const response = await fetch('/api/image-uploads', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log(errorData.error);
+      return;
+    }
+
+    const data = await response.json();
+
+    if ('error' in data) {
+      setErrorMessage('Image upload failed');
+      return;
+    }
+
+    setImage(data.imageUrl);
+
+    router.refresh();
+
+    setSuccessMessage('Image successfully uploaded');
+  }
+
+  return (
+    <>
+      {image && (
+        <div className="product-image-container">
+          <img
+            data-test-id="product-image"
+            src={image}
+            alt={name}
+            className="product-image"
+          />
+        </div>
+      )}
+      <form onSubmit={handleUpload}>
+        <input type="file" name="image" accept="image/*" />
+        <button>Upload Image</button>
+      </form>
+
+      <br />
+      <form onSubmit={handleFormSubmit}>
+        <div>
+          <label htmlFor="product-name-input">Product Name:</label>
+          <input
+            value={name}
+            id="product-name-input"
+            onChange={(event) => setName(event.currentTarget.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="slug-input">Slug:</label>
+          <input
+            value={slug}
+            id="slug-input"
+            onChange={(event) => setSlug(event.currentTarget.value)}
+            pattern="[a-z0-9\-]+"
+            title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="price-input">Price:</label>
+          <input
+            value={price}
+            id="price-input"
+            onChange={(event) => setPrice(event.currentTarget.value)}
+            pattern="\d+\.\d\d"
+            title="Please input a number with 2 decimal places."
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="description-input">Description:</label>
+          <br />
+          <SimpleEditor state={description} stateSetter={setDescription} />
+        </div>
+        <button>Save changes</button>
+        <button type="button" onClick={handleDiscardChangesButtonClick}>
+          Discard changes
+        </button>
+        <button type="button" onClick={handleDeleteButtonClick}>
+          Delete product
+        </button>
+      </form>
+      <br />
+      {successMessage}
+      {errorMessage}
+      <br />
+    </>
   );
 }

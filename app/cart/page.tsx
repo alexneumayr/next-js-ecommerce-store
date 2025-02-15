@@ -33,6 +33,7 @@ export default async function CartPage() {
           name: product.name,
           slug: product.slug,
           price: product.price,
+          image: product.image,
           amount: correlatingCartProduct.amount,
           subtotal: product.price * correlatingCartProduct.amount,
         };
@@ -54,7 +55,16 @@ export default async function CartPage() {
             data-test-id={`cart-product-${product.slug}`}
             key={`product-${product.slug}`}
           >
-            Id: {product.id}
+            {product.image && (
+              <div className="product-image-container-cart">
+                <img
+                  data-test-id="product-image"
+                  src={product.image}
+                  alt={product.name}
+                  className="product-image-cart"
+                />
+              </div>
+            )}
             <br />
             Name:
             <Link href={`/products/${product.slug}`}>{product.name}</Link>
@@ -80,6 +90,8 @@ export default async function CartPage() {
       Total: <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
       <br />
       <CheckoutButton />
+      <br />
+      <br />
     </div>
   );
 }

@@ -81,3 +81,39 @@ ol {
   max-width: 800px;
   padding: 10px;
 }
+
+.product-image {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.product-image-container {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.product-image-overview {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.product-image-container-overview {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.product-image-cart {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.product-image-container-cart {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}

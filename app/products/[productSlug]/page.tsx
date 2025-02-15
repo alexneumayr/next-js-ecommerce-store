@@ -29,19 +29,26 @@ export default async function SingleProduct(props: Props) {
     <div>
       <h1>{singleProduct.name}</h1>
       <br />
+      <div className="product-image-container">
+        <img
+          data-test-id="product-image"
+          src={singleProduct.image}
+          alt={singleProduct.name}
+          className="product-image"
+        />
+      </div>
+      <br />
       <div
         className="description"
         dangerouslySetInnerHTML={{ __html: singleProduct.description }}
       />
-      <br />
-      Image: <span data-test-id="product-image">{singleProduct.image}</span>
-      <br />
       <br /> Price:
       <div style={{ display: 'inline' }} data-test-id="product-price">
         {(singleProduct.price / 100).toFixed(2)}
       </div>
       €
       <AddToCartForm id={singleProduct.id} />
+      <br />
     </div>
   );
 }
