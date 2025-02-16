@@ -46,13 +46,16 @@ export default function EditProductForm(props) {
         }),
       }),
     });
-
     if (response.ok) {
       const data = await response.json();
       console.log(data);
       alert('Changes successfully saved.');
     } else {
-      setErrorMessage('Changing product data failed. Please check your input.');
+      const data = await response.json();
+      console.log(data);
+      setErrorMessage(
+        'Changing product data failed. Please make sure all fields are filled in correctly.',
+      );
     }
   }
 
@@ -73,9 +76,16 @@ export default function EditProductForm(props) {
         },
         body: JSON.stringify({ id: product.id }),
       });
-      const data = await response.json();
-      console.log(data);
-      router.push('/admin/products');
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        router.push('/admin/products');
+      } else {
+        const data = await response.json();
+        setErrorMessage('Deleting product data failed.');
+        console.log(data);
+      }
     }
   }
 

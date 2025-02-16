@@ -50,7 +50,11 @@ export default function AddProductForm() {
       console.log(data);
       router.push('/admin/products');
     } else {
-      setErrorMessage('Adding product failed. Please check your input.');
+      const data = await response.json();
+      console.log(data);
+      setErrorMessage(
+        "Adding product failed. Please make sure all fields are filled in correctly (and don't forget to chose an image).",
+      );
     }
   }
 
