@@ -117,3 +117,7 @@ ol {
   display: flex;
   align-items: center;
 }
+
+.error {
+  color: red;
+}
