@@ -57,7 +57,7 @@ export default function CheckoutForm() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(formSchema) });
 
-  async function handleFormSubmit(data) {
+  async function handleFormSubmit(values) {
     await removeCookie();
     router.push('/thankyou');
   }

@@ -32,12 +32,12 @@ export default function SignUpForm() {
     resolver: zodResolver(formSchema),
   });
 
-  async function handleFormSubmit(data) {
+  async function handleFormSubmit(values) {
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
-        username: data.username,
-        password: data.password,
+        username: values.username,
+        password: values.password,
       }),
     });
     console.log('Sign up response', response);
