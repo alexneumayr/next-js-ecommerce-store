@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug } from '../../database/products';
+import { getProductBySlug } from '../../../database/products';
 import AddToCartForm from './AddToCartForm';
 
 type Props = {

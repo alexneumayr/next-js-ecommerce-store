@@ -1,7 +1,7 @@
 import { compare } from 'bcrypt';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getUserInsecure } from '../../../database/user';
+import { getUserInsecure } from '../../../../database/user';
 
 export const authOptions = {
   session: {

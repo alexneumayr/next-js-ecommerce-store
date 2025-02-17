@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import { findProductsInsecure } from '../database/products';
+import { findProductsInsecure } from '../../database/products';
 
 export const metadata = {
   title: 'Search Results',

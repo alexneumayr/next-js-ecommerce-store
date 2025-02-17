@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getProducts } from '../../database/products';
+import { getProducts } from '../../../database/products';
 
 export const metadata = {
   title: 'Admin',

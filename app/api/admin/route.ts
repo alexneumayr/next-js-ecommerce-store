@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import type { Product } from '../../database/products';
+import type { Product } from '../../../database/products';
 import {
   createProduct,
   deleteProduct,
   updateProduct,
-} from '../../database/products';
+} from '../../../database/products';
 
 type ResponseBodyProduct =
   | { product: Product }

@@ -1,5 +1,5 @@
 import { cache } from 'react';
-import { checkAdmin } from '../../util/checkAdmin';
+import { checkAdmin } from '../util/checkAdmin';
 import { sql } from './connect';
 
 export type Product = {
