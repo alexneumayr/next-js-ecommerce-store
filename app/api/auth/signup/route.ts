@@ -1,6 +1,6 @@
 import { hash } from 'bcrypt';
 import { NextResponse } from 'next/server';
-import { sql } from '../../../database/connect';
+import { sql } from '../../../../database/connect';
 
 type ResponseBodySignup = { message: string };
 
