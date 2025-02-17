@@ -19,7 +19,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof formSchema>>({
+  } = useForm({
     resolver: zodResolver(formSchema),
   });
 

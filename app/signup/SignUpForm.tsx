@@ -32,7 +32,7 @@ export default function SignUpForm() {
     resolver: zodResolver(formSchema),
   });
 
-  async function handleFormSubmit(values) {
+  async function handleFormSubmit(values: z.infer<typeof formSchema>) {
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
