@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getProductsInsecure } from '../../database/products';
+import { calculateTotal } from '../../util/calculateTotal';
 import { getCookie } from '../../util/cookies';
 import { parseJson } from '../../util/json';
 import CheckoutButton from './CheckoutButton';
@@ -42,10 +43,9 @@ export default async function CartPage() {
       }
     })
     .filter((product) => product !== null);
-  const total = cartProducts.reduce(
-    (prevValue, currentValue) => prevValue + currentValue.subtotal,
-    0,
-  );
+
+  const total = calculateTotal(cartProducts);
+
   return (
     <div>
       <h1>Cart</h1>
