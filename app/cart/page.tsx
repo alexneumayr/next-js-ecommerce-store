@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import { getCookie } from '../../util/cookies';
+import { parseJson } from '../../util/json';
 import { getProducts } from '../database/products';
-import { getCookie } from '../util/cookies';
-import { parseJson } from '../util/json';
 import CheckoutButton from './CheckoutButton';
 import DecrementButton from './DecrementButton';
 import IncrementButton from './IncrementButton';

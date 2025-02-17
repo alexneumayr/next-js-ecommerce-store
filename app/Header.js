@@ -3,10 +3,10 @@ import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
+import { getCookie } from '../util/cookies';
+import { parseJson } from '../util/json';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import SearchArea from './SearchArea';
-import { getCookie } from './util/cookies';
-import { parseJson } from './util/json';
 
 export default async function Header() {
   const cartCookie = await getCookie('cart');

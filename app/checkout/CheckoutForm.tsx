@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { removeCookie } from '../util/cookies';
+import { removeCookie } from '../../util/cookies';
 
 export default function CheckoutForm() {
   const router = useRouter();

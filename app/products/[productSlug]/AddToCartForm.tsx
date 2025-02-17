@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { createOrUpdateCookie } from '../../util/cookies';
+import { createOrUpdateCookie } from '../../../util/cookies';
 
 type Props = {
   id: number;

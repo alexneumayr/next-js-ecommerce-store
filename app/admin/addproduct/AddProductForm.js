@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import sanitizeHtml from 'sanitize-html';
-import SimpleEditor from '../../components/SimpleEditor';
+import SimpleEditor from '../../../components/SimpleEditor';
 
 export default function AddProductForm() {
   const [name, setName] = useState('');

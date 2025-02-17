@@ -1,5 +1,5 @@
 'use client';
-import { createOrUpdateCookie } from '../util/cookies';
+import { createOrUpdateCookie } from '../../util/cookies';
 
 export default function RemoveButton(props) {
   return (
