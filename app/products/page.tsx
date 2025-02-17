@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import { getProducts } from '../../database/products';
+import { getProductsInsecure } from '../../database/products';
 
 export const metadata = {
   title: 'Products',
@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default async function ProductPage() {
-  const products = await getProducts();
+  const products = await getProductsInsecure();
   return (
     <div>
       <h1>Our products</h1>

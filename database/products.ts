@@ -11,7 +11,7 @@ export type Product = {
   description: string;
 };
 
-export const getProducts = cache(async () => {
+export const getProductsInsecure = cache(async () => {
   return await sql<Product[]>`
     SELECT
       *
@@ -20,7 +20,7 @@ export const getProducts = cache(async () => {
   `;
 });
 
-export const getProduct = cache(async (id: number) => {
+export const getProductInsecure = cache(async (id: number) => {
   const product = await sql<Product[]>`
     SELECT
       *
@@ -32,7 +32,7 @@ export const getProduct = cache(async (id: number) => {
   return product[0];
 });
 
-export const getProductBySlug = cache(async (slug: string) => {
+export const getProductBySlugInsecure = cache(async (slug: string) => {
   const product = await sql<Product[]>`
     SELECT
       *
@@ -46,9 +46,7 @@ export const getProductBySlug = cache(async (slug: string) => {
   return product[0];
 });
 
-// Evtl. Validierung mit zod einfügen!
-
-export const updateProduct = cache(
+export const updateProductInsecure = cache(
   async (
     productId: number,
     name: string,
@@ -76,7 +74,7 @@ export const updateProduct = cache(
   },
 );
 
-export const createProduct = cache(
+export const createProductInsecure = cache(
   async (
     name: string,
     slug: string,
@@ -110,7 +108,7 @@ export const createProduct = cache(
   },
 );
 
-export const deleteProduct = cache(async (id: number) => {
+export const deleteProductInsecure = cache(async (id: number) => {
   console.log('Deletion ID', id);
   if (await checkAdmin()) {
     const product = await sql<Product[]>`

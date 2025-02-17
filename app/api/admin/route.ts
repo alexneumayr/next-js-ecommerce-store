@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import type { Product } from '../../../database/products';
 import {
-  createProduct,
-  deleteProduct,
-  updateProduct,
+  createProductInsecure,
+  deleteProductInsecure,
+  updateProductInsecure,
 } from '../../../database/products';
 
 type ResponseBodyProduct =
@@ -39,7 +39,7 @@ export async function PUT(
     );
   }
   const { id, name, slug, image, price, description } = result.data;
-  const updatedProduct = await updateProduct(
+  const updatedProduct = await updateProductInsecure(
     id,
     name,
     slug,
@@ -85,7 +85,7 @@ export async function POST(
   }
 
   const { name, slug, image, price, description } = result.data;
-  const createdProduct = await createProduct(
+  const createdProduct = await createProductInsecure(
     name,
     slug,
     image,
@@ -125,7 +125,7 @@ export async function DELETE(
   }
 
   const { id } = result.data;
-  const createdProduct = await deleteProduct(id);
+  const createdProduct = await deleteProductInsecure(id);
   if (createdProduct) {
     return NextResponse.json({ product: createdProduct });
   } else {

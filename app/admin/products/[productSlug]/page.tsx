@@ -1,5 +1,8 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug, type Product } from '../../../../database/products';
+import {
+  getProductBySlugInsecure,
+  type Product,
+} from '../../../../database/products';
 import EditProductForm from './EditProductForm';
 
 type Props = {
@@ -7,7 +10,7 @@ type Props = {
 };
 
 export async function generateMetadata(props: Props) {
-  const singleProduct = await getProductBySlug(
+  const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
   );
   return {
@@ -17,7 +20,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function SingleProduct(props: Props) {
-  const singleProduct = await getProductBySlug(
+  const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
   );
 

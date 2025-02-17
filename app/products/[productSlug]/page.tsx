@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getProductBySlug } from '../../../database/products';
+import { getProductBySlugInsecure } from '../../../database/products';
 import AddToCartForm from './AddToCartForm';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 export async function generateMetadata(props: Props) {
-  const singleProduct = await getProductBySlug(
+  const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
   );
   return {
@@ -17,7 +17,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function SingleProduct(props: Props) {
-  const singleProduct = await getProductBySlug(
+  const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
   );
 

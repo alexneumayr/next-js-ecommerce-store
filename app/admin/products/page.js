@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getProducts } from '../../../database/products';
+import { getProductsInsecure } from '../../../database/products';
 
 export const metadata = {
   title: 'Admin',
@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default async function AdminProductPage() {
-  const products = await getProducts();
+  const products = await getProductsInsecure();
   return (
     <div>
       <h1>Admin - Products Overview</h1>

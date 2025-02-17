@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getProducts } from '../../database/products';
+import { getProductsInsecure } from '../../database/products';
 import { getCookie } from '../../util/cookies';
 import { parseJson } from '../../util/json';
 import CheckoutButton from './CheckoutButton';
@@ -21,7 +21,7 @@ type Cart = {
 export default async function CartPage() {
   const cartCookie = await getCookie('cart');
   const cart: Cart[] = parseJson(cartCookie) || [];
-  const allProducts = await getProducts();
+  const allProducts = await getProductsInsecure();
   const cartProducts = allProducts
     .map((product) => {
       const correlatingCartProduct = cart.find(

@@ -1,6 +1,7 @@
 import 'server-only';
 import { config } from 'dotenv-safe';
 import postgres, { type Sql } from 'postgres';
+import postgresConfig from '../ley.config';
 
 config();
 declare namespace globalThis {
@@ -8,12 +9,7 @@ declare namespace globalThis {
 }
 function connectOneTimeToDatabase() {
   if (!('postgresSqlClient' in globalThis)) {
-    globalThis.postgresSqlClient = postgres({
-      transform: {
-        ...postgres.camel,
-        undefined: null,
-      },
-    });
+    globalThis.postgresSqlClient = postgres(postgresConfig);
   }
   return globalThis.postgresSqlClient;
 }
