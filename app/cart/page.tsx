@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getProductsInsecure } from '../../database/products';
 import { calculateTotal } from '../../util/calculateTotal';
 import { getCookie } from '../../util/cookies';
+import { extendCartProductDetails } from '../../util/extendCartProductDetails';
 import { parseJson } from '../../util/json';
 import CheckoutButton from './CheckoutButton';
 import DecrementButton from './DecrementButton';
@@ -14,35 +15,16 @@ export const metadata = {
     'Review your cart and proceed to checkout securely. Enjoy fast shipping and great deals on the latest tech gadgets, electronics, and accessories. Shop with confidence!',
 };
 
-type Cart = {
+type BasicCart = {
   id: number;
   amount: number;
 };
 
 export default async function CartPage() {
   const cartCookie = await getCookie('cart');
-  const cart: Cart[] = parseJson(cartCookie) || [];
+  const basicCart: BasicCart[] = parseJson(cartCookie) || [];
   const allProducts = await getProductsInsecure();
-  const cartProducts = allProducts
-    .map((product) => {
-      const correlatingCartProduct = cart.find(
-        (item) => item.id === product.id,
-      );
-      if (correlatingCartProduct !== undefined) {
-        return {
-          id: product.id,
-          name: product.name,
-          slug: product.slug,
-          price: product.price,
-          image: product.image,
-          amount: correlatingCartProduct.amount,
-          subtotal: product.price * correlatingCartProduct.amount,
-        };
-      } else {
-        return null;
-      }
-    })
-    .filter((product) => product !== null);
+  const cartProducts = extendCartProductDetails(basicCart, allProducts);
 
   const total = calculateTotal(cartProducts);
 
