@@ -37,9 +37,9 @@ export function extendCartProductDetails(
     );
   }
 
-  return allProducts
+  return validatedAllProducts.data
     .map((product) => {
-      const correlatingCartProduct = basicCart.find(
+      const correlatingCartProduct = validatedBasicCart.data.find(
         (item) => item.id === product.id,
       );
       if (correlatingCartProduct !== undefined) {
