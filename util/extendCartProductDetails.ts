@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-const basicCartItem = z.object({
+const basicCartItemSchema = z.object({
   id: z.number(),
   amount: z.number(),
 });
 
-const basicCartArraySchema = z.array(basicCartItem);
+const basicCartArraySchema = z.array(basicCartItemSchema);
 
 const productSchema = z.object({
   id: z.number(),
@@ -19,7 +19,7 @@ const productSchema = z.object({
 const productsArraySchema = z.array(productSchema);
 
 export function extendCartProductDetails(
-  basicCart: z.infer<typeof basicCartItem>[],
+  basicCart: z.infer<typeof basicCartItemSchema>[],
   allProducts: z.infer<typeof productSchema>[],
 ) {
   const validatedBasicCart = basicCartArraySchema.safeParse(basicCart);
