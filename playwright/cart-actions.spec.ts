@@ -49,7 +49,7 @@ const chosenProduct = {
   description: `<b>The Intenso Speed Line is a powerful USB stick for all users who value fast data transfer.</b><div><br /></div><div>Thanks to its USB 3.2 Gen1x1 interface, it can reach up to 10 times higher transfer speeds than standard USB 2.0 sticks.</div><div><br /></div><div>Furthermore, the Speed Line is characterised by particularly high storage capacities of up to 256 GB, which is why it offers sufficient storage space for countless photos, videos, music and other memory-intensive files.</div>`,
 };
 
-test("test adding a product to cart, changing it's quantity and remove it from cart", async ({
+test("test adding a product to cart, changing it's quantity and removing it from cart", async ({
   page,
 }) => {
   await page.goto('/products');
