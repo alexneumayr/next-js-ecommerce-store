@@ -60,8 +60,16 @@ export default async function CartPage() {
             <br />
             Subtotal: {(product.subtotal / 100).toFixed(2)}
             <br />
-            <IncrementButton id={product.id} currentAmount={product.amount} />
-            <DecrementButton id={product.id} currentAmount={product.amount} />
+            <IncrementButton
+              id={product.id}
+              slug={product.slug}
+              currentAmount={product.amount}
+            />
+            <DecrementButton
+              id={product.id}
+              slug={product.slug}
+              currentAmount={product.amount}
+            />
             <br />
             <RemoveButton id={product.id} slug={product.slug} />
             <br />

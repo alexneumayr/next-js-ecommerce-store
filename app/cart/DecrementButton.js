@@ -7,6 +7,7 @@ export default function DecrementButton(props) {
       onClick={() =>
         createOrUpdateCookie(props.id, Number(props.currentAmount - 1))
       }
+      data-test-id={`cart-product-quantity-decrement-${props.slug}`}
     >
       -1
     </button>

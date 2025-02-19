@@ -7,6 +7,7 @@ export default function IncrementButton(props) {
       onClick={() =>
         createOrUpdateCookie(props.id, Number(props.currentAmount + 1))
       }
+      data-test-id={`cart-product-quantity-increment-${props.slug}`}
     >
       +1
     </button>
