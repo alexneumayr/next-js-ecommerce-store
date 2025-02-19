@@ -39,7 +39,7 @@ const products = [
   },
 ];
 
-const chosenProduct = {
+const singleChosenProduct = {
   id: 1,
   name: 'Intenso Speed Line 64GB Memory Stick USB 3.2 Gen 1x1, Black',
   slug: 'intenso-speed-line-64gb-memory-stick-usb-3-2-gen-1x1-black',
@@ -52,6 +52,16 @@ const chosenProduct = {
 test("test adding a product to cart, changing it's quantity and removing it from cart", async ({
   page,
 }) => {
+  let itemsInCart = 0;
+  async function checkHeader() {
+    await expect(page.getByTestId('cart-link')).toBeVisible();
+    await expect(page.getByTestId('cart-count')).toBeVisible();
+    await expect(page.getByTestId('cart-count')).toHaveText(
+      String(itemsInCart),
+    );
+    await expect(page.getByTestId('products-link')).toBeVisible();
+    await expect(page.getByRole('img', { name: 'Site logo' })).toBeVisible();
+  }
   await page.goto('/products');
 
   await expect(
@@ -60,9 +70,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
 
   await expect(page.getByTestId('products-link')).toBeVisible();
 
-  await expect(page.getByTestId('cart-link')).toBeVisible();
-  await expect(page.getByTestId('cart-count')).toBeVisible();
-  await expect(page.getByTestId('cart-count')).toHaveText('0');
+  await checkHeader();
 
   for (const product of products) {
     await expect(page.getByTestId(`product-${product.slug}`)).toBeVisible();
@@ -74,25 +82,24 @@ test("test adding a product to cart, changing it's quantity and removing it from
     await expect(page.getByText(product.name)).toBeVisible();
   }
 
-  await page.getByTestId(`product-${chosenProduct.slug}`).click();
-  await page.waitForURL(`/products/${chosenProduct.slug}`);
+  await page.getByTestId(`product-${singleChosenProduct.slug}`).click();
+  await page.waitForURL(`/products/${singleChosenProduct.slug}`);
 
   await expect(
-    page.getByRole('heading', { name: chosenProduct.name }),
+    page.getByRole('heading', { name: singleChosenProduct.name }),
   ).toBeVisible();
 
-  await expect(page.getByTestId('cart-link')).toBeVisible();
-  await expect(page.getByTestId('cart-count')).toHaveText('0');
+  await checkHeader();
 
   await expect(page.getByTestId('product-image')).toBeVisible();
   await expect(page.getByTestId('product-image')).toHaveAttribute(
     'src',
-    chosenProduct.image,
+    singleChosenProduct.image,
   );
 
   await expect(page.getByTestId('product-price')).toBeVisible();
   await expect(page.getByTestId('product-price')).toHaveText(
-    String((chosenProduct.price / 100).toFixed(2)),
+    String((singleChosenProduct.price / 100).toFixed(2)),
   );
 
   await expect(page.getByTestId('product-quantity')).toBeVisible();
@@ -102,63 +109,73 @@ test("test adding a product to cart, changing it's quantity and removing it from
   );
   await expect(page.getByTestId('product-add-to-cart')).toBeVisible();
   await page.getByTestId('product-add-to-cart').click();
-  await expect(page.getByTestId('cart-count')).toHaveText('1');
+  itemsInCart = 1;
+  await expect(page.getByTestId('cart-count')).toHaveText(String(itemsInCart));
 
   await page.getByTestId('product-quantity').fill('2');
   await page.getByTestId('product-add-to-cart').click();
-  await expect(page.getByTestId('cart-count')).toHaveText('2');
+  itemsInCart = 2;
+  await expect(page.getByTestId('cart-count')).toHaveText(String(itemsInCart));
 
   await page.getByTestId('cart-link').click();
   await page.waitForURL('/cart');
 
+  await checkHeader();
+
   await expect(page.getByRole('heading', { name: 'Cart' })).toBeVisible();
   await expect(
-    page.getByTestId(`cart-product-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-${singleChosenProduct.slug}`),
   ).toBeVisible();
-  await expect(page.getByText(chosenProduct.name)).toBeVisible();
+  await expect(page.getByText(singleChosenProduct.name)).toBeVisible();
   await expect(
-    page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
   ).toBeVisible();
   await expect(
-    page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
   ).toHaveText('2');
   await expect(
-    page.getByTestId(`cart-product-remove-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-remove-${singleChosenProduct.slug}`),
   ).toBeVisible();
   await expect(
-    page.getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`),
+    page.getByTestId(
+      `cart-product-quantity-increment-${singleChosenProduct.slug}`,
+    ),
   ).toBeVisible();
   await expect(
-    page.getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`),
+    page.getByTestId(
+      `cart-product-quantity-decrement-${singleChosenProduct.slug}`,
+    ),
   ).toBeVisible();
 
   await page
-    .getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`)
+    .getByTestId(`cart-product-quantity-increment-${singleChosenProduct.slug}`)
     .click();
   await expect(
-    page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
   ).toHaveText('3');
   await expect(page.getByTestId('cart-count')).toHaveText('3');
 
   await page
-    .getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`)
+    .getByTestId(`cart-product-quantity-increment-${singleChosenProduct.slug}`)
     .click();
   await expect(
-    page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
   ).toHaveText('4');
   await expect(page.getByTestId('cart-count')).toHaveText('4');
 
   await page
-    .getByTestId(`cart-product-quantity-decrement-${chosenProduct.slug}`)
+    .getByTestId(`cart-product-quantity-decrement-${singleChosenProduct.slug}`)
     .click();
   await expect(
-    page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
   ).toHaveText('3');
   await expect(page.getByTestId('cart-count')).toHaveText('3');
 
-  await page.getByTestId(`cart-product-remove-${chosenProduct.slug}`).click();
+  await page
+    .getByTestId(`cart-product-remove-${singleChosenProduct.slug}`)
+    .click();
   await expect(
-    page.getByTestId(`cart-product-${chosenProduct.slug}`),
+    page.getByTestId(`cart-product-${singleChosenProduct.slug}`),
   ).toHaveCount(0);
   await expect(page.getByTestId('cart-count')).toHaveText('0');
 });
