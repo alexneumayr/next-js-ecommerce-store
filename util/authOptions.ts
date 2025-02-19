@@ -1,9 +1,25 @@
 import { compare } from 'bcrypt';
-import NextAuth from 'next-auth';
+import {
+  type DefaultSession,
+  type DefaultUser,
+  type NextAuthOptions,
+} from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getUserInsecure } from '../../../../database/user';
+import { getUserInsecure } from '../database/user';
 
-export const authOptions = {
+/* type User = { id: number; username: string; role: string };
+ */
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: DefaultSession['user'] & {
+      role: string;
+    };
+  }
+  interface User extends DefaultUser {
+    role: string;
+  }
+}
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -11,14 +27,15 @@ export const authOptions = {
     signIn: '/login',
   },
   providers: [
-    CredentialsProvider.default({
+    CredentialsProvider({
       credentials: {
-        username: {},
-        password: {},
+        username: { label: 'username', type: 'username' },
+        password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      authorize: async (credentials): Promise<any> => {
         console.log('Credentials', credentials);
-        if (credentials?.username) {
+        if (!credentials) return null;
+        if (credentials.username) {
           const response = await getUserInsecure(credentials.username);
           console.log('Login Response', response);
           const user = response[0];
@@ -43,22 +60,17 @@ export const authOptions = {
             }
           }
         }
-        return null;
       },
     }),
   ],
   callbacks: {
     jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (typeof user !== 'undefined') token.role = user.role;
       return token;
     },
     session({ session, token }) {
-      session.user.role = token.role;
+      session.user.role = token.role as string;
       return session;
     },
   },
 };
-
-const handler = NextAuth.default(authOptions);
-
-export { handler as GET, handler as POST };

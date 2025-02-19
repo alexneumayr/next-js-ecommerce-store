@@ -11,6 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@auth/core": "^0.37.4",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@jest/globals": "30.0.0-alpha.7",
+    "@playwright/test": "^1.50.1",
     "@ts-safeql/eslint-plugin": "^3.6.6",
     "@types/bcrypt": "^5.0.2",
     "@types/dotenv-safe": "8.1.6",

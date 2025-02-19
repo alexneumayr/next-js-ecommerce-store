@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../app/api/auth/[...nextauth]/route';
+import { authOptions } from './authOptions';
 
 export async function checkAdmin() {
   const session = await getServerSession(authOptions);
-  return session?.user?.role === 'admin';
+  return session?.user.role === 'admin';
 }

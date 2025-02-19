@@ -3,9 +3,9 @@ import { faCartFlatbedSuitcase } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
+import { authOptions } from '../util/authOptions';
 import { getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
-import { authOptions } from './api/auth/[...nextauth]/route';
 import SearchArea from './SearchArea';
 
 export default async function Header() {
@@ -25,7 +25,7 @@ export default async function Header() {
       <SearchArea />
       <nav>
         <ul>
-          {session?.user?.role === 'admin' && (
+          {session?.user.role === 'admin' && (
             <li>
               <Link href="/admin">Admin</Link>
             </li>
