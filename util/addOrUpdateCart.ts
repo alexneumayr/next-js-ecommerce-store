@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-const basicCartItemSchema = z.object({
-  id: z.number(),
-  amount: z.number(),
-});
-
-const basicCartArraySchema = z.array(basicCartItemSchema);
+const basicCartArraySchema = z.array(
+  z.object({
+    id: z.number(),
+    amount: z.number(),
+  }),
+);
 
 export function addOrUpdateCart(
   cart: z.infer<typeof basicCartArraySchema>,

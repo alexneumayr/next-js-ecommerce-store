@@ -1,26 +1,26 @@
 import { z } from 'zod';
 
-const basicCartItemSchema = z.object({
-  id: z.number(),
-  amount: z.number(),
-});
+const basicCartArraySchema = z.array(
+  z.object({
+    id: z.number(),
+    amount: z.number(),
+  }),
+);
 
-const basicCartArraySchema = z.array(basicCartItemSchema);
-
-const productSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  slug: z.string(),
-  image: z.string(),
-  price: z.number(),
-  description: z.string().optional(),
-});
-
-const productsArraySchema = z.array(productSchema);
+const productsArraySchema = z.array(
+  z.object({
+    id: z.number(),
+    name: z.string(),
+    slug: z.string(),
+    image: z.string(),
+    price: z.number(),
+    description: z.string().optional(),
+  }),
+);
 
 export function extendCartProductDetails(
-  basicCart: z.infer<typeof basicCartItemSchema>[],
-  allProducts: z.infer<typeof productSchema>[],
+  basicCart: z.infer<typeof basicCartArraySchema>,
+  allProducts: z.infer<typeof productsArraySchema>,
 ) {
   const validatedBasicCart = basicCartArraySchema.safeParse(basicCart);
   const validatedAllProducts = productsArraySchema.safeParse(allProducts);
