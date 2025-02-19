@@ -104,6 +104,10 @@ test("test adding a product to cart, changing it's quantity and remove it from c
   await page.getByTestId('product-add-to-cart').click();
   await expect(page.getByTestId('cart-count')).toHaveText('1');
 
+  await page.getByTestId('product-quantity').fill('2');
+  await page.getByTestId('product-add-to-cart').click();
+  await expect(page.getByTestId('cart-count')).toHaveText('2');
+
   await page.getByTestId('cart-link').click();
   await page.waitForURL('/cart');
 
@@ -117,7 +121,7 @@ test("test adding a product to cart, changing it's quantity and remove it from c
   ).toBeVisible();
   await expect(
     page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
-  ).toHaveText('1');
+  ).toHaveText('2');
   await expect(
     page.getByTestId(`cart-product-remove-${chosenProduct.slug}`),
   ).toBeVisible();
@@ -133,24 +137,24 @@ test("test adding a product to cart, changing it's quantity and remove it from c
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
-  ).toHaveText('2');
-  await expect(page.getByTestId('cart-count')).toHaveText('2');
+  ).toHaveText('3');
+  await expect(page.getByTestId('cart-count')).toHaveText('3');
 
   await page
     .getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`)
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
-  ).toHaveText('3');
-  await expect(page.getByTestId('cart-count')).toHaveText('3');
+  ).toHaveText('4');
+  await expect(page.getByTestId('cart-count')).toHaveText('4');
 
   await page
     .getByTestId(`cart-product-quantity-decrement-${chosenProduct.slug}`)
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
-  ).toHaveText('2');
-  await expect(page.getByTestId('cart-count')).toHaveText('2');
+  ).toHaveText('3');
+  await expect(page.getByTestId('cart-count')).toHaveText('3');
 
   await page.getByTestId(`cart-product-remove-${chosenProduct.slug}`).click();
   await expect(
