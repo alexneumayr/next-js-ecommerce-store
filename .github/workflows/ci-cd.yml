@@ -12,6 +12,7 @@ jobs:
       PGDATABASE: ecommerce_store
       PGUSERNAME: ecommerce_store
       PGPASSWORD: ecommerce_store
+      NEXTAUTH-SECRET: '7TwL/veclxQ3EXSsShOQpH0buUpvrSbCw3PaGk/ve3g='
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
