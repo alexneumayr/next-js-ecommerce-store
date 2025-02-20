@@ -32,6 +32,8 @@ export default function SignUpForm() {
     resolver: zodResolver(formSchema),
   });
 
+  const router = useRouter();
+
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
@@ -41,9 +43,8 @@ export default function SignUpForm() {
       }),
     });
     console.log('Sign up response', response);
+    router.push('/login');
   }
-
-  const router = useRouter();
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
