@@ -24,7 +24,7 @@ export async function up(sql: Sql) {
         (
           ${user.username},
           ${user.password},
-          ${user.role},
+          ${user.role}
         )
     `;
   }
