@@ -12,7 +12,12 @@ jobs:
       PGDATABASE: ecommerce_store
       PGUSERNAME: ecommerce_store
       PGPASSWORD: ecommerce_store
-      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      NEXTAUTH_SECRET: xxxxxxxxxxxxxxx
+      NEXTAUTH_URL: xxxxxxxxxxxxxxx
+      CLOUDINARY_CLOUD_NAME: xxxxxxxxxxxxxxx
+      CLOUDINARY_API_KEY: xxxxxxxxxxxxxxx
+      CLOUDINARY_API_SECRET: xxxxxxxxxxxxxxx
+
     steps:
       - name: Start preinstalled PostgreSQL on Ubuntu
         run: |
