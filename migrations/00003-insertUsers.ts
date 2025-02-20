@@ -19,7 +19,7 @@ export async function up(sql: Sql) {
   for (const user of users) {
     await sql`
       INSERT INTO
-        users (username, password, role,)
+        users (username, password, role)
       VALUES
         (
           ${user.username},

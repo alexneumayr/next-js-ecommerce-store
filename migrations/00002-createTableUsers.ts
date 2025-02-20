@@ -5,7 +5,8 @@ export async function up(sql: Sql) {
     CREATE TABLE users (
       id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
       username varchar(150) NOT NULL UNIQUE,
-      password varchar(150) NOT NULL
+      password varchar(150) NOT NULL,
+      role varchar(150) NOT NULL
     )
   `;
 }
