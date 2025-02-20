@@ -7,8 +7,6 @@ import {
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { getUserInsecure } from '../database/user';
 
-/* type User = { id: number; username: string; role: string };
- */
 declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: DefaultSession['user'] & {
