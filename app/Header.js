@@ -21,7 +21,7 @@ export default async function Header() {
       <div className="bg-primary h-3 " />
       <div className="px-5 flex h-[110px] items-center  bg-white shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
         <Link href="/" className="">
-          <img className="w-[200px]" src="logo-main.png" alt="Logo/" />
+          <img className="w-[200px]" src="logo-main.png" alt="Site logo" />
         </Link>
         <SearchArea />
         <nav className="flex-auto">
