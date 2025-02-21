@@ -25,7 +25,7 @@ export default function SearchArea() {
     <form onSubmit={handleFormSubmit} className="flex-auto mx-5">
       <div className="flex">
         <input
-          className="border w-full max-w-[500px] border-black border-r-0 h-[39px] p-2 rounded-l-[39px]"
+          className="border w-full max-w-[500px] border-black border-r-0 h-[39px] p-2 rounded-l-[39px] focus:outline-none"
           value={searchText}
           onChange={(event) => setSearchText(event.currentTarget.value)}
           placeholder="What are you looking for?"
