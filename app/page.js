@@ -1,13 +1,8 @@
 import 'react-multi-carousel/lib/styles.css';
-import { getServerSession } from 'next-auth';
-import Link from 'next/link.js';
-import AddToCartButton from '../components/AddToCartButton';
-import CartIconButton from '../components/CartIconButton';
 import { getProductsInsecure } from '../database/products';
-import { authOptions } from '../util/authOptions';
+import CarouselArea from './CarouselArea';
 
 export default async function HomePage() {
-  const session = await getServerSession(authOptions);
   const products = await getProductsInsecure();
 
   return (
@@ -21,7 +16,7 @@ export default async function HomePage() {
       </div>
       <div>
         <div className="pb-8 mb-3 relative">
-          <AddToCartButton products={products} />
+          <CarouselArea products={products} />
         </div>
       </div>
     </>

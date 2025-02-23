@@ -2,8 +2,8 @@
 import 'react-multi-carousel/lib/styles.css';
 import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
+import CartIconButton from '../components/CartIconButton';
 import { createOrUpdateCookie } from '../util/cookies';
-import CartIconButton from './CartIconButton';
 
 Carousel = Carousel.default ? Carousel.default : Carousel;
 
