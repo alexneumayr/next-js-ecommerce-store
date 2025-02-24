@@ -27,56 +27,54 @@ const responsive = {
 
 export default function CarouselArea({ products }) {
   return (
-    <div className="">
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        showDots={true}
-        responsive={responsive}
-        ssr={false}
-        infinite={true}
-        autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        removeArrowOnDeviceType=""
-        dotListClass="custom-dot-list-style"
-        renderDotsOutside
-        className="mx-auto"
-      >
-        {products.map((product) => {
-          return (
-            <div
-              key={`product-${product.slug}`}
-              className="flex flex-col h-[calc(100%-2px)] p-4 max-w-[450px] rounded-[25px] border border-[#555555] mx-[10px]"
+    <Carousel
+      swipeable={false}
+      draggable={false}
+      showDots={true}
+      responsive={responsive}
+      ssr={false}
+      infinite={true}
+      autoPlaySpeed={1000}
+      keyBoardControl={true}
+      customTransition="all .5"
+      transitionDuration={500}
+      removeArrowOnDeviceType=""
+      dotListClass="custom-dot-list-style"
+      renderDotsOutside
+      className="mx-auto max-w-[1300px]"
+    >
+      {products.map((product) => {
+        return (
+          <div
+            key={`product-${product.slug}`}
+            className="flex flex-col h-[calc(100%-2px)] p-4 max-w-[450px] rounded-[25px] border border-[#555555] mx-[10px]"
+          >
+            <Link
+              href={`products/${product.slug}`}
+              data-test-id={`product-${product.slug}`}
             >
-              <Link
-                href={`products/${product.slug}`}
-                data-test-id={`product-${product.slug}`}
-              >
-                <div className="h-[125px]">
-                  {product.image && (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="mx-auto mt-10 max-w-[200px] max-h-full"
-                    />
-                  )}
-                </div>
-                <p className="text-[19px] text-center font-bold my-5 ">
-                  {product.name}
-                </p>
-              </Link>
-              <div className="flex items-center justify-around mt-auto">
-                <p className="text-black text-[25px] font-bold">
-                  € {(product.price / 100).toFixed(2)}
-                </p>
-                <AddToCartButton id={product.id} />
+              <div className="h-[125px]">
+                {product.image && (
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="mx-auto mt-10 max-w-[200px] max-h-full"
+                  />
+                )}
               </div>
+              <p className="text-[19px] text-center font-bold my-5 ">
+                {product.name}
+              </p>
+            </Link>
+            <div className="flex items-center justify-around mt-auto">
+              <p className="text-black text-[25px] font-bold">
+                € {(product.price / 100).toFixed(2)}
+              </p>
+              <AddToCartButton id={product.id} />
             </div>
-          );
-        })}
-      </Carousel>
-    </div>
+          </div>
+        );
+      })}
+    </Carousel>
   );
 }
