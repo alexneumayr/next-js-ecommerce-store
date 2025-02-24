@@ -72,7 +72,12 @@ export default async function CheckoutPage() {
               >
                 {product.name}
               </Link>
-              <p className="text-[21px] font-medium w-[50px] ">1</p>
+              <p
+                className="text-[21px] font-medium w-[50px]"
+                data-test-id={`cart-product-quantity-${product.slug}`}
+              >
+                {product.amount}
+              </p>
               <p className="text-[21px] font-medium w-[50px] ">
                 €&nbsp;
                 <span
