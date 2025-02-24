@@ -30,66 +30,69 @@ export default async function CartPage() {
   return (
     <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Cart</h1>
-      <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
-        {cartProducts.map((product) => {
-          return (
-            <div
-              data-test-id={`cart-product-${product.slug}`}
-              key={`product-${product.slug}`}
-              className="flex items-center mx-[50px] my-[20px] justify-start gap-x-3"
-            >
-              <Link
-                className="text-[21px] font-medium"
-                href={`/products/${product.slug}`}
-              >
-                {product.image && (
-                  <div className="h-[137px] flex items-center justify-center">
-                    <img
-                      data-test-id="product-image"
-                      src={product.image}
-                      alt={product.name}
-                      className="max-h-full max-w-[137px]"
-                    />
-                  </div>
-                )}
-              </Link>
-              <br />
-              <Link
-                className="text-[21px] font-medium flex-1 mr-5"
-                href={`/products/${product.slug}`}
-              >
-                {product.name}
-              </Link>
-              <AmountField
-                id={product.id}
-                slug={product.slug}
-                currentAmount={product.amount}
-              />
-              <RemoveButton id={product.id} slug={product.slug} />
-              <p className="text-[21px] font-medium w-[50px] ">
-                €&nbsp;
-                <span
-                  className=""
-                  data-test-id={`cart-product-subtotal-${product.slug}`}
+      {basicCart.length > 0 ? (
+        <div>
+          <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
+            {cartProducts.map((product) => {
+              return (
+                <div
+                  data-test-id={`cart-product-${product.slug}`}
+                  key={`product-${product.slug}`}
+                  className="flex items-center mx-[50px] my-[20px] justify-start gap-x-3"
                 >
-                  {(product.subtotal / 100).toFixed(2)}
-                </span>
-              </p>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex justify-between">
-        <p className="text-[27px] font-semibold">Total:</p>{' '}
-        <p className="text-[27px] font-semibold">
-          €&nbsp;
-          <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
-        </p>
-      </div>
-      <br />
-      <CheckoutButton className="ml-auto" />
-      <br />
-      <br />
+                  <Link
+                    className="text-[21px] font-medium"
+                    href={`/products/${product.slug}`}
+                  >
+                    {product.image && (
+                      <div className="h-[137px] flex items-center justify-center">
+                        <img
+                          data-test-id="product-image"
+                          src={product.image}
+                          alt={product.name}
+                          className="max-h-full max-w-[137px]"
+                        />
+                      </div>
+                    )}
+                  </Link>
+                  <br />
+                  <Link
+                    className="text-[21px] font-medium flex-1 mr-5"
+                    href={`/products/${product.slug}`}
+                  >
+                    {product.name}
+                  </Link>
+                  <AmountField
+                    id={product.id}
+                    slug={product.slug}
+                    currentAmount={product.amount}
+                  />
+                  <RemoveButton id={product.id} slug={product.slug} />
+                  <p className="text-[21px] font-medium w-[50px] ">
+                    €&nbsp;
+                    <span
+                      className=""
+                      data-test-id={`cart-product-subtotal-${product.slug}`}
+                    >
+                      {(product.subtotal / 100).toFixed(2)}
+                    </span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex justify-between">
+            <p className="text-[27px] font-semibold">Total:</p>{' '}
+            <p className="text-[27px] font-semibold">
+              €&nbsp;
+              <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
+            </p>
+          </div>
+          <CheckoutButton className="ml-auto mt-4 mb-10" />
+        </div>
+      ) : (
+        <p className="mb-[400px]">Nothing in here yet...</p>
+      )}
     </div>
   );
 }
