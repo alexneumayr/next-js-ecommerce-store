@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import AddToCartButton from '../../components/AddToCartButton';
+import AddToCartButton from '../../components/QuickAddToCartButton';
 import { findProductsInsecure } from '../../database/products';
 
 export const metadata = {

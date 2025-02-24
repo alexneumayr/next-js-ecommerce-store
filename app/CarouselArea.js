@@ -2,7 +2,7 @@
 import 'react-multi-carousel/lib/styles.css';
 import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
-import AddToCartButton from '../components/AddToCartButton';
+import AddToCartButton from '../components/QuickAddToCartButton';
 
 Carousel = Carousel.default ? Carousel.default : Carousel;
 

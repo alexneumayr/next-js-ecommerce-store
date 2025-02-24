@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import AddToCartButton from '../../components/AddToCartButton';
+import AddToCartButton from '../../components/QuickAddToCartButton';
 import { getProductsInsecure } from '../../database/products';
 
 export const metadata = {
@@ -18,7 +18,7 @@ export default async function ProductPage() {
           return (
             <div
               key={`product-${product.slug}`}
-              className="relative flex-auto before:content-[''] before:bg-zinc-500 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform py-3"
+              className="relative flex-auto before:content-[''] before:bg-zinc-400 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform py-3"
             >
               <div className="max-w-[250px] flex flex-col mx-auto h-full ">
                 <Link
