@@ -3,8 +3,6 @@ import 'react-multi-carousel/lib/styles.css';
 import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
 import AddToCartButton from '../components/AddToCartButton';
-import CartIconButton from '../components/CartIconButton';
-import { createOrUpdateCookie } from '../util/cookies';
 
 Carousel = Carousel.default ? Carousel.default : Carousel;
 
@@ -50,7 +48,7 @@ export default function CarouselArea({ products }) {
           return (
             <div
               key={`product-${product.slug}`}
-              className="flex flex-col h-full p-4 max-w-[450px] rounded-[25px] border border-[#555555] mx-3"
+              className="flex flex-col h-[calc(100%-2px)] p-4 max-w-[450px] rounded-[25px] border border-[#555555] mx-3"
             >
               <Link
                 href={`products/${product.slug}`}

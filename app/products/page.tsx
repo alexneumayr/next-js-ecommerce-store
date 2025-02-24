@@ -18,9 +18,7 @@ export default async function ProductPage() {
           return (
             <div
               key={`product-${product.slug}`}
-              className="relative flex-auto before:content-[''] before:bg-zinc-500 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform
-
-"
+              className="relative flex-auto before:content-[''] before:bg-zinc-500 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform"
             >
               <div className="max-w-[250px] flex flex-col mx-auto h-full ">
                 <Link
@@ -45,7 +43,7 @@ export default async function ProductPage() {
                   <p className="text-black text-[25px] font-bold">
                     € {(product.price / 100).toFixed(2)}
                   </p>
-                  <AddToCartButton />
+                  <AddToCartButton id={product.id} />
                 </div>
                 <br />
                 <br />

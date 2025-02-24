@@ -17,16 +17,16 @@ export default async function Header() {
   const session = await getServerSession(authOptions);
 
   return (
-    <header className="">
+    <header>
       <div className="bg-primary h-3 " />
-      <div className="px-5 flex h-[110px] items-center  bg-white shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
+      <div className="px-5 flex gap-2 h-[110px] items-center  bg-white shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
         <Link href="/" className="">
           <img className="w-[200px]" src="logo-main.png" alt="Site logo" />
         </Link>
         <SearchArea />
         <nav className="flex-auto">
-          <ul className="flex">
-            <li className="w-full flex justify-around">
+          <ul className="flex gap-2">
+            <li className="w-full flex justify-around gap-2">
               {session?.user.role === 'admin' && (
                 <Link
                   className="text-black hover:text-primary text-[21px] font-bold"
@@ -55,7 +55,7 @@ export default async function Header() {
                 </Link>
               )}
             </li>
-            <li className="flex-none ml-5 group">
+            <li className="flex-none group">
               <Link className="flex " href="/cart" data-test-id="cart-link">
                 <CartIcon className="stroke-black group-hover:stroke-primary" />
 

@@ -15,7 +15,7 @@ export default async function HomePage() {
         />
       </div>
       <div>
-        <div className="pb-8 mb-3 relative">
+        <div className="pb-8 mb-3 relative max-w-[1350px] mx-auto">
           <CarouselArea products={products} />
         </div>
       </div>
