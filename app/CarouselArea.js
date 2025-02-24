@@ -2,6 +2,7 @@
 import 'react-multi-carousel/lib/styles.css';
 import Link from 'next/link';
 import Carousel from 'react-multi-carousel';
+import AddToCartButton from '../components/AddToCartButton';
 import CartIconButton from '../components/CartIconButton';
 import { createOrUpdateCookie } from '../util/cookies';
 
@@ -25,16 +26,16 @@ const responsive = {
     items: 1,
   },
 };
-// max-h-[125px] max-w-[200px]
-export default function AddToCartButton({ products }) {
+
+export default function CarouselArea({ products }) {
   return (
-    <div className="space-x-10">
+    <div className="">
       <Carousel
         swipeable={false}
         draggable={false}
         showDots={true}
         responsive={responsive}
-        ssr={false} // means to render carousel on server-side.
+        ssr={false}
         infinite={true}
         autoPlaySpeed={1000}
         keyBoardControl={true}
@@ -49,7 +50,7 @@ export default function AddToCartButton({ products }) {
           return (
             <div
               key={`product-${product.slug}`}
-              className="flex flex-col mx-3 h-full p-4  rounded-[25px] border border-[#555555]"
+              className="flex flex-col h-full p-4 max-w-[450px] rounded-[25px] border border-[#555555] mx-3"
             >
               <Link
                 href={`products/${product.slug}`}
@@ -72,14 +73,7 @@ export default function AddToCartButton({ products }) {
                 <p className="text-black text-[25px] font-bold">
                   € {(product.price / 100).toFixed(2)}
                 </p>
-                <button
-                  className="flex p-2 justify-center gap-2 items-center text-[13px] font-semibold rounded-[5px] bg-primary w-[130px] text-white cursor-pointer hover:bg-[#00b755d6]"
-                  onClick={async () => {
-                    await createOrUpdateCookie(product.id, 1);
-                  }}
-                >
-                  <CartIconButton /> Add to Cart
-                </button>
+                <AddToCartButton id={product.id} />
               </div>
             </div>
           );

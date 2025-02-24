@@ -34,3 +34,16 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.grid-items-with-divider {
+}
+
+.grid-items-with-divider:after {
+  content: 's';
+  width: 2px;
+  background: #000;
+  height: 20px;
+  display: block;
+  position: absolute;
+  right: 0;
+}
