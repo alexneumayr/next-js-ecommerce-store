@@ -38,8 +38,8 @@ export default async function SingleProduct(props: Props) {
   };
 
   return (
-    <div>
-      <h1>Edit Product Details</h1>
+    <div className="mx-[80px]">
+      <h1 className="text-[45px] font-bold">Edit Product Details</h1>
       <EditProductForm product={product} />
     </div>
   );

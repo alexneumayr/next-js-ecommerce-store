@@ -12,8 +12,9 @@ export default function EditProductForm(props) {
   const [price, setPrice] = useState((product.price / 100).toFixed(2));
   const [slug, setSlug] = useState(product.slug);
   const [description, setDescription] = useState(product.description);
-  const [errorMessage, setErrorMessage] = useState();
-  const [successMessage, setSuccessMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [fileName, setFileName] = useState('');
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -49,7 +50,7 @@ export default function EditProductForm(props) {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      alert('Changes successfully saved.');
+      setSuccessMessage('Changes successfully saved.');
     } else {
       const data = await response.json();
       console.log(data);
@@ -62,7 +63,7 @@ export default function EditProductForm(props) {
   function handleDiscardChangesButtonClick() {
     setName(product.name);
     setImage(product.image);
-    setPrice(product.price);
+    setPrice((product.price / 100).toFixed(2));
     setSlug(product.slug);
     setDescription(product.description);
   }
@@ -119,72 +120,143 @@ export default function EditProductForm(props) {
   }
 
   return (
-    <>
-      {image && (
-        <div className="product-image-container">
-          <img
-            data-test-id="product-image"
-            src={image}
-            alt={name}
-            className="product-image"
-          />
-        </div>
-      )}
-      <form onSubmit={handleUpload}>
-        <input type="file" name="image" accept="image/*" />
-        <button>Upload Image</button>
-      </form>
-
-      <br />
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label htmlFor="product-name-input">Product Name:</label>
-          <input
-            value={name}
-            id="product-name-input"
-            onChange={(event) => setName(event.currentTarget.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="slug-input">Slug:</label>
-          <input
-            value={slug}
-            id="slug-input"
-            onChange={(event) => setSlug(event.currentTarget.value)}
-            pattern="[a-z0-9\-]+"
-            title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="price-input">Price:</label>
-          <input
-            value={price}
-            id="price-input"
-            onChange={(event) => setPrice(event.currentTarget.value)}
-            pattern="\d+\.\d\d"
-            title="Please input a number with 2 decimal places."
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description-input">Description:</label>
-          <br />
-          <SimpleEditor state={description} stateSetter={setDescription} />
-        </div>
-        <button>Save changes</button>
-        <button type="button" onClick={handleDiscardChangesButtonClick}>
-          Discard changes
-        </button>
-        <button type="button" onClick={handleDeleteButtonClick}>
-          Delete product
-        </button>
-      </form>
-      <br />
-      {successMessage}
-      {errorMessage}
-      <br />
-    </>
+    <div className="flex gap-4 mt-8">
+      <div className="flex-1">
+        {image && (
+          <div>
+            <div className="w-[300px] h-[300px] flex items-center rounded-[5px] border-8 border-[#434343] p-5 mx-auto">
+              <img
+                data-test-id="product-image"
+                src={image}
+                alt={name}
+                className="w-[300px]"
+              />
+            </div>
+            <div className="mt-2 w-[300px] mx-auto">
+              <form
+                onSubmit={handleUpload}
+                className="flex justify-between gap-2"
+              >
+                <label
+                  className="flex-1 text-center p-2 inline-block items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black"
+                  htmlFor="image"
+                >
+                  Choose file
+                </label>
+                <input
+                  className="hidden"
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={(event) => setFileName(event.target.files[0].name)}
+                />
+                <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black">
+                  Upload image
+                </button>
+              </form>
+              {fileName && (
+                <p className="text-[15px]">
+                  Chosen file:&nbsp;
+                  <span className="font-semibold">{fileName}</span>
+                </p>
+              )}
+              {successMessage && (
+                <p className="text-[15px] text-primary font-bold">
+                  {successMessage}
+                </p>
+              )}
+              {errorMessage && (
+                <p className="text-[15px] text-red-500 font-bold">
+                  {errorMessage}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="flex-1">
+        <form onSubmit={handleFormSubmit}>
+          <div>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="product-name-input"
+            >
+              Product Name:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              value={name}
+              id="product-name-input"
+              onChange={(event) => setName(event.currentTarget.value)}
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="slug-input"
+            >
+              Slug:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              value={slug}
+              id="slug-input"
+              onChange={(event) => setSlug(event.currentTarget.value)}
+              pattern="[a-z0-9\-]+"
+              title="Please use hyphens instead of spaces, all lowercase, no special characters. The slug must be unique!"
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="price-input"
+            >
+              Price:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-[100px]"
+              value={price}
+              id="price-input"
+              onChange={(event) => setPrice(event.currentTarget.value)}
+              pattern="\d+\.\d\d"
+              title="Please input a number with 2 decimal places."
+              required
+            />
+          </div>
+          <div>
+            <label
+              className="text-[15px] font-semibold"
+              htmlFor="description-input"
+            >
+              Description:
+            </label>
+            <br />
+            <SimpleEditor state={description} stateSetter={setDescription} />
+          </div>
+          <div className="mt-2 mb-8 flex justify-between gap-2">
+            <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343]  text-white cursor-pointer hover:bg-black">
+              Save changes
+            </button>
+            <button
+              type="button"
+              className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black"
+              onClick={handleDiscardChangesButtonClick}
+            >
+              Discard changes
+            </button>
+            <button
+              type="button"
+              className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black"
+              onClick={handleDeleteButtonClick}
+            >
+              Delete product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
