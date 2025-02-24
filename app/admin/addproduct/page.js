@@ -7,9 +7,9 @@ export const metadata = {
 
 export default function AddProductPage() {
   return (
-    <>
-      <h1>Add new product</h1>
+    <div className="mx-[80px]">
+      <h1 className="text-[45px] font-bold">Add a new product</h1>
       <AddProductForm />
-    </>
+    </div>
   );
 }
