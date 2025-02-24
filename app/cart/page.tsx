@@ -31,7 +31,7 @@ export default async function CartPage() {
     <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Cart</h1>
       {basicCart.length > 0 ? (
-        <div>
+        <div className="flex flex-col mb-10">
           <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
             {cartProducts.map((product) => {
               return (
@@ -81,14 +81,14 @@ export default async function CartPage() {
               );
             })}
           </div>
-          <div className="flex justify-between">
-            <p className="text-[27px] font-semibold">Total:</p>{' '}
+          <div className="flex justify-between mb-4">
+            <p className="text-[27px] font-semibold">Total:</p>
             <p className="text-[27px] font-semibold">
               €&nbsp;
               <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
             </p>
           </div>
-          <CheckoutButton className="ml-auto mt-4 mb-10" />
+          <CheckoutButton className="self-end ml-auto" />
         </div>
       ) : (
         <p className="mb-[400px] text-[21px] font-normal">
