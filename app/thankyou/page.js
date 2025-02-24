@@ -9,7 +9,7 @@ export const metadata = {
 export default function ThankYouPage() {
   return (
     <div className="mx-[80px]">
-      <h1 className="mt-5 text-6xl font-extrabold text-center">
+      <h1 className="mt-10 text-6xl font-extrabold text-center">
         Thank You for Your Purchase!
       </h1>
       <div className="m-10 max-w-[1000px] rounded-[25px] border border-[#878787] mx-auto p-5">
