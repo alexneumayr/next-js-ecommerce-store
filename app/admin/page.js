@@ -1,4 +1,4 @@
-import Link from 'next/link.js';
+import AdminButtonArea from './AdminButtonArea';
 
 export const metadata = {
   title: 'Admin',
@@ -7,11 +7,9 @@ export const metadata = {
 
 export default function AdminPage() {
   return (
-    <div>
-      <h1>Admin</h1>
-      <Link href="/admin/addproduct">Add new product</Link>
-      <br />
-      <Link href="/admin/products">Edit existing products</Link>
+    <div className="h-[65vh] flex flex-col items-center justify-center">
+      <h1 className="text-[45px] font-bold mb-3">Admin Panel</h1>
+      <AdminButtonArea />
     </div>
   );
 }
