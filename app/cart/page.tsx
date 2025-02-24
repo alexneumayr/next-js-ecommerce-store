@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import RemoveButtonIcon from '../../components/RemoveButtonIcon';
 import { getProductsInsecure } from '../../database/products';
 import { calculateTotal } from '../../util/calculateTotal';
 import { getCookie } from '../../util/cookies';
 import { extendCartProductDetails } from '../../util/extendCartProductDetails';
 import { parseJson } from '../../util/json';
+import AmountField from './AmountField';
 import CheckoutButton from './CheckoutButton';
 import DecrementButton from './DecrementButton';
 import IncrementButton from './IncrementButton';
@@ -29,60 +31,66 @@ export default async function CartPage() {
   const total = calculateTotal(cartProducts);
 
   return (
-    <div>
-      <h1>Cart</h1>
-      {cartProducts.map((product) => {
-        return (
-          <div
-            data-test-id={`cart-product-${product.slug}`}
-            key={`product-${product.slug}`}
-          >
-            {product.image && (
-              <div className="product-image-container-cart">
-                <img
-                  data-test-id="product-image"
-                  src={product.image}
-                  alt={product.name}
-                  className="product-image-cart"
-                />
-              </div>
-            )}
-            <br />
-            Name:
-            <Link href={`/products/${product.slug}`}>{product.name}</Link>
-            <br />
-            Price: {(product.price / 100).toFixed(2)}
-            <br />
-            Amount:
-            <span data-test-id={`cart-product-quantity-${product.slug}`}>
-              {product.amount}
-            </span>
-            <br />
-            Subtotal:
-            <span data-test-id={`cart-product-subtotal-${product.slug}`}>
-              {(product.subtotal / 100).toFixed(2)}
-            </span>
-            <br />
-            <IncrementButton
-              id={product.id}
-              slug={product.slug}
-              currentAmount={product.amount}
-            />
-            <DecrementButton
-              id={product.id}
-              slug={product.slug}
-              currentAmount={product.amount}
-            />
-            <br />
-            <RemoveButton id={product.id} slug={product.slug} />
-            <br />
-            <br />
-          </div>
-        );
-      })}
-      Total: <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
+    <div className="mx-[80px] mt-3">
+      <h1 className="text-[45px] font-bold">Cart</h1>
+      <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
+        {cartProducts.map((product) => {
+          return (
+            <div
+              data-test-id={`cart-product-${product.slug}`}
+              key={`product-${product.slug}`}
+              className="flex items-center mx-[50px] my-[20px] justify-start gap-x-3"
+            >
+              <Link
+                className="text-[21px] font-medium"
+                href={`/products/${product.slug}`}
+              >
+                {product.image && (
+                  <div className="h-[137px] flex items-center justify-center">
+                    <img
+                      data-test-id="product-image"
+                      src={product.image}
+                      alt={product.name}
+                      className="max-h-full max-w-[137px]"
+                    />
+                  </div>
+                )}
+              </Link>
+              <br />
+              <Link
+                className="text-[21px] font-medium flex-1 mr-5"
+                href={`/products/${product.slug}`}
+              >
+                {product.name}
+              </Link>
+              <AmountField
+                id={product.id}
+                slug={product.slug}
+                currentAmount={product.amount}
+              />
+              <RemoveButton id={product.id} slug={product.slug} />
+              <p className="text-[21px] font-medium w-[50px] ">
+                €&nbsp;
+                <span
+                  className=""
+                  data-test-id={`cart-product-subtotal-${product.slug}`}
+                >
+                  {(product.subtotal / 100).toFixed(2)}
+                </span>
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex justify-between">
+        <p className="text-[27px] font-semibold">Total:</p>{' '}
+        <p className="text-[27px] font-semibold">
+          €&nbsp;
+          <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
+        </p>
+      </div>
       <br />
-      <CheckoutButton />
+      <CheckoutButton className="ml-auto" />
       <br />
       <br />
     </div>

@@ -144,7 +144,7 @@ test('testing full shopping process (checkout flow, payment page, thank you page
     ).toBeVisible();
     await expect(
       page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
-    ).toHaveText(String(chosenProduct.amount));
+    ).toHaveValue(String(chosenProduct.amount));
     await expect(
       page.getByTestId(`cart-product-remove-${chosenProduct.slug}`),
     ).toBeVisible();

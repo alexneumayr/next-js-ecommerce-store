@@ -1,4 +1,4 @@
-export default function CartIconButton({ className }) {
+export default function CartButtonIcon({ className }) {
   return (
     <svg
       width="24"

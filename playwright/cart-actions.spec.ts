@@ -132,7 +132,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
   ).toBeVisible();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('2');
+  ).toHaveValue('2');
   await expect(
     page.getByTestId(`cart-product-remove-${singleChosenProduct.slug}`),
   ).toBeVisible();
@@ -152,7 +152,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('3');
+  ).toHaveValue('3');
   await expect(page.getByTestId('cart-count')).toHaveText('3');
 
   await page
@@ -160,7 +160,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('4');
+  ).toHaveValue('4');
   await expect(page.getByTestId('cart-count')).toHaveText('4');
 
   await page
@@ -168,7 +168,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('3');
+  ).toHaveValue('3');
   await expect(page.getByTestId('cart-count')).toHaveText('3');
 
   await page
