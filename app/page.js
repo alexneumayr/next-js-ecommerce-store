@@ -7,7 +7,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <div className="mx-8">
+      <div className="mx-[25px]">
         <img
           className="w-[1280px] rounded-[25px] mx-auto my-8"
           src="sales.png"
@@ -15,7 +15,7 @@ export default async function HomePage() {
         />
       </div>
       <div>
-        <div className="pb-8 mb-3 relative max-w-[1350px] mx-auto">
+        <div className="pb-8 mb-3 relative max-w-[1350px] mx-[15px]">
           <CarouselArea products={products} />
         </div>
       </div>
