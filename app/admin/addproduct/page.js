@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function AddProductPage() {
   return (
-    <div className="mx-[80px]">
+    <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Add a new product</h1>
       <AddProductForm />
     </div>

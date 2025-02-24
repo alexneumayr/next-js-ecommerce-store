@@ -38,7 +38,7 @@ export default async function SingleProduct(props: Props) {
   };
 
   return (
-    <div className="mx-[80px]">
+    <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Edit Product Details</h1>
       <EditProductForm product={product} />
     </div>

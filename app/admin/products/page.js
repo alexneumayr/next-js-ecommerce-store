@@ -9,7 +9,7 @@ export const metadata = {
 export default async function AdminProductPage() {
   const products = await getProductsInsecure();
   return (
-    <div className="mx-[80px]">
+    <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Select a product to edit</h1>
       <div className="flex flex-wrap gap-5 justify-around my-4  overflow-hidden">
         {products.map((product) => {
