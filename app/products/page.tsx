@@ -18,7 +18,7 @@ export default async function ProductPage() {
           return (
             <div
               key={`product-${product.slug}`}
-              className="relative flex-auto before:content-[''] before:bg-zinc-500 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform"
+              className="relative flex-auto before:content-[''] before:bg-zinc-500 before:h-full before:w-[1px]  before:absolute before:top-[0px] before:left-[1px] before:bottom-[0px] left-[-2px] before:will-change-transform py-3"
             >
               <div className="max-w-[250px] flex flex-col mx-auto h-full ">
                 <Link
@@ -30,7 +30,7 @@ export default async function ProductPage() {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="max-h-full max-w-[137px] "
+                        className="max-h-full max-w-[137px]"
                       />
                     </div>
                   )}
@@ -45,8 +45,6 @@ export default async function ProductPage() {
                   </p>
                   <AddToCartButton id={product.id} />
                 </div>
-                <br />
-                <br />
               </div>
             </div>
           );
