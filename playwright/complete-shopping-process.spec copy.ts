@@ -87,7 +87,7 @@ test('testing full shopping process (checkout flow, payment page, thank you page
     await page.waitForURL('/products');
 
     await expect(
-      page.getByRole('heading', { name: 'Our products' }),
+      page.getByRole('heading', { name: 'Products Overview' }),
     ).toBeVisible();
     for (const product of products) {
       await expect(page.getByTestId(`product-${product.slug}`)).toBeVisible();

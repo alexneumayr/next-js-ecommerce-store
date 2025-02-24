@@ -65,7 +65,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
   await page.goto('/products');
 
   await expect(
-    page.getByRole('heading', { name: 'Our products' }),
+    page.getByRole('heading', { name: 'Products Overview' }),
   ).toBeVisible();
 
   await expect(page.getByTestId('products-link')).toBeVisible();
