@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import AddToCartButton from '../../components/QuickAddToCartButton';
+import QuickAddToCartButton from '../../components/QuickAddToCartButton';
 import { getProductsInsecure } from '../../database/products';
 
 export const metadata = {
@@ -43,7 +43,7 @@ export default async function ProductPage() {
                   <p className="text-black text-[25px] font-bold">
                     € {(product.price / 100).toFixed(2)}
                   </p>
-                  <AddToCartButton id={product.id} />
+                  <QuickAddToCartButton id={product.id} />
                 </div>
               </div>
             </div>
