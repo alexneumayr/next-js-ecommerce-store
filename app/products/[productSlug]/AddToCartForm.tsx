@@ -39,7 +39,10 @@ export default function AddToCartForm(props: Props) {
           defaultValue="1"
           {...register('amount')}
         />
-        <button className="flex p-2 justify-center gap-2 items-center text-[13px] font-semibold rounded-[5px] bg-primary w-[130px] text-white cursor-pointer hover:bg-[#00b755d6]">
+        <button
+          className="flex p-2 justify-center gap-2 items-center text-[13px] font-semibold rounded-[5px] bg-primary w-[130px] text-white cursor-pointer hover:bg-[#00b755d6]"
+          data-test-id="product-add-to-cart"
+        >
           <CartIconButton className="" /> Add to Cart
         </button>
       </form>
