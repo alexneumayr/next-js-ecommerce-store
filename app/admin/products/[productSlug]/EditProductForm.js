@@ -124,12 +124,12 @@ export default function EditProductForm(props) {
       <div className="flex-1">
         {image && (
           <div>
-            <div className="w-[300px] h-[300px] flex items-center rounded-[5px] border-8 border-[#434343] p-5 mx-auto">
+            <div className="w-[300px] h-[300px] flex items-center rounded-[5px] border-8 border-[#434343] justify-center mx-auto">
               <img
                 data-test-id="product-image"
                 src={image}
                 alt={name}
-                className="w-[300px]"
+                className="max-w-[300px] max-h-[300px] p-5"
               />
             </div>
             <div className="mt-2 w-[300px] mx-auto">
