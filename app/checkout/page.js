@@ -39,51 +39,57 @@ export default async function CheckoutPage() {
     0,
   );
   return (
-    <>
-      <h1>Checkout</h1>
-      <CheckoutForm />
-      {cartProducts.map((product) => {
-        return (
-          <div
-            data-test-id={`cart-product-${product.slug}`}
-            key={`product-${product.slug}`}
-          >
-            <br />
-            {product.image && (
-              <div className="product-image-container-cart">
-                <img
-                  data-test-id="product-image"
-                  src={product.image}
-                  alt={product.name}
-                  className="product-image-cart"
-                />
-              </div>
-            )}
-            <br />
-            Name:
-            <Link href={`/products/${product.slug}`}>{product.name}</Link>
-            <br />
-            Price: {(product.price / 100).toFixed(2)}
-            <br />
-            Amount:
-            <span data-test-id={`cart-product-quantity-${product.slug}`}>
-              {product.amount}
-            </span>
-            <br />
-            Subtotal:
-            <span data-test-id={`cart-product-subtotal-${product.slug}`}>
-              {(product.subtotal / 100).toFixed(2)}
-            </span>
-            <br />
-          </div>
-        );
-      })}
-      <div>
-        <br />
-        Total: {(total / 100).toFixed(2)}
-        <br />
-        <br />
+    <div className="mx-[80px] mt-3 mb-[50px]">
+      <h1 className="text-[45px] font-bold">Checkout</h1>
+      <h2 className="text-[27px] font-semibold">Your Order</h2>
+      <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
+        {cartProducts.map((product) => {
+          return (
+            <div
+              data-test-id={`cart-product-${product.slug}`}
+              key={`product-${product.slug}`}
+              className="flex items-center mx-[50px] my-[20px] justify-start gap-x-3"
+            >
+              <Link
+                className="text-[21px] font-medium"
+                href={`/products/${product.slug}`}
+              >
+                {product.image && (
+                  <div className="h-[70px] flex items-center justify-center">
+                    <img
+                      data-test-id="product-image"
+                      src={product.image}
+                      alt={product.name}
+                      className="max-h-full max-w-[70px]"
+                    />
+                  </div>
+                )}
+              </Link>
+              <br />
+              <Link
+                className="text-[21px] font-medium flex-1 mr-5"
+                href={`/products/${product.slug}`}
+              >
+                {product.name}
+              </Link>
+              <p className="text-[21px] font-medium w-[50px] ">1</p>
+              <p className="text-[21px] font-medium w-[50px] ">
+                €&nbsp;
+                <span
+                  className=""
+                  data-test-id={`cart-product-subtotal-${product.slug}`}
+                >
+                  {(product.subtotal / 100).toFixed(2)}
+                </span>
+              </p>
+            </div>
+          );
+        })}
       </div>
-    </>
+      <div className="">
+        <h2 className="text-[27px] font-semibold">Your Details</h2>
+        <CheckoutForm total={total} />
+      </div>
+    </div>
   );
 }

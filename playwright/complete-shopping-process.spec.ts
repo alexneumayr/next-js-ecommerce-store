@@ -207,6 +207,9 @@ test('testing full shopping process (checkout flow, payment page, thank you page
   await page.getByTestId('checkout-country').fill('Österreich');
 
   await expect(page.getByTestId('checkout-credit-card')).toBeVisible();
+  await page.getByTestId('checkout-credit-card-name').fill('Martin Mueller');
+
+  await expect(page.getByTestId('checkout-credit-card')).toBeVisible();
   await page.getByTestId('checkout-credit-card').fill('1234567890123456');
 
   await expect(page.getByTestId('checkout-expiration-date')).toBeVisible();

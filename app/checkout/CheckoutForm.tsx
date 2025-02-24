@@ -5,7 +5,11 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { removeCookie } from '../../util/cookies';
 
-export default function CheckoutForm() {
+type Props = {
+  total: number;
+};
+
+export default function CheckoutForm(props: Props) {
   const router = useRouter();
 
   const formSchema = z.object({
@@ -31,6 +35,10 @@ export default function CheckoutForm() {
       .string()
       .min(1, { message: 'Please input a country name' })
       .regex(/^\D+$/, { message: 'Please input a correct country name' }),
+    creditcardName: z
+      .string()
+      .min(1, { message: 'Please input the correct name' })
+      .regex(/^\D+$/, { message: 'Please input a correct first name.' }),
     creditcardNumber: z
       .string()
       .min(1, { message: 'Please input a credit card number' })
@@ -64,30 +72,59 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <div>
-        <div>
-          <p className="error">{errors.firstName?.message}</p>
-          <label htmlFor="first-name-input">First name:</label>
-          <input
-            id="first-name-input"
-            {...register('firstName')}
-            data-test-id="checkout-first-name"
-          />
+    <form
+      onSubmit={handleSubmit(handleFormSubmit)}
+      className="flex mx-10 my-5 justify-around gap-4"
+    >
+      <div className="flex-1 max-w-[500px] min-w-[300px]">
+        <div className="flex gap-2">
+          <div className="flex-1 flex flex-col">
+            <p className="text-red-500 font-bold text-xs">
+              {errors.firstName?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block mt-auto"
+              htmlFor="first-name-input"
+            >
+              First name:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              id="first-name-input"
+              {...register('firstName')}
+              data-test-id="checkout-first-name"
+            />
+          </div>
+          <div className="flex-1 flex flex-col">
+            <p className="text-red-500 font-bold text-xs">
+              {errors.lastName?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block mt-auto"
+              htmlFor="last-name-input"
+            >
+              Last name:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              id="last-name-input"
+              {...register('lastName')}
+              data-test-id="checkout-last-name"
+            />
+          </div>
         </div>
         <div>
-          <p className="error">{errors.lastName?.message}</p>
-          <label htmlFor="last-name-input">Last name:</label>
+          <p className="text-red-500 font-bold text-xs">
+            {errors.email?.message}
+          </p>
+          <label
+            className="text-[15px] font-semibold block"
+            htmlFor="email-input"
+          >
+            Email:
+          </label>
           <input
-            id="last-name-input"
-            {...register('lastName')}
-            data-test-id="checkout-last-name"
-          />
-        </div>
-        <div>
-          <p className="error">{errors.email?.message}</p>
-          <label htmlFor="email-input">Email:</label>
-          <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
             id="email-input"
             type="email"
             {...register('email')}
@@ -95,36 +132,70 @@ export default function CheckoutForm() {
           />
         </div>
         <div>
-          <p className="error">{errors.address?.message}</p>
-          <label htmlFor="address-input">Address:</label>
+          <p className="text-red-500 font-bold text-xs">
+            {errors.address?.message}
+          </p>
+          <label
+            className="text-[15px] font-semibold block"
+            htmlFor="address-input"
+          >
+            Address:
+          </label>
           <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
             id="address-input"
             {...register('address')}
             data-test-id="checkout-address"
           />
         </div>
-        <div>
-          <p className="error">{errors.postalCode?.message}</p>
-          <label htmlFor="postal-code-input">Postal code:</label>
-          <input
-            id="postal-code-input"
-            {...register('postalCode')}
-            data-test-id="checkout-postal-code"
-          />
+        <div className="flex gap-2">
+          <div className="flex-1 flex flex-col">
+            <p className="text-red-500 font-bold text-xs mt-auto">
+              {errors.postalCode?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="postal-code-input"
+            >
+              Postal code:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              id="postal-code-input"
+              {...register('postalCode')}
+              data-test-id="checkout-postal-code"
+            />
+          </div>
+          <div className="flex-2 flex flex-col">
+            <p className="text-red-500 font-bold text-xs mt-auto">
+              {errors.city?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="city-input"
+            >
+              City:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+              id="city-input"
+              {...register('city')}
+              data-test-id="checkout-city"
+            />
+          </div>
         </div>
         <div>
-          <p className="error">{errors.city?.message}</p>
-          <label htmlFor="city-input">City:</label>
+          <p className="text-red-500 font-bold text-xs">
+            {errors.country?.message}
+          </p>
+          <label
+            className="text-[15px] font-semibold block"
+            htmlFor="country-input"
+          >
+            Country:
+          </label>
           <input
-            id="city-input"
-            {...register('city')}
-            data-test-id="checkout-city"
-          />
-        </div>
-        <div>
-          <p className="error">{errors.country?.message}</p>
-          <label htmlFor="country-input">Country:</label>
-          <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
             id="country-input"
             {...register('country')}
             data-test-id="checkout-country"
@@ -132,36 +203,89 @@ export default function CheckoutForm() {
         </div>
       </div>
       <br />
-      <div>
+      <div className="flex-1 flex flex-col max-w-[500px]">
         <div>
-          <p className="error">{errors.creditcardNumber?.message}</p>
-          <label htmlFor="card-number-input">Card number:</label>
+          <p className="text-red-500 font-bold text-xs">
+            {errors.creditcardName?.message}
+          </p>
+          <label
+            className="text-[15px] font-semibold block"
+            htmlFor="card-name-input"
+          >
+            Name on credit card:
+          </label>
           <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+            id="card-name-input"
+            {...register('creditcardName')}
+            data-test-id="checkout-credit-card-name"
+          />
+        </div>
+        <div>
+          <p className="text-red-500 font-bold text-xs">
+            {errors.creditcardNumber?.message}
+          </p>
+          <label
+            className="text-[15px] font-semibold block"
+            htmlFor="card-number-input"
+          >
+            Card number:
+          </label>
+          <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
             id="card-number-input"
             {...register('creditcardNumber')}
             data-test-id="checkout-credit-card"
           />
         </div>
-        <div>
-          <p className="error">{errors.expirationDate?.message}</p>
-          <label htmlFor="expiration-input">Expiration date:</label>
-          <input
-            id="expiration-input"
-            {...register('expirationDate')}
-            data-test-id="checkout-expiration-date"
-          />
+        <div className="flex gap-2">
+          <div className="flex flex-col">
+            <p className="text-red-500 font-bold text-xs mt-auto">
+              {errors.expirationDate?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="expiration-input"
+            >
+              Expiration date:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-[150px]"
+              id="expiration-input"
+              {...register('expirationDate')}
+              data-test-id="checkout-expiration-date"
+            />
+          </div>
+          <div className="flex flex-col">
+            <p className="text-red-500 font-bold text-xs mt-auto">
+              {errors.securityCode?.message}
+            </p>
+            <label
+              className="text-[15px] font-semibold block"
+              htmlFor="security-code-input"
+            >
+              CVV:
+            </label>
+            <input
+              className="h-[29px] rounded-[5px] border p-2 mb-2 w-[6ch]"
+              id="security-code-input"
+              {...register('securityCode')}
+              data-test-id="checkout-security-code"
+            />
+          </div>
         </div>
-        <div>
-          <p className="error">{errors.securityCode?.message}</p>
-          <label htmlFor="security-code-input">Security code:</label>
-          <input
-            id="security-code-input"
-            {...register('securityCode')}
-            data-test-id="checkout-security-code"
-          />
+        <div className="my-auto flex justify-between gap-2">
+          <button
+            data-test-id="checkout-confirm-order"
+            className="flex p-2 justify-center gap-2 items-center text-[19px] font-semibold rounded-[5px] w-[135px]  bg-primary  text-white cursor-pointer hover:bg-[#00b755d6]"
+          >
+            Buy now
+          </button>
+          <p className="text-[27px] font-semibold min-w-[200px]">
+            € {(props.total / 100).toFixed(2)}
+          </p>
         </div>
       </div>
-      <button data-test-id="checkout-confirm-order">Confirm Order</button>
     </form>
   );
 }
