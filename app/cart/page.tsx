@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import RemoveButtonIcon from '../../components/RemoveButtonIcon';
 import { getProductsInsecure } from '../../database/products';
 import { calculateTotal } from '../../util/calculateTotal';
 import { getCookie } from '../../util/cookies';
@@ -7,8 +6,6 @@ import { extendCartProductDetails } from '../../util/extendCartProductDetails';
 import { parseJson } from '../../util/json';
 import AmountField from './AmountField';
 import CheckoutButton from './CheckoutButton';
-import DecrementButton from './DecrementButton';
-import IncrementButton from './IncrementButton';
 import RemoveButton from './RemoveButton';
 
 export const metadata = {
