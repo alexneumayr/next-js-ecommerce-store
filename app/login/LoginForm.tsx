@@ -1,6 +1,7 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,19 +47,48 @@ export default function LoginForm() {
       )}
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div>
-          <p className="error">{errors.username?.message}</p>
-          <label htmlFor="username">Username</label>
-          <input id="username" {...register('username')} />
+          <p className="text-red-500 font-bold text-xs">
+            {errors.username?.message}
+          </p>
+          <label htmlFor="username" className="block text-[15px] font-semibold">
+            Username
+          </label>
+          <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+            id="username"
+            {...register('username')}
+          />
         </div>
         <div>
-          <p className="error">{errors.password?.message}</p>
-          <label htmlFor="password-password">Password</label>
-          <input id="password" type="password" {...register('password')} />
+          <p className="text-red-500 font-bold text-xs">
+            {errors.password?.message}
+          </p>
+          <label
+            htmlFor="password-password"
+            className="block text-[15px] font-semibold"
+          >
+            Password
+          </label>
+          <input
+            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
+            id="password"
+            type="password"
+            {...register('password')}
+          />
         </div>
-        <button>Login</button>
-        <button type="button" onClick={() => router.push('/signup')}>
-          Sign Up
+        <button className="flex p-2 justify-center gap-2 items-center text-[19px] font-semibold rounded-[5px] w-[135px]  bg-primary  text-white cursor-pointer mt-2 hover:bg-[#00b755d6]">
+          Login
         </button>
+        <hr className="my-4" />
+        <p>
+          Don't have an account?&nbsp;
+          <Link
+            className="text-primary underline hover:text-black"
+            href="/signup"
+          >
+            Signup
+          </Link>
+        </p>
       </form>
     </>
   );

@@ -11,10 +11,12 @@ declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: DefaultSession['user'] & {
       role: string;
+      username: string;
     };
   }
   interface User extends DefaultUser {
     role: string;
+    username: string;
   }
 }
 export const authOptions: NextAuthOptions = {
@@ -63,11 +65,15 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     jwt({ token, user }) {
-      if (typeof user !== 'undefined') token.role = user.role;
+      if (typeof user !== 'undefined') {
+        token.role = user.role;
+        token.username = user.username;
+      }
       return token;
     },
     session({ session, token }) {
       session.user.role = token.role as string;
+      session.user.username = token.username as string;
       return session;
     },
   },

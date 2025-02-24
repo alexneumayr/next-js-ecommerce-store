@@ -45,7 +45,7 @@ export default async function Header() {
             </li>
             <li className="flex flex-none">
               {session && (
-                <Link className="" href="/account">
+                <Link className="" href="/profile">
                   <ProfileIcon className="stroke-black hover:stroke-primary" />
                 </Link>
               )}

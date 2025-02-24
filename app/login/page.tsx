@@ -15,9 +15,9 @@ export default async function LoginPage() {
     redirect('/');
   }
   return (
-    <>
-      <h1>Login</h1>
+    <div className="max-w-[550px] my-20 mx-auto px-10">
+      <h1 className="text-[27px] font-semibold mb-4">Login</h1>
       <LoginForm />
-    </>
+    </div>
   );
 }
