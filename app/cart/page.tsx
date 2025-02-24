@@ -91,7 +91,9 @@ export default async function CartPage() {
           <CheckoutButton className="ml-auto mt-4 mb-10" />
         </div>
       ) : (
-        <p className="mb-[400px]">Nothing in here yet...</p>
+        <p className="mb-[400px] text-[21px] font-normal">
+          Nothing in here yet...
+        </p>
       )}
     </div>
   );
