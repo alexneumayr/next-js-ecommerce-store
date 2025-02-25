@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import sanitizeHtml from 'sanitize-html';
 import { checkAdmin } from '../util/checkAdmin';
 import { sql } from './connect';
 
@@ -54,6 +55,22 @@ export const updateProductInsecure = cache(
     price: number,
     description: string,
   ) => {
+    const safeDescription = sanitizeHtml(description, {
+      allowedTags: [
+        'b',
+        'i',
+        'u',
+        'h1',
+        'h2',
+        'h3',
+        'div',
+        'ul',
+        'ol',
+        'li',
+        'pre',
+        'br',
+      ],
+    });
     if (await checkAdmin()) {
       const product = await sql<Product[]>`
         UPDATE products
@@ -62,7 +79,7 @@ export const updateProductInsecure = cache(
           slug = ${slug},
           image = ${image},
           price = ${price},
-          description = ${description}
+          description = ${safeDescription}
         WHERE
           id = ${productId}
         RETURNING
@@ -82,6 +99,22 @@ export const createProductInsecure = cache(
     description: string,
   ) => {
     if (await checkAdmin()) {
+      const safeDescription = sanitizeHtml(description, {
+        allowedTags: [
+          'b',
+          'i',
+          'u',
+          'h1',
+          'h2',
+          'h3',
+          'div',
+          'ul',
+          'ol',
+          'li',
+          'pre',
+          'br',
+        ],
+      });
       const product = await sql<Product[]>`
         INSERT INTO
           products (
@@ -97,7 +130,7 @@ export const createProductInsecure = cache(
             ${slug},
             ${image},
             ${price},
-            ${description}
+            ${safeDescription}
           )
         RETURNING
           products.*

@@ -1,7 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import sanitizeHtml from 'sanitize-html';
 import SimpleEditor from '../../../components/SimpleEditor';
 
 export default function AddProductForm() {
@@ -28,21 +27,7 @@ export default function AddProductForm() {
         slug: slug,
         image: image,
         price: price * 100,
-          allowedTags: [
-            'b',
-            'i',
-            'u',
-            'h1',
-            'h2',
-            'h3',
-            'div',
-            'ul',
-            'ol',
-            'li',
-            'pre',
-            'br',
-          ],
-        }),
+        description: description,
       }),
     });
 
