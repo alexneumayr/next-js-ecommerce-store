@@ -69,7 +69,7 @@ export default function CheckoutForm(props: Props) {
 
   // Removes the cookie and redirects to "/thankyou" when the "Buy now" button is clicked
   async function handleFormSubmit() {
-    await removeCookie();
+    await removeCookie('cart');
     router.push('/thankyou');
   }
 

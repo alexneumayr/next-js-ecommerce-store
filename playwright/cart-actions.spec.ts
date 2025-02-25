@@ -52,7 +52,10 @@ const singleChosenProduct = {
 test("test adding a product to cart, changing it's quantity and removing it from cart", async ({
   page,
 }) => {
+  /* Variable used to check if the quantity displayed next to the cart icon
+  in the header is correct */
   let itemsInCart = 0;
+  // Function that checks if all elements are visible in the header
   async function checkHeader() {
     await expect(page.getByTestId('cart-link')).toBeVisible();
     await expect(page.getByTestId('cart-count')).toBeVisible();
@@ -62,7 +65,10 @@ test("test adding a product to cart, changing it's quantity and removing it from
     await expect(page.getByTestId('products-link')).toBeVisible();
     await expect(page.getByRole('img', { name: 'Site logo' })).toBeVisible();
   }
+
   await page.goto('/products');
+
+  // Test the products overview page
 
   await expect(
     page.getByRole('heading', { name: 'Products Overview' }),
@@ -84,6 +90,8 @@ test("test adding a product to cart, changing it's quantity and removing it from
 
   await page.getByTestId(`product-${singleChosenProduct.slug}`).click();
   await page.waitForURL(`/products/${singleChosenProduct.slug}`);
+
+  // Test the product details page
 
   await expect(
     page.getByRole('heading', { name: singleChosenProduct.name }),
@@ -119,6 +127,8 @@ test("test adding a product to cart, changing it's quantity and removing it from
 
   await page.getByTestId('cart-link').click();
   await page.waitForURL('/cart');
+
+  // Test the cart page
 
   await checkHeader();
 

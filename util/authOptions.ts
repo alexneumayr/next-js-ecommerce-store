@@ -19,6 +19,8 @@ declare module 'next-auth' {
     username: string;
   }
 }
+
+// Exports the authOptions needed for NextAuth
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',

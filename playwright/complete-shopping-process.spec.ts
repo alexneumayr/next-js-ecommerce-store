@@ -68,7 +68,10 @@ export const twoChosenProducts = [
 test('testing full shopping process (checkout flow, payment page, thank you page)', async ({
   page,
 }) => {
+  /* Variable used to check if the quantity displayed next to the cart icon
+  in the header is correct */
   let itemsInCart = 0;
+  // Function that checks if all elements are visible in the header
   async function checkHeader() {
     await expect(page.getByTestId('cart-link')).toBeVisible();
     await expect(page.getByTestId('cart-count')).toBeVisible();
@@ -80,8 +83,12 @@ test('testing full shopping process (checkout flow, payment page, thank you page
   }
 
   await page.goto('/');
+
+  // Check if the header is correctly displayed on the homepage
   await checkHeader();
 
+  /* For every product of "twoChosenProducts" it checks the product details page
+  and adds it to the cart */
   for (const chosenProduct of twoChosenProducts) {
     await page.getByTestId('products-link').click();
     await page.waitForURL('/products');
@@ -131,9 +138,13 @@ test('testing full shopping process (checkout flow, payment page, thank you page
   await page.getByTestId('cart-link').click();
   await page.waitForURL('/cart');
 
+  // Checks the cart page
+
   await expect(page.getByRole('heading', { name: 'Cart' })).toBeVisible();
   await checkHeader();
 
+  /* Checks if all products of "twoChosenProducts" are being shown correctly
+  on the cart page and clicks the "Proceed to checkout" button */
   for (const chosenProduct of twoChosenProducts) {
     await expect(
       page.getByTestId(`cart-product-${chosenProduct.slug}`),
@@ -166,9 +177,13 @@ test('testing full shopping process (checkout flow, payment page, thank you page
   await page.getByTestId('cart-checkout').click();
   await page.waitForURL('/checkout');
 
+  // Checks the checkout page
+
   await expect(page.getByRole('heading', { name: 'Checkout' })).toBeVisible();
   await checkHeader();
 
+  /* Checks if all products of "twoChosenProducts" are being shown correctly
+  on the checkout page */
   for (const chosenProduct of twoChosenProducts) {
     await expect(
       page.getByTestId(`cart-product-${chosenProduct.slug}`),
@@ -184,6 +199,8 @@ test('testing full shopping process (checkout flow, payment page, thank you page
       page.getByTestId(`cart-product-subtotal-${chosenProduct.slug}`),
     ).toHaveText(String((chosenProduct.subtotal / 100).toFixed(2)));
   }
+
+  // Checks if all input fields are visible, fills them in and clicks the "Buy now" button
 
   await expect(page.getByTestId('checkout-first-name')).toBeVisible();
   await page.getByTestId('checkout-first-name').fill('Martin');
@@ -223,6 +240,8 @@ test('testing full shopping process (checkout flow, payment page, thank you page
   itemsInCart = 0;
   await expect(page.getByTestId('cart-count')).toHaveText(String(itemsInCart));
   await page.waitForURL('/thankyou');
+
+  // Checks the thank you page
 
   await expect(page).toHaveTitle(/Thank you for your order/);
   await checkHeader();

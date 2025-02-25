@@ -1,5 +1,5 @@
 'use client';
-import { createOrUpdateCookie, getCookie } from '../util/cookies';
+import { createOrUpdateCartCookie, getCookie } from '../util/cookies';
 import { parseJson } from '../util/json';
 import CartButtonIcon from './CartButtonIcon';
 
@@ -15,9 +15,9 @@ export default function QuickAddToCartButton({ id }) {
         const basicCart = parseJson(cartCookie) || [];
         const currentProduct = basicCart.find((cartItem) => cartItem.id === id);
         if (currentProduct) {
-          await createOrUpdateCookie(id, currentProduct.amount + 1);
+          await createOrUpdateCartCookie(id, currentProduct.amount + 1);
         } else {
-          await createOrUpdateCookie(id, 1);
+          await createOrUpdateCartCookie(id, 1);
         }
       }}
     >

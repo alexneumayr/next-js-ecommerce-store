@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createOrUpdateCookie } from '../../util/cookies';
+import { createOrUpdateCartCookie } from '../../util/cookies';
 
 export default function AmountField(props) {
   const [amount, setAmount] = useState(props.currentAmount);
@@ -11,7 +11,7 @@ export default function AmountField(props) {
   async function handleFormSubmit(event) {
     event.preventDefault();
     if (Number(amount) > 0) {
-      await createOrUpdateCookie(props.id, Number(amount));
+      await createOrUpdateCartCookie(props.id, Number(amount));
     }
   }
   return (
@@ -24,7 +24,7 @@ export default function AmountField(props) {
           data-test-id={`cart-product-quantity-increment-${props.slug}`}
           onClick={async () => {
             setAmount(Number(props.currentAmount + 1));
-            await createOrUpdateCookie(
+            await createOrUpdateCartCookie(
               props.id,
               Number(props.currentAmount + 1),
             );
@@ -46,7 +46,7 @@ export default function AmountField(props) {
           data-test-id={`cart-product-quantity-decrement-${props.slug}`}
           onClick={async () => {
             setAmount(Number(props.currentAmount - 1));
-            await createOrUpdateCookie(
+            await createOrUpdateCartCookie(
               props.id,
               Number(props.currentAmount - 1),
             );

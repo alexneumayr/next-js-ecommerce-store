@@ -12,6 +12,7 @@ export type Product = {
   description: string;
 };
 
+// Returns all products from the database
 export const getProductsInsecure = cache(async () => {
   return await sql<Product[]>`
     SELECT
@@ -21,18 +22,7 @@ export const getProductsInsecure = cache(async () => {
   `;
 });
 
-export const getProductInsecure = cache(async (id: number) => {
-  const product = await sql<Product[]>`
-    SELECT
-      *
-    FROM
-      products
-    WHERE
-      id = ${id}
-  `;
-  return product[0];
-});
-
+// Returns the product from the database which matches the slug
 export const getProductBySlugInsecure = cache(async (slug: string) => {
   const product = await sql<Product[]>`
     SELECT
@@ -46,6 +36,9 @@ export const getProductBySlugInsecure = cache(async (slug: string) => {
   return product[0];
 });
 
+/* Updates the product in the database (where the id matches) with the values from the parameters. Although the function name contains "Insecure" it is a secure function
+because the query only gets executed when the user is logged in and has
+the role "admin". It is named this way because otherwise ESLint shows an error. */
 export const updateProductInsecure = cache(
   async (
     productId: number,
@@ -55,6 +48,8 @@ export const updateProductInsecure = cache(
     price: number,
     description: string,
   ) => {
+    /* The values from "description" gets processed by sanitizeHTML
+    to prevent XSS. */
     const safeDescription = sanitizeHtml(description, {
       allowedTags: [
         'b',
@@ -90,6 +85,10 @@ export const updateProductInsecure = cache(
   },
 );
 
+/* Creates a product in the database with the values from the parameters.
+Although the function name contains "Insecure" it is a secure function
+because the query only gets executed when the user is logged in and has
+the role "admin". It is named this way because otherwise ESLint shows an error. */
 export const createProductInsecure = cache(
   async (
     name: string,
@@ -98,6 +97,8 @@ export const createProductInsecure = cache(
     price: number,
     description: string,
   ) => {
+    /* The values from "description" gets processed by sanitizeHTML
+    to prevent XSS. */
     if (await checkAdmin()) {
       const safeDescription = sanitizeHtml(description, {
         allowedTags: [
@@ -140,6 +141,10 @@ export const createProductInsecure = cache(
   },
 );
 
+/* Deletes the product in the database where the id matches the parameter.
+Although the function name contains "Insecure" it is a secure function
+because the query only gets executed when the user is logged in and has
+the role "admin". It is named this way because otherwise ESLint shows an error. */
 export const deleteProductInsecure = cache(async (id: number) => {
   if (await checkAdmin()) {
     const product = await sql<Product[]>`
@@ -153,6 +158,8 @@ export const deleteProductInsecure = cache(async (id: number) => {
   }
 });
 
+/* Returns a product from the database where the name contains
+the text from the parameter. */
 export const findProductsInsecure = cache(async (text: string) => {
   const products = await sql<Product[]>`
     SELECT

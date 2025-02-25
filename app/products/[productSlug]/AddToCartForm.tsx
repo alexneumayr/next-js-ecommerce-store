@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import CartIconButton from '../../../components/CartButtonIcon';
-import { createOrUpdateCookie } from '../../../util/cookies';
+import { createOrUpdateCartCookie } from '../../../util/cookies';
 
 type Props = {
   id: number;
@@ -28,7 +28,7 @@ export default function AddToCartForm(props: Props) {
   the inputted amount to the cart cookie if it is not in the cart yet.
   Otherwise it updates the amount stored in the cookie. */
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
-    await createOrUpdateCookie(props.id, values.amount);
+    await createOrUpdateCartCookie(props.id, values.amount);
   }
   return (
     <>

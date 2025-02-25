@@ -30,7 +30,13 @@ test('correctly add a product to the cart array or update its quantity', () => {
 
 test('throws an error when a product with amount = 0 would be added the cart', () => {
   expect(() => addOrUpdateCart([], 10, 0)).toThrow(
-    "A product with amount = 0 can't be added to the cart",
+    "A product with amount < 1 can't be added to the cart",
+  );
+});
+
+test('throws an error when a product with amount = -1 would be added the cart', () => {
+  expect(() => addOrUpdateCart([], 10, -1)).toThrow(
+    "A product with amount < 1 can't be added to the cart",
   );
 });
 
