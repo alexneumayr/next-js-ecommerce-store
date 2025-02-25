@@ -41,7 +41,6 @@ export const getProductBySlugInsecure = cache(async (slug: string) => {
     WHERE
       slug = ${slug}
   `;
-  console.log(product);
 
   return product[0];
 });
@@ -109,7 +108,6 @@ export const createProductInsecure = cache(
 );
 
 export const deleteProductInsecure = cache(async (id: number) => {
-  console.log('Deletion ID', id);
   if (await checkAdmin()) {
     const product = await sql<Product[]>`
       DELETE FROM products
@@ -123,8 +121,6 @@ export const deleteProductInsecure = cache(async (id: number) => {
 });
 
 export const findProductsInsecure = cache(async (text: string) => {
-  console.log('Search text', text);
-
   const products = await sql<Product[]>`
     SELECT
       *

@@ -1,14 +1,16 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function LogoutMain() {
+  const [logoutFailure, setLogoutFailure] = useState('');
+
   useEffect(() => {
     setTimeout(() => {
       signOut({ callbackUrl: '/' })
-        .then(() => console.log('Sign Out Successful'))
-        .catch(() => console.log('Sign out failed'));
+        .then()
+        .catch((error) => setLogoutFailure(error));
     }, 500);
   }, []);
 
@@ -18,6 +20,11 @@ export default function LogoutMain() {
       <p className=" text-black text-[25px] font-normal text-center">
         You will be redirected to the main page shortly...
       </p>
+      {logoutFailure && (
+        <p className="text-red-500 text-[25px] font-bold text-center">
+          Error: Logout failed
+        </p>
+      )}
     </div>
   );
 }

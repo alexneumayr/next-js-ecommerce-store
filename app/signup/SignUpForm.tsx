@@ -36,14 +36,13 @@ export default function SignUpForm() {
   const router = useRouter();
 
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch('/api/auth/signup', {
+    await fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify({
         username: values.username,
         password: values.password,
       }),
     });
-    console.log('Sign up response', response);
     router.push('/login');
   }
 

@@ -33,25 +33,16 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials): Promise<any> => {
-        console.log('Credentials', credentials);
         if (!credentials) return null;
         if (credentials.username) {
           const response = await getUserInsecure(credentials.username);
-          console.log('Login Response', response);
           const user = response[0];
           if (user) {
             const passwordCorrect = await compare(
               credentials.password || '',
               user.password,
             );
-            console.log('Password Correct', passwordCorrect);
             if (passwordCorrect) {
-              console.log(
-                'Login Successful!',
-                user.id,
-                user.username,
-                user.role,
-              );
               return {
                 id: user.id,
                 username: user.username,

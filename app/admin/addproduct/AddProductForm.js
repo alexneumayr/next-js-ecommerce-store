@@ -47,12 +47,8 @@ export default function AddProductForm() {
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
       router.push('/admin/products');
     } else {
-      const data = await response.json();
-      console.log(data);
       setErrorMessage(
         "Adding product failed. Please make sure all fields are filled in correctly (and don't forget to chose an image).",
       );
@@ -77,8 +73,7 @@ export default function AddProductForm() {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.log(errorData.error);
+      setErrorMessage('Image upload failed');
       return;
     }
 

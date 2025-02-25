@@ -55,7 +55,6 @@ export async function POST(
       return NextResponse.json({ error: 'Image upload failed' });
     }
 
-    console.log('Image url', response.secure_url);
     return NextResponse.json({ imageUrl: response.secure_url });
   } catch (error) {
     return NextResponse.json({

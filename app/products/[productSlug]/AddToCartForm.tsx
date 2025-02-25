@@ -23,7 +23,6 @@ export default function AddToCartForm(props: Props) {
   } = useForm({ resolver: zodResolver(formSchema) });
 
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     await createOrUpdateCookie(props.id, values.amount);
   }
   return (

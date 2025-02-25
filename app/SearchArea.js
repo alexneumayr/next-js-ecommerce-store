@@ -10,7 +10,6 @@ export default function SearchArea() {
 
   useEffect(() => {
     if (pathname !== '/search') {
-      console.log('Path', pathname);
       setSearchText('');
     }
   }, [pathname]);

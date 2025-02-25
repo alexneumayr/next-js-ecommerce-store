@@ -48,12 +48,8 @@ export default function EditProductForm(props) {
       }),
     });
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
       setSuccessMessage('Changes successfully saved.');
     } else {
-      const data = await response.json();
-      console.log(data);
       setErrorMessage(
         'Changing product data failed. Please make sure all fields are filled in correctly.',
       );
@@ -79,13 +75,9 @@ export default function EditProductForm(props) {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
         router.push('/admin/products');
       } else {
-        const data = await response.json();
         setErrorMessage('Deleting product data failed.');
-        console.log(data);
       }
     }
   }
@@ -100,8 +92,7 @@ export default function EditProductForm(props) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.log(errorData.error);
+      setErrorMessage('Image upload failed');
       return;
     }
 
