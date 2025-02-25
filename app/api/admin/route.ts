@@ -11,6 +11,7 @@ type ResponseBodyProduct =
   | { product: Product }
   | { error: string; errorIssues?: { message: string }[] };
 
+/* Defines the schema of the PUT request for the validation with zod */
 const requestSchemaPut = z.object({
   id: z.number().int().positive(),
   name: z.string().min(1),
@@ -20,6 +21,7 @@ const requestSchemaPut = z.object({
   description: z.string().min(1),
 });
 
+/* Handles the PUT request: It validates the request first, then updates the product data and returns the updated product on success. */
 export async function PUT(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
@@ -57,6 +59,7 @@ export async function PUT(
   }
 }
 
+/* Defines the schema of the POST request for the validation with zod */
 const requestSchemaPost = z.object({
   name: z.string().min(1),
   slug: z.string().min(1),

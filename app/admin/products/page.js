@@ -7,11 +7,13 @@ export const metadata = {
 };
 
 export default async function AdminProductPage() {
+  /* Fetches all products and stores it in a variable */
   const products = await getProductsInsecure();
   return (
     <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Select a product to edit</h1>
       <div className="flex flex-wrap gap-5 justify-around my-4  overflow-hidden">
+        {/* Goes through the array with the products and displays a container with the product image, name, price and an edit button for each product. */}
         {products.map((product) => {
           return (
             <div

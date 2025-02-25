@@ -14,7 +14,7 @@ export default function AddProductForm() {
   const [fileName, setFileName] = useState('');
   const router = useRouter();
 
-  /* Form submit handler which sends the inputted values to the API. */
+  /* Form submit handler which sends the inputted values to the API and redirects to the product overview of the admin area on success. */
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch('/api/admin', {
@@ -40,6 +40,7 @@ export default function AddProductForm() {
     }
   }
 
+  /* Clears all input field when the "Reset" button is clicked */
   function handleClearButtonClick() {
     setName('');
     setImage('');
@@ -48,6 +49,7 @@ export default function AddProductForm() {
     setDescription('');
   }
 
+  /* Sends the selected image to the API when the "Upload" is clicked and stores the returned image URL to the "setImage" state. */
   async function handleUpload(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -78,6 +80,7 @@ export default function AddProductForm() {
 
   return (
     <div className="flex gap-4 mt-8 min-h-[400px]">
+      {/* Left area with the image upload */}
       <div className="flex-1">
         <div>
           <div className="w-[300px] h-[300px] flex items-center rounded-[5px] border-8 border-[#434343] justify-center mx-auto">
@@ -132,6 +135,7 @@ export default function AddProductForm() {
           </div>
         </div>
       </div>
+      {/* Right area with the input fields for name, slug, price and description */}
       <div className="flex-1">
         <form onSubmit={handleFormSubmit}>
           <div>

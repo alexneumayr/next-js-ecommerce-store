@@ -19,6 +19,7 @@ export async function generateMetadata(props: Props) {
   };
 }
 
+/* Fetches the product with the slug from the params from the database and stores it in "singleProduct". If the product data can't be fetched it shows the "Not Found" page. */
 export default async function SingleProduct(props: Props) {
   const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
@@ -40,6 +41,7 @@ export default async function SingleProduct(props: Props) {
   return (
     <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Edit Product Details</h1>
+      {/* Loads the main component of the page */}
       <EditProductForm product={product} />
     </div>
   );

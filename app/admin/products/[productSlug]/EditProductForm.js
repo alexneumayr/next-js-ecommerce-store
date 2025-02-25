@@ -15,6 +15,7 @@ export default function EditProductForm(props) {
   const [successMessage, setSuccessMessage] = useState('');
   const [fileName, setFileName] = useState('');
 
+  /* Form submit handler which sends the inputted values to the API and redirects to the product overview of the admin area on success. */
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch('/api/admin', {
@@ -40,6 +41,7 @@ export default function EditProductForm(props) {
     }
   }
 
+  /* Resets all fields to the values which are stored in the database when the "Discard changes" button is clicked. */
   function handleDiscardChangesButtonClick() {
     setName(product.name);
     setImage(product.image);
@@ -48,6 +50,7 @@ export default function EditProductForm(props) {
     setDescription(product.description);
   }
 
+  /* Sends a delete request to the API and redirects to the products overview of the admin area on success */
   async function handleDeleteButtonClick() {
     if (window.confirm('Are you sure you want to delete this product?')) {
       const response = await fetch('/api/admin', {
@@ -66,6 +69,7 @@ export default function EditProductForm(props) {
     }
   }
 
+  /* Sends the selected image to the API when the "Upload" is clicked and stores the returned image URL to the "setImage" state. */
   async function handleUpload(event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -96,6 +100,7 @@ export default function EditProductForm(props) {
 
   return (
     <div className="flex gap-4 mt-8">
+      {/* Left area with the image upload */}
       <div className="flex-1">
         {image && (
           <div>
@@ -150,6 +155,7 @@ export default function EditProductForm(props) {
           </div>
         )}
       </div>
+      {/* Right area with the input fields for name, slug, price and description */}
       <div className="flex-1">
         <form onSubmit={handleFormSubmit}>
           <div>
