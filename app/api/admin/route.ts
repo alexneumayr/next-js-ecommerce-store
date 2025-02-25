@@ -12,7 +12,7 @@ type ResponseBodyProduct =
   | { error: string; errorIssues?: { message: string }[] };
 
 /* Defines the schema of the PUT request for the validation with zod */
-const requestSchemaPut = z.object({
+const requestSchemaPUT = z.object({
   id: z.number().int().positive(),
   name: z.string().min(1),
   slug: z.string().min(1),
@@ -26,7 +26,7 @@ export async function PUT(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
-  const result = requestSchemaPut.safeParse(requestBody);
+  const result = requestSchemaPUT.safeParse(requestBody);
 
   if (!result.success) {
     return NextResponse.json(
@@ -60,7 +60,7 @@ export async function PUT(
 }
 
 /* Defines the schema of the POST request for the validation with zod */
-const requestSchemaPost = z.object({
+const requestSchemaPOST = z.object({
   name: z.string().min(1),
   slug: z.string().min(1),
   image: z.string().url(),
@@ -72,7 +72,7 @@ export async function POST(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
-  const result = requestSchemaPost.safeParse(requestBody);
+  const result = requestSchemaPOST.safeParse(requestBody);
 
   if (!result.success) {
     return NextResponse.json(
@@ -105,7 +105,7 @@ export async function POST(
   }
 }
 
-const requestSchemaDelete = z.object({
+const requestSchemaDELETE = z.object({
   id: z.number().int().positive(),
 });
 
@@ -113,7 +113,7 @@ export async function DELETE(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
   const requestBody = await request.json();
-  const result = requestSchemaDelete.safeParse(requestBody);
+  const result = requestSchemaDELETE.safeParse(requestBody);
 
   if (!result.success) {
     return NextResponse.json(
