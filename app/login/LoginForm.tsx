@@ -46,7 +46,7 @@ export default function LoginForm() {
     <>
       {/* Show an error message if the login has failed */}
       {loginFailed && (
-        <p style={{ color: 'red' }}>
+        <p className="text-[15px] text-red-500 font-bold">
           Login failed. Please check username and password.
         </p>
       )}
