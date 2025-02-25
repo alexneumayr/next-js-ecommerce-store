@@ -15,6 +15,7 @@ export default function AddProductForm() {
   const [fileName, setFileName] = useState('');
   const router = useRouter();
 
+  /* Form submit handler which sends the inputted values to the API. */
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch('/api/admin', {
@@ -27,7 +28,6 @@ export default function AddProductForm() {
         slug: slug,
         image: image,
         price: price * 100,
-        description: sanitizeHtml(description, {
           allowedTags: [
             'b',
             'i',
