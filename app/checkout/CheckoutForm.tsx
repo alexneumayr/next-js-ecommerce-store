@@ -12,6 +12,7 @@ type Props = {
 export default function CheckoutForm(props: Props) {
   const router = useRouter();
 
+  // Creates the schema for the checkout form for the validation with zod
   const formSchema = z.object({
     firstName: z
       .string()
@@ -59,12 +60,14 @@ export default function CheckoutForm(props: Props) {
       }),
   });
 
+  // Defines the variables needed to intialise the form with React Hook Form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(formSchema) });
 
+  // Removes the cookie and redirects to "/thankyou" when the "Buy now" button is clicked
   async function handleFormSubmit() {
     await removeCookie();
     router.push('/thankyou');
@@ -76,6 +79,7 @@ export default function CheckoutForm(props: Props) {
       className="flex mx-10 my-5 justify-around gap-4"
     >
       <div className="flex-1 max-w-[500px] min-w-[300px]">
+        {/* Contains all input field on the left side */}
         <div className="flex gap-2">
           <div className="flex-1 flex flex-col">
             <p className="text-red-500 font-bold text-xs">
@@ -203,6 +207,7 @@ export default function CheckoutForm(props: Props) {
       </div>
       <br />
       <div className="flex-1 flex flex-col max-w-[500px]">
+        {/* Contains all input field on the right side */}
         <div>
           <p className="text-red-500 font-bold text-xs">
             {errors.creditcardName?.message}
@@ -274,12 +279,14 @@ export default function CheckoutForm(props: Props) {
           </div>
         </div>
         <div className="my-auto flex justify-between gap-2">
+          {/* Shows the "Buy now" button */}
           <button
             data-test-id="checkout-confirm-order"
             className="flex p-2 justify-center gap-2 items-center text-[19px] font-semibold rounded-[5px] w-[135px]  bg-primary  text-white cursor-pointer hover:bg-[#00b755d6]"
           >
             Buy now
           </button>
+          {/* Shows the total price of all products */}
           <p className="text-[27px] font-semibold min-w-[200px]">
             € {(props.total / 100).toFixed(2)}
           </p>

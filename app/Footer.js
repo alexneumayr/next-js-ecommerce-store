@@ -4,6 +4,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="p-3 h-[136px] bg-[#404040] flex items-start">
+        {/* Shows the upper footer */}
         <div className=" min-w-[250px]">
           <h2 className="text-[21px] text-white font-bold ">
             Costumer Service
@@ -27,6 +28,7 @@ export default function Footer() {
         <img src="logo-white.png" className="ml-auto w-[200px]" alt="Logo" />
       </div>
       <div className="px-3 h-[41px] bg-[#1C1C1C] bottom-0 flex items-center gap-5">
+        {/* Shows the lower footer */}
         <Link className="text-white text-[10px] font-medium" href="/">
           Contact
         </Link>

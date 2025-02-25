@@ -4,16 +4,24 @@ import { useEffect, useState } from 'react';
 import SearchIcon from '../components/SearchIcon';
 
 export default function SearchArea() {
-  const pathname = usePathname();
+  const pathname = usePathname(); // Stores the current path
   const [searchText, setSearchText] = useState('');
   const router = useRouter();
 
+  /* The following is needed so that the search text stays in the input field when
+  the user goes to the Search Results but then gets cleared when the user visits
+  another page. Otherwise the search text would stay in the input field until
+  it gets manually deleted by the user. */
   useEffect(() => {
+    /* Whenever the path changes it checks if the current path is different to "/search"
+    and clears the search field if that's the case */
     if (pathname !== '/search') {
       setSearchText('');
     }
   }, [pathname]);
 
+  /* Form submit handler that redirects to the "/search" page and passes the inputted
+  search text as the URL parameter "text" when the search button is clicked. */
   function handleFormSubmit(event) {
     event.preventDefault();
     const params = new URLSearchParams();

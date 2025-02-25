@@ -11,11 +11,13 @@ export default function LoginForm() {
   const router = useRouter();
   const [loginFailed, setLoginFailed] = useState(false);
 
+  // Defines the schema for the validation with zod
   const formSchema = z.object({
     username: z.string().min(1, { message: 'Please input a username' }),
     password: z.string().min(1, { message: 'Please input a password' }),
   });
 
+  // Defines the variables needed to intialise the form with React Hook Form
   const {
     register,
     handleSubmit,
@@ -24,6 +26,8 @@ export default function LoginForm() {
     resolver: zodResolver(formSchema),
   });
 
+  /* When the "Login" button is clicked it calls the signIn function
+  and redirects to the homepage on success */
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
     const response = await signIn('credentials', {
       username: values.username,
@@ -40,11 +44,13 @@ export default function LoginForm() {
 
   return (
     <>
+      {/* Show an error message if the login has failed */}
       {loginFailed && (
         <p style={{ color: 'red' }}>
           Login failed. Please check username and password.
         </p>
       )}
+      {/* Shows a form with input fields for username and password and a "Login" button */}
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div>
           <p className="text-red-500 font-bold text-xs">
@@ -80,6 +86,7 @@ export default function LoginForm() {
           Login
         </button>
         <hr className="my-4" />
+        {/* Shows the user what to do if he doesn't have an account. */}
         <p>
           Don't have an account?&nbsp;
           <Link

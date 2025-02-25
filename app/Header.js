@@ -8,25 +8,35 @@ import { parseJson } from '../util/json';
 import SearchArea from './SearchArea';
 
 export default async function Header() {
+  // Gets cart cookie content
   const cartCookie = await getCookie('cart');
+  // Returns the parsed cookie or an empty array if cookie doesn't exist
   const cart = parseJson(cartCookie) || [];
+  // Sums the quantities of all products in the cookie
   const cartSize = cart.reduce(
-    (prevValue, currentValue) => +prevValue + +currentValue.amount,
+    (prevValue, currentValue) =>
+      Number(prevValue) + Number(currentValue.amount),
     0,
   );
+  // Gets the session
   const session = await getServerSession(authOptions);
 
   return (
     <header>
+      {/* Show a green line at the top */}
       <div className="bg-primary h-3 " />
       <div className="px-5 flex gap-2 h-[110px] items-center  bg-white shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
+        {/* Shows the logo */}
         <Link href="/" className="">
           <img className="w-[200px]" src="logo-main.png" alt="Site logo" />
         </Link>
+        {/* Displays the search area */}
         <SearchArea />
+        {/* Shows the navigation menu with the links */}
         <nav className="flex-auto">
           <ul className="flex gap-2">
             <li className="w-full flex justify-around gap-2">
+              {/* Shows a link to the admin area if the user's role is "admin" */}
               {session?.user.role === 'admin' && (
                 <Link
                   className="text-black hover:text-primary text-[21px] font-bold"
@@ -56,6 +66,7 @@ export default async function Header() {
               )}
             </li>
             <li className="flex-none group">
+              {/* Shows the cart icon with the amount of items in the cookie */}
               <Link className="flex " href="/cart" data-test-id="cart-link">
                 <CartIcon className="stroke-black group-hover:stroke-primary" />
 

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 export default function SignUpForm() {
+  // Defines the schema for the validation with zod
   const formSchema = z
     .object({
       username: z.string().min(1, { message: 'Please input a username' }),
@@ -25,6 +26,7 @@ export default function SignUpForm() {
       path: ['confirmPassword'],
     });
 
+  // Defines the variables needed to intialise the form with React Hook Form
   const {
     register,
     handleSubmit,
@@ -35,6 +37,8 @@ export default function SignUpForm() {
 
   const router = useRouter();
 
+  /* When the "Sign up" button is clicked it calls the API function to create a new account
+  and redirects to the Login page on success. */
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
     await fetch('/api/auth/signup', {
       method: 'POST',
@@ -48,6 +52,8 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
+      {/* Shows a form with input fields for username, password and
+      password confirmation and a "Sign up" button */}
       <div>
         <p className="text-red-500 font-bold text-xs">
           {errors.username?.message}
@@ -96,6 +102,7 @@ export default function SignUpForm() {
         Sign up
       </button>
       <hr className="my-4" />
+      {/* Shows the user what to do if he already has an account. */}
       <p>
         Already have an account?&nbsp;
         <Link className="text-primary underline hover:text-black" href="/login">

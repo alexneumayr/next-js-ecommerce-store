@@ -20,11 +20,17 @@ type BasicCart = {
 };
 
 export default async function CartPage() {
+  // Gets cart cookie content
   const cartCookie = await getCookie('cart');
+  // Returns the parsed cookie or an empty array if cookie doesn't exist
   const basicCart: BasicCart[] = parseJson(cartCookie) || [];
+  // Fetches all products from the database
   const allProducts = await getProductsInsecure();
+  /* Extends the cart content which only contains the ID and the amount of the products
+  with the product details from the fetched products */
   const cartProducts = extendCartProductDetails(basicCart, allProducts);
 
+  /* Calculates the sum of all cart products */
   const total = calculateTotal(cartProducts);
 
   return (
@@ -33,6 +39,7 @@ export default async function CartPage() {
       {basicCart.length > 0 ? (
         <div className="flex flex-col mb-10">
           <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
+            {/* If there are products in the cart it shows a container with the images, names and prices of the products and also elements to see and change the quantity */}
             {cartProducts.map((product) => {
               return (
                 <div
@@ -81,6 +88,7 @@ export default async function CartPage() {
               );
             })}
           </div>
+          {/* Shows the total price of all products and a "Proceed to Checkout" button under the products container */}
           <div className="flex justify-between mb-4">
             <p className="text-[27px] font-semibold">Total:</p>
             <p className="text-[27px] font-semibold">
@@ -92,6 +100,7 @@ export default async function CartPage() {
         </div>
       ) : (
         <p className="mb-[400px] text-[21px] font-normal">
+          {/* Shows a text if the cart is empty */}
           Nothing in here yet...
         </p>
       )}

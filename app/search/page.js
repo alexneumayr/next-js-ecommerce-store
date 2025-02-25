@@ -9,8 +9,10 @@ export const metadata = {
 };
 
 export default async function SearchPage(props) {
+  // Gets the search text from the URL parameter "text"
   const searchText = (await props.searchParams).text;
-
+  /* Fetches all products where the product name contains
+  the search text and stores it in a variable */
   const products = await findProductsInsecure(searchText);
   return (
     <div className="mx-[80px]">
@@ -19,6 +21,7 @@ export default async function SearchPage(props) {
       </h1>
       <h2 className="text-3xl font-bold">{products.length} Products</h2>
       <div className="flex flex-wrap gap-5 justify-around my-4  overflow-hidden">
+        {/* Goes through the array with the products and displays a container with the product image, name, price and an "Add to Cart" button for each product. */}
         {products.map((product) => {
           return (
             <div

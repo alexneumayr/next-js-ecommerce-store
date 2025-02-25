@@ -9,6 +9,7 @@ type Props = {
   id: number;
 };
 
+// Defines the schema for the validation with zod
 const formSchema = z.object({
   amount: z.coerce
     .number({ message: 'Please input a valid amount' })
@@ -16,12 +17,16 @@ const formSchema = z.object({
 });
 
 export default function AddToCartForm(props: Props) {
+  // Defines the variables needed to intialise the form with React Hook Form
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(formSchema) });
 
+  /* Gets triggered when the "Add to cart" button is clicked. It adds the product with
+  the inputted amount to the cart cookie if it is not in the cart yet.
+  Otherwise it updates the amount stored in the cookie. */
   async function handleFormSubmit(values: z.infer<typeof formSchema>) {
     await createOrUpdateCookie(props.id, values.amount);
   }
@@ -31,6 +36,7 @@ export default function AddToCartForm(props: Props) {
         onSubmit={handleSubmit(handleFormSubmit)}
         className="flex gap-2 justify-start"
       >
+        {/* Shows the input field for the quantity and the "Add to cart" button */}
         <input
           id="inputamount"
           data-test-id="product-quantity"
@@ -45,6 +51,7 @@ export default function AddToCartForm(props: Props) {
           <CartIconButton className="" /> Add to Cart
         </button>
       </form>
+      {/* Shows an error message if updating the quantity has failed. */}
       <p className="text-red-500 font-bold mt-1">{errors.amount?.message}</p>
     </>
   );

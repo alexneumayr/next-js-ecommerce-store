@@ -21,7 +21,7 @@ const requestSchemaPUT = z.object({
   description: z.string().min(1),
 });
 
-/* Handles the PUT request: It validates the request first, then updates the product data and returns the updated product on success. */
+/* Handles the PUT request: It validates the request first, then updates the product data in the database and returns the updated product on success. */
 export async function PUT(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
@@ -68,6 +68,7 @@ const requestSchemaPOST = z.object({
   description: z.string().min(1),
 });
 
+/* Handles the POST request: It validates the request first, then creates the product entry in the database and returns the created product on success. */
 export async function POST(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
@@ -105,10 +106,12 @@ export async function POST(
   }
 }
 
+/* Defines the schema of the DELETE request for the validation with zod */
 const requestSchemaDELETE = z.object({
   id: z.number().int().positive(),
 });
 
+/* Handles the DELETE request: It validates the request first, then deletes the product entry in the database and returns the deleted product on success. */
 export async function DELETE(
   request: Request,
 ): Promise<NextResponse<ResponseBodyProduct>> {
@@ -128,9 +131,9 @@ export async function DELETE(
   }
 
   const { id } = result.data;
-  const createdProduct = await deleteProductInsecure(id);
-  if (createdProduct) {
-    return NextResponse.json({ product: createdProduct });
+  const deletedProduct = await deleteProductInsecure(id);
+  if (deletedProduct) {
+    return NextResponse.json({ product: deletedProduct });
   } else {
     return NextResponse.json(
       { error: 'Deleting product failed' },

@@ -6,6 +6,7 @@ import AddToCartButton from '../components/QuickAddToCartButton';
 
 Carousel = Carousel.default ? Carousel.default : Carousel;
 
+// Defines how many items are being shown at once at different viewport widths
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -26,6 +27,12 @@ const responsive = {
 };
 
 export default function CarouselArea({ products }) {
+  /* Copies the products array and sets the (maximum) amount of the shown products to 8 */
+  const shownProducts = [...products];
+  shownProducts.length = 8;
+
+  /* Returns a carousel that shows the image, name, price and a "Add to Cart" button
+  for every product contained in "shownProducts" */
   return (
     <Carousel
       swipeable={false}
@@ -43,7 +50,7 @@ export default function CarouselArea({ products }) {
       renderDotsOutside
       className="mx-auto max-w-[1300px]"
     >
-      {products.map((product) => {
+      {shownProducts.map((product) => {
         return (
           <div
             key={`product-${product.slug}`}

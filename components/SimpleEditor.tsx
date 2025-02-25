@@ -7,7 +7,6 @@ import {
   BtnRedo,
   BtnUnderline,
   BtnUndo,
-  type ContentEditableEvent,
   Editor,
   EditorProvider,
   Separator,
@@ -20,14 +19,14 @@ type Props = {
 };
 
 export default function SimpleEditor(props: Props) {
-  function onChange(e: ContentEditableEvent) {
-    props.stateSetter(e.target.value);
-  }
-
+  // Returns a WYSIWYG editor which uses the state and state setter from the props
   return (
     <div className="editor">
       <EditorProvider>
-        <Editor value={props.state} onChange={onChange}>
+        <Editor
+          value={props.state}
+          onChange={(event) => props.stateSetter(event.target.value)}
+        >
           <Toolbar>
             <BtnUndo />
             <BtnRedo />

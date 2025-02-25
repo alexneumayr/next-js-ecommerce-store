@@ -7,6 +7,8 @@ export const metadata = {
 };
 
 export default function ThankYouPage() {
+  /* Returns a text that thanks the user for the purchase and informs
+  about the things that will happen next. */
   return (
     <div className="mx-[80px]">
       <h1 className="mt-10 text-6xl font-extrabold text-center">

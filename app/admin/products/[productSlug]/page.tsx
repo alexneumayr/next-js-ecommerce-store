@@ -19,7 +19,7 @@ export async function generateMetadata(props: Props) {
   };
 }
 
-/* Fetches the product with the slug from the params from the database and stores it in "singleProduct". If the product data can't be fetched it shows the "Not Found" page. */
+/* Fetches the product with the slug (which is contained in the Dynamic Segment of the URL) from the database and stores it in "singleProduct". If the product data can't be fetched it shows the "Not Found" page. */
 export default async function SingleProduct(props: Props) {
   const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,

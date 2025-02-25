@@ -19,6 +19,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+/* Handles the POST requests for the image upload. It checks the file size, sends the image to Cloudinary and returns the image URL on success. */
 export async function POST(
   request: NextRequest,
 ): Promise<NextResponse<ImageUploadResponsePost>> {

@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 export default function CheckoutButton({ className }) {
   const router = useRouter();
+  /* Returns the "Proceed to Checkout" button which redirects to "/checkout" when it is clicked. */
   return (
     <button
       data-test-id="cart-checkout"

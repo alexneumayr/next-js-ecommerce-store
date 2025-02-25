@@ -17,10 +17,12 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function SingleProduct(props: Props) {
+  // Fetches the product data from the database
   const singleProduct = await getProductBySlugInsecure(
     (await props.params).productSlug,
   );
 
+  // Redirects to the "Not Found" page if the product data couldn't be fetched
   if (!singleProduct) {
     notFound();
   }
@@ -29,6 +31,7 @@ export default async function SingleProduct(props: Props) {
     <div className="mx-[80px] mt-3">
       <div className="flex gap-5 justify-around items-start my-8">
         <div className="flex-1 max-w-[480px] min-w-[150px] p-5 self-center">
+          {/* Shows the product image on the left side */}
           <img
             data-test-id="product-image"
             src={singleProduct.image}
@@ -38,6 +41,8 @@ export default async function SingleProduct(props: Props) {
         </div>
         <div className="bg-zinc-500 w-[1px] self-stretch will-change-transform" />
         <div className="flex-1 p-5 ">
+          {/* Shows the product name, price, quantity input and "Add to Cart" button
+          on the right side */}
           <h1 className="text-[clamp(15px,3vw,45px)] font-bold">
             {singleProduct.name}
           </h1>
@@ -53,6 +58,7 @@ export default async function SingleProduct(props: Props) {
         </div>
       </div>
       <h2 className="h-11 text-black text-4xl font-bold">Product Details</h2>
+      {/* Shows the product details */}
       <div
         className="text-xl my-6 max-w-[1000px]"
         dangerouslySetInnerHTML={{ __html: singleProduct.description }}

@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 
 export default function LogoutButton({ className }) {
   const router = useRouter();
-
+  // Returns a "Logout" button which redirects to "/logout"
   return (
     <button
       className={

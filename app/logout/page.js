@@ -8,5 +8,6 @@ export const metadata = {
 };
 
 export default function LogoutPage() {
+  // Returns the main component of the page
   return <LogoutMain />;
 }
