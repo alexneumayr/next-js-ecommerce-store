@@ -50,6 +50,7 @@ export default function LoginForm() {
           Login failed. Please check username and password.
         </p>
       )}
+
       {/* Shows a form with input fields for username and password and a "Login" button */}
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div>
