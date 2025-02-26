@@ -25,7 +25,7 @@ export async function createUserInsecure(
   password: string,
   role: string,
 ) {
-  const user = await sql<User[]>`
+  const user = await sql<Omit<User, 'password'>[]>`
     INSERT INTO
       users (username, password, role)
     VALUES
@@ -35,7 +35,9 @@ export async function createUserInsecure(
         ${role}
       )
     RETURNING
-      users.*
+      users.id,
+      users.username,
+      users.role
   `;
   return user[0];
 }

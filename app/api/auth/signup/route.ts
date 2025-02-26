@@ -2,7 +2,13 @@ import { hash } from 'bcrypt';
 import { NextResponse } from 'next/server';
 import { createUserInsecure } from '../../../../database/user';
 
-type ResponseBodySignup = { message: string } | { error: string };
+type User = {
+  id: number;
+  username: string;
+  role: string;
+};
+
+type ResponseBodySignup = { user: User } | { error: string };
 
 /* Handles the POST request: Hashes the password and then creates the user with the specified credentials in the database. */
 export async function POST(
@@ -19,8 +25,10 @@ export async function POST(
     'user',
   );
   if (createdUser) {
-    return NextResponse.json({ message: 'success' });
+    return NextResponse.json({
+      user: createdUser,
+    });
   } else {
-    return NextResponse.json({ error: 'Login failed' }, { status: 500 });
+    return NextResponse.json({ error: 'Signup failed' }, { status: 500 });
   }
 }
