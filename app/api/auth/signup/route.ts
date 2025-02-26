@@ -10,7 +10,7 @@ export async function POST(
 ): Promise<NextResponse<ResponseBodySignup>> {
   const { username, password } = await request.json();
 
-  const hashedPassword = await hash(password, 10);
+  const hashedPassword = await hash(password, 12);
 
   /* Creates the user in the database. For security reasons at the moment every user created with this function has the role "user". */
   const createdUser = await createUserInsecure(
