@@ -23,7 +23,6 @@ export default function AmountField(props) {
       >
         +
       </button>
-      {/* Input field that allows the user to enter a custom value for the amount. */}
       <p
         data-test-id={`cart-product-quantity-${props.slug}`}
         className="border max-w-[500px] border-r-0 border-l-0
