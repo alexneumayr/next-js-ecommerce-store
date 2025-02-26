@@ -13,9 +13,9 @@ export default function QuickAddToCartButton({ id }) {
       onClick={async () => {
         const cartCookie = await getCookie('cart');
         const basicCart = parseJson(cartCookie) || [];
-        const currentProduct = basicCart.find((cartItem) => cartItem.id === id);
-        if (currentProduct) {
-          await createOrUpdateCartCookie(id, currentProduct.amount + 1);
+        const currentProductInCart = basicCart.find((cartItem) => cartItem.id === id);
+        if (currentProductInCart) {
+          await createOrUpdateCartCookie(id, currentProductInCart.amount + 1);
         } else {
           await createOrUpdateCartCookie(id, 1);
         }
