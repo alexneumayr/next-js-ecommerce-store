@@ -4,13 +4,13 @@ const users = [
   {
     id: 1,
     username: 'alex',
-    password: '$2b$10$rDMMNZjqxD8LmQfm/uPxzuuFFn8nttIH.5pwdgwq6cg7GB29anmxi',
+    password: '$2b$12$qois5ru/l8lp6IuC/mWC8umrUGF123QcMIQqId1TWmX0REGRSomfC',
     role: 'user',
   },
   {
     id: 2,
     username: 'admin',
-    password: '$2b$10$a.RmIfUfl8QPS1titQUcIu0N.vSDIgBT6f408ku0kBLP6LE5reBE.',
+    password: '$2b$12$pwVhpyuc5pMOrMFV4si45uA.0ZdtJg5rCIZT7T13FjQ2Mlmy0YA7u',
     role: 'admin',
   },
 ];
