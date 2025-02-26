@@ -19,8 +19,7 @@ export default async function CheckoutPage() {
   const basicCart = parseJson(cartCookie) || [];
   // Fetches all products from the database
   const allProducts = await getProductsInsecure();
-  /* Extends the cart content which only contains the ID and the amount of the products
-  with the product details from the fetched products */
+  /* Extends the cart content which only contains the ID and the amount of the products with the product details from the fetched products */
   const cartProducts = extendCartProductDetails(basicCart, allProducts);
 
   /* Calculates the sum of all cart products */

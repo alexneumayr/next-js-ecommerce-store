@@ -41,8 +41,7 @@ export default async function SingleProduct(props: Props) {
         </div>
         <div className="bg-zinc-500 w-[1px] self-stretch will-change-transform" />
         <div className="flex-1 p-5 ">
-          {/* Shows the product name, price, quantity input and "Add to Cart" button
-          on the right side */}
+          {/* Shows the product name, price, quantity input and "Add to Cart" button on the right side */}
           <h1 className="text-[clamp(15px,3vw,45px)] font-bold">
             {singleProduct.name}
           </h1>

@@ -26,13 +26,14 @@ export default async function Header() {
       {/* Show a green line at the top */}
       <div className="bg-primary h-3 " />
       <div className="px-5 flex gap-2 h-[110px] items-center  bg-white dark:bg-[#1C1C1C] shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
-        {/* Shows the logo */}
         <Link href="/" className="">
+          {/* Shows the logo in light mode */}
           <img
             className="w-[200px] dark:hidden"
             src="logo-main.png"
             alt="Site logo"
           />
+          {/* Shows the logo in dark mode */}
           <img
             className="w-[200px] hidden dark:block"
             src="logo-white.png"

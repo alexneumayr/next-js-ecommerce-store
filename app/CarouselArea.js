@@ -31,8 +31,7 @@ export default function CarouselArea({ products }) {
   const shownProducts = [...products];
   shownProducts.length = 8;
 
-  /* Returns a carousel that shows the image, name, price and a "Add to Cart" button
-  for every product contained in "shownProducts" */
+  /* Returns a carousel that shows the image, name, price and a "Add to Cart" button for every product contained in "shownProducts" */
   return (
     <Carousel
       swipeable={false}

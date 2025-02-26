@@ -4,8 +4,7 @@ import { createUserInsecure } from '../../../../database/user';
 
 type ResponseBodySignup = { message: string } | { error: string };
 
-/* Handles the POST request: Hashes the password and then creates the user with
-the specified credentials in the database. */
+/* Handles the POST request: Hashes the password and then creates the user with the specified credentials in the database. */
 export async function POST(
   request: Request,
 ): Promise<NextResponse<ResponseBodySignup>> {
@@ -13,8 +12,7 @@ export async function POST(
 
   const hashedPassword = await hash(password, 10);
 
-  /* Creates the user in the database. For security reasons at the moment every user
-  created with this function has the role "user". */
+  /* Creates the user in the database. For security reasons at the moment every user created with this function has the role "user". */
   const createdUser = await createUserInsecure(
     username,
     hashedPassword,

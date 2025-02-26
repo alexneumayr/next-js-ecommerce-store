@@ -16,30 +16,26 @@ type BasicCart = {
 export default function AddToCartForm(props: Props) {
   const [amount, setAmount] = useState<number | string>(1);
 
-  /* Gets triggered when the "Add to cart" button is clicked. It adds the product with the inputted amount to the cart cookie if it is not in the cart yet.
-  Otherwise it updates the amount stored in the cookie. */
+  /* Gets triggered when the "Add to cart" button is clicked. It adds the product with the inputted amount to the cart cookie if it is not in the cart yet. Otherwise it updates the amount stored in the cookie. */
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // Gets the content of the cart cookie
     const cartCookie = await getCookie('cart');
-    /* Parses the cookie and stores it in "basicCart". If the cookie doesn't
-    exist it stores an empty array instead. */
+    /* Parses the cookie and stores it in "basicCart". If the cookie doesn't exist it stores an empty array instead. */
     const basicCart: BasicCart[] = parseJson(cartCookie) || [];
     /* Tries to find a product which matches the ID of the current product
     in the cart to check if the current product is already in the cart. */
     const currentProductInCart = basicCart.find(
       (cartItem) => cartItem.id === props.id,
     );
-    /* If the current product is already in the cart the amount from the input field
-     gets added to the amount already in the cart */
+    /* If the current product is already in the cart the amount from the input field gets added to the amount already in the cart */
     if (currentProductInCart) {
       await createOrUpdateCartCookie(
         props.id,
         currentProductInCart.amount + Number(amount),
       );
     } else {
-      /* If the cart is not in the cart yet, it gets added to it with
-    the amount from the input field */
+      /* If the cart is not in the cart yet, it gets added to it with the amount from the input field */
       await createOrUpdateCartCookie(props.id, amount);
     }
   }

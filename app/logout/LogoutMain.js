@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 export default function LogoutMain() {
   const [logoutFailure, setLogoutFailure] = useState('');
 
-  /* Starts a timer on the first render which calls the signOut function after 500 ms
-  which signs the user out and redirects to the homepage. */
+  /* Starts a timer on the first render which calls the signOut function after 500 ms which signs the user out and redirects to the homepage. */
   useEffect(() => {
     setTimeout(() => {
       signOut({ callbackUrl: '/' })

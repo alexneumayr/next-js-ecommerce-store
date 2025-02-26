@@ -36,9 +36,7 @@ export const getProductBySlugInsecure = cache(async (slug: string) => {
   return product[0];
 });
 
-/* Updates the product in the database (where the id matches) with the values from the parameters. Although the function name contains "Insecure" it is a secure function
-because the query only gets executed when the user is logged in and has
-the role "admin". It is named this way because otherwise ESLint shows an error. */
+/* Updates the product in the database (where the id matches) with the values from the parameters. Although the function name contains "Insecure" it is a secure function because the query only gets executed when the user is logged in and has the role "admin". It is named this way because otherwise ESLint shows an error. */
 export const updateProductInsecure = cache(
   async (
     productId: number,
@@ -48,8 +46,7 @@ export const updateProductInsecure = cache(
     price: number,
     description: string,
   ) => {
-    /* The values from "description" gets processed by sanitizeHTML
-    to prevent XSS. */
+    /* The values from "description" gets processed by sanitizeHTML to prevent XSS. */
     const safeDescription = sanitizeHtml(description, {
       allowedTags: [
         'b',

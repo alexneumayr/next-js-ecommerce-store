@@ -17,8 +17,7 @@ export default async function HomePage() {
         />
       </div>
       <div>
-        {/* Displays a carousel that shows the image, name, price and a "Add to Cart" button
-         for the first 8 products fetched from the database. */}
+        {/* Displays a carousel that shows the image, name, price and a "Add to Cart" button for the first 8 products fetched from the database. */}
         <div className="pb-8 mb-3 relative mx-[15px]">
           <CarouselArea products={products} />
         </div>
