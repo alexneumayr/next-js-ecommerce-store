@@ -120,9 +120,9 @@ test("test adding a product to cart, changing it's quantity and removing it from
   itemsInCart = 1;
   await expect(page.getByTestId('cart-count')).toHaveText(String(itemsInCart));
 
-  await page.getByTestId('product-quantity').fill('2');
+  await page.getByTestId('product-quantity').fill('3');
   await page.getByTestId('product-add-to-cart').click();
-  itemsInCart = 2;
+  itemsInCart = 4;
   await expect(page.getByTestId('cart-count')).toHaveText(String(itemsInCart));
 
   await page.getByTestId('cart-link').click();
@@ -142,7 +142,7 @@ test("test adding a product to cart, changing it's quantity and removing it from
   ).toBeVisible();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('2');
+  ).toHaveText('4');
   await expect(
     page.getByTestId(`cart-product-remove-${singleChosenProduct.slug}`),
   ).toBeVisible();
@@ -162,24 +162,24 @@ test("test adding a product to cart, changing it's quantity and removing it from
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('3');
-  await expect(page.getByTestId('cart-count')).toHaveText('3');
+  ).toHaveText('5');
+  await expect(page.getByTestId('cart-count')).toHaveText('5');
 
   await page
     .getByTestId(`cart-product-quantity-increment-${singleChosenProduct.slug}`)
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('4');
-  await expect(page.getByTestId('cart-count')).toHaveText('4');
+  ).toHaveText('6');
+  await expect(page.getByTestId('cart-count')).toHaveText('6');
 
   await page
     .getByTestId(`cart-product-quantity-decrement-${singleChosenProduct.slug}`)
     .click();
   await expect(
     page.getByTestId(`cart-product-quantity-${singleChosenProduct.slug}`),
-  ).toHaveText('3');
-  await expect(page.getByTestId('cart-count')).toHaveText('3');
+  ).toHaveText('5');
+  await expect(page.getByTestId('cart-count')).toHaveText('5');
 
   await page
     .getByTestId(`cart-product-remove-${singleChosenProduct.slug}`)
