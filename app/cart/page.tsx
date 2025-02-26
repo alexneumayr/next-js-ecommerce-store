@@ -36,8 +36,9 @@ export default async function CartPage() {
   return (
     <div className="mx-[80px] mt-3">
       <h1 className="text-[45px] font-bold">Cart</h1>
-      {basicCart.length > 0 ? (
-        <div className="flex flex-col mb-10">
+
+      <div className="flex flex-col mb-10">
+        {basicCart.length > 0 ? (
           <div className="rounded-[25px] border border-[#878787] min-w-[700px] my-5">
             {/* If there are products in the cart it shows a container with the images, names and prices of the products and also elements to see and change the quantity */}
             {cartProducts.map((product) => {
@@ -88,22 +89,24 @@ export default async function CartPage() {
               );
             })}
           </div>
-          {/* Shows the total price of all products and a "Proceed to Checkout" button under the products container */}
-          <div className="flex justify-between mb-4">
-            <p className="text-[27px] font-semibold">Total:</p>
-            <p className="text-[27px] font-semibold">
-              €&nbsp;
-              <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
-            </p>
-          </div>
-          <CheckoutButton className="self-end ml-auto" />
+        ) : (
+          <p className="h-[300px] text-[21px] font-normal">
+            {/* Shows a text if the cart is empty */}
+            Nothing in here yet...
+          </p>
+        )}
+        {/* Shows the total price of all products and a "Proceed to Checkout" button under the products container */}
+        <div className="flex justify-between mb-4">
+          <p className="text-[27px] font-semibold">Total:</p>
+          <p className="text-[27px] font-semibold">
+            €&nbsp;
+            <span data-test-id="cart-total">{(total / 100).toFixed(2)}</span>
+          </p>
         </div>
-      ) : (
-        <p className="mb-[400px] text-[21px] font-normal">
-          {/* Shows a text if the cart is empty */}
-          Nothing in here yet...
-        </p>
-      )}
+        <CheckoutButton
+          className={`${basicCart.length === 0 && 'hidden'} self-end ml-auto`}
+        />
+      </div>
     </div>
   );
 }
