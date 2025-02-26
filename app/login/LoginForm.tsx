@@ -69,10 +69,7 @@ export default function LoginForm() {
           <p className="text-red-500 font-bold text-xs">
             {errors.password?.message}
           </p>
-          <label
-            htmlFor="password-password"
-            className="block text-[15px] font-semibold"
-          >
+          <label htmlFor="password" className="block text-[15px] font-semibold">
             Password
           </label>
           <input

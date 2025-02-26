@@ -21,7 +21,7 @@ type Props = {
 export default function SimpleEditor(props: Props) {
   // Returns a WYSIWYG editor which uses the state and state setter from the props
   return (
-    <div className="editor">
+    <div>
       <EditorProvider>
         <Editor
           value={props.state}

@@ -188,13 +188,7 @@ export default function AddProductForm() {
             />
           </div>
           <div>
-            <label
-              className="text-[15px] font-semibold"
-              htmlFor="description-input"
-            >
-              Description:
-            </label>
-            <br />
+            <p className="text-[15px] font-semibold">Description:</p>
             <SimpleEditor state={description} stateSetter={setDescription} />
           </div>
           <div className="mt-2 mb-8 flex justify-between gap-2">
