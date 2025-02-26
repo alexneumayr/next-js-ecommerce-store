@@ -57,7 +57,7 @@ export default async function SingleProduct(props: Props) {
           <br />
         </div>
       </div>
-      <h2 className="h-11 text-black text-4xl font-bold">Product Details</h2>
+      <h2 className="h-11 text-4xl font-bold">Product Details</h2>
       {/* Shows the product details */}
       <div
         className="text-xl my-6 max-w-[1000px]"

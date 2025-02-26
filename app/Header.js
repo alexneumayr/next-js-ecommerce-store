@@ -25,10 +25,19 @@ export default async function Header() {
     <header>
       {/* Show a green line at the top */}
       <div className="bg-primary h-3 " />
-      <div className="px-5 flex gap-2 h-[110px] items-center  bg-white shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
+      <div className="px-5 flex gap-2 h-[110px] items-center  bg-white dark:bg-[#1C1C1C] shadow-[0px_4px_4px_0px_rgba(166,166,166,0.25)] w-full">
         {/* Shows the logo */}
         <Link href="/" className="">
-          <img className="w-[200px]" src="logo-main.png" alt="Site logo" />
+          <img
+            className="w-[200px] dark:hidden"
+            src="logo-main.png"
+            alt="Site logo"
+          />
+          <img
+            className="w-[200px] hidden dark:block"
+            src="logo-white.png"
+            alt="Site logo"
+          />
         </Link>
         {/* Displays the search area */}
         <SearchArea />
@@ -39,14 +48,14 @@ export default async function Header() {
               {/* Shows a link to the admin area if the user's role is "admin" */}
               {session?.user.role === 'admin' && (
                 <Link
-                  className="text-black hover:text-primary text-[21px] font-bold"
+                  className="hover:text-primary text-[21px] font-bold"
                   href="/admin"
                 >
                   Admin
                 </Link>
               )}
               <Link
-                className="text-black hover:text-primary text-[21px] font-bold"
+                className="hover:text-primary text-[21px] font-bold"
                 href="/products"
                 data-test-id="products-link"
               >
@@ -56,19 +65,19 @@ export default async function Header() {
             <li className="flex flex-none">
               {session && (
                 <Link className="" href="/profile">
-                  <ProfileIcon className="stroke-black hover:stroke-primary" />
+                  <ProfileIcon className="stroke-black dark:stroke-white hover:stroke-primary" />
                 </Link>
               )}
               {!session && (
                 <Link href="/login">
-                  <ProfileIcon className="stroke-black hover:stroke-primary" />
+                  <ProfileIcon className="stroke-black dark:stroke-white hover:stroke-primary" />
                 </Link>
               )}
             </li>
             <li className="flex-none group">
               {/* Shows the cart icon with the amount of items in the cookie */}
               <Link className="flex " href="/cart" data-test-id="cart-link">
-                <CartIcon className="stroke-black group-hover:stroke-primary" />
+                <CartIcon className="stroke-black dark:stroke-white group-hover:stroke-primary" />
 
                 <span
                   className="relative bottom-[10px] text-[17px] font-medium group-hover:text-primary"

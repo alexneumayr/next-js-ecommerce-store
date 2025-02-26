@@ -19,7 +19,7 @@ export default function LogoutMain() {
   return (
     <div className="h-[65vh] flex  flex-col justify-center">
       <h1 className="text-6xl font-extrabold text-center mb-10">Logging out</h1>
-      <p className=" text-black text-[25px] font-normal text-center">
+      <p className=" text-[25px] font-normal text-center">
         You will be redirected to the main page shortly...
       </p>
       {/* Shows an error message if the sign out has failed. */}

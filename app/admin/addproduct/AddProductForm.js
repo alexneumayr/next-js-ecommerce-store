@@ -99,7 +99,7 @@ export default function AddProductForm() {
               className="flex justify-between gap-2"
             >
               <label
-                className="flex-1 text-center p-2 inline-block items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black"
+                className="flex-1 text-center p-2 inline-block items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black dark:hover:bg-[#00b755d6]"
                 htmlFor="image"
               >
                 Choose file
@@ -112,7 +112,7 @@ export default function AddProductForm() {
                 accept="image/*"
                 onChange={(event) => setFileName(event.target.files[0].name)}
               />
-              <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black">
+              <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black dark:hover:bg-[#00b755d6]">
                 Upload image
               </button>
             </form>
@@ -198,11 +198,11 @@ export default function AddProductForm() {
             <SimpleEditor state={description} stateSetter={setDescription} />
           </div>
           <div className="mt-2 mb-8 flex justify-between gap-2">
-            <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black">
+            <button className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black dark:hover:bg-[#00b755d6]">
               Add product
             </button>
             <button
-              className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black"
+              className="flex-1 p-2 items-center text-[13px] font-semibold rounded-[5px] bg-[#434343] text-white cursor-pointer hover:bg-black dark:hover:bg-[#00b755d6]"
               type="button"
               onClick={handleClearButtonClick}
             >

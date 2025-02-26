@@ -42,7 +42,7 @@ export default async function ProductPage() {
                   </p>
                 </Link>
                 <div className="flex items-center justify-around mt-auto">
-                  <p className="text-black text-[25px] font-bold">
+                  <p className="text-[25px] font-bold">
                     € {(product.price / 100).toFixed(2)}
                   </p>
                   <QuickAddToCartButton id={product.id} />

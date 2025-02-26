@@ -11,7 +11,7 @@ export default function RemoveButton(props) {
       data-test-id={`cart-product-remove-${props.slug}`}
       className="hover:cursor-pointer mr-4"
     >
-      <RemoveButtonIcon className="stroke-[#212121] hover:stroke-primary" />
+      <RemoveButtonIcon className="stroke-[#212121] dark:stroke-white hover:stroke-primary" />
     </button>
   );
 }

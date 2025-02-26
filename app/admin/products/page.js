@@ -35,7 +35,7 @@ export default async function AdminProductPage() {
                   {product.name}
                 </p>
                 <div className="flex items-center justify-around mt-auto">
-                  <p className="text-black text-[25px] font-bold">
+                  <p className="text-[25px] font-bold">
                     € {(product.price / 100).toFixed(2)}
                   </p>
                   <EditProductButton slug={product.slug} />

@@ -34,7 +34,10 @@ export default function ThankYouPage() {
         <p className="m-3 text-[21px] font-normal">
           If you have any questions or need assistance, our support team is here
           for you:&nbsp;
-          <Link className="text-primary underline hover:text-black" href="/">
+          <Link
+            className="text-primary underline hover:text-black dark:hover:text-[#00b755d6]"
+            href="/"
+          >
             Contact Support
           </Link>
         </p>
