@@ -79,7 +79,7 @@ export default async function CartPage() {
                     €&nbsp;
                     <span
                       className=""
-                      data-test-id={`cart-product-subtotal-${product.slug}`}
+                      data-test-id={`cart-currentproduct-subtotal-${product.slug}`}
                     >
                       {(product.subtotal / 100).toFixed(2)}
                     </span>

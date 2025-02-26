@@ -70,8 +70,7 @@ export default async function CheckoutPage() {
               <p className="text-[21px] font-medium w-[60px] ">
                 €&nbsp;
                 <span
-                  className=""
-                  data-test-id={`cart-product-subtotal-${product.slug}`}
+                  data-test-id={`cart-currentproduct-subtotal-${product.slug}`}
                 >
                   {(product.subtotal / 100).toFixed(2)}
                 </span>

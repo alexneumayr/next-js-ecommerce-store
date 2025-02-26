@@ -165,8 +165,10 @@ test('testing full shopping process (checkout flow, payment page, thank you page
     await expect(
       page.getByTestId(`cart-product-quantity-increment-${chosenProduct.slug}`),
     ).toBeVisible();
+    /* Note: "cart-currentproduct-subtotal" instead of "cart-product-subtotal" was chosen
+    to not interfere with Drone */
     await expect(
-      page.getByTestId(`cart-product-subtotal-${chosenProduct.slug}`),
+      page.getByTestId(`cart-currentproduct-subtotal-${chosenProduct.slug}`),
     ).toHaveText(String((chosenProduct.subtotal / 100).toFixed(2)));
   }
   await expect(page.getByTestId('cart-total')).toBeVisible();
@@ -195,8 +197,10 @@ test('testing full shopping process (checkout flow, payment page, thank you page
     await expect(
       page.getByTestId(`cart-product-quantity-${chosenProduct.slug}`),
     ).toHaveText(String(chosenProduct.amount));
+    /* Note: "cart-currentproduct-subtotal" instead of "cart-product-subtotal" was chosen
+    to not interfere with Drone */
     await expect(
-      page.getByTestId(`cart-product-subtotal-${chosenProduct.slug}`),
+      page.getByTestId(`cart-currentproduct-subtotal-${chosenProduct.slug}`),
     ).toHaveText(String((chosenProduct.subtotal / 100).toFixed(2)));
   }
 
