@@ -75,7 +75,7 @@ export default async function CartPage() {
                     currentAmount={product.amount}
                   />
                   <RemoveButton id={product.id} slug={product.slug} />
-                  <p className="text-[21px] font-medium w-[50px] ">
+                  <p className="text-[21px] font-medium w-[60px] ">
                     €&nbsp;
                     <span
                       className=""

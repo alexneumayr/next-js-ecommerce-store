@@ -67,7 +67,7 @@ export default async function CheckoutPage() {
               >
                 {product.amount}
               </p>
-              <p className="text-[21px] font-medium w-[50px] ">
+              <p className="text-[21px] font-medium w-[60px] ">
                 €&nbsp;
                 <span
                   className=""
