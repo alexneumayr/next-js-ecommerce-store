@@ -17,11 +17,11 @@ export default function CheckoutForm(props: Props) {
     firstName: z
       .string()
       .min(1, { message: 'Please input a first name' })
-      .regex(/^\D+$/, { message: 'Please input a correct first name.' }),
+      .regex(/^\D\D\D+$/, { message: 'Please input a correct first name.' }),
     lastName: z
       .string()
       .min(1, { message: 'Please input a last name' })
-      .regex(/^\D+$/, { message: 'Please input a correct last name.' }),
+      .regex(/^\D\D\D+$/, { message: 'Please input a correct last name.' }),
     email: z
       .string()
       .min(1, { message: 'Please input an email address' })
@@ -31,15 +31,11 @@ export default function CheckoutForm(props: Props) {
     city: z
       .string()
       .min(1, { message: 'Please input a city name' })
-      .regex(/^\D+$/, { message: 'Please input a correct city name' }),
+      .regex(/^\D\D\D+$/, { message: 'Please input a correct city name' }),
     country: z
       .string()
-      .min(1, { message: 'Please input a country name' })
-      .regex(/^\D+$/, { message: 'Please input a correct country name' }),
-    creditcardName: z
-      .string()
-      .min(1, { message: 'Please input the correct name' })
-      .regex(/^\D+$/, { message: 'Please input a correct first name.' }),
+      .min(3, { message: 'Please input a country name' })
+      .regex(/^\D\D\D+$/, { message: 'Please input a correct country name' }),
     creditcardNumber: z
       .string()
       .min(1, { message: 'Please input a credit card number' })
@@ -210,30 +206,13 @@ export default function CheckoutForm(props: Props) {
         {/* Contains all input field on the right side */}
         <div>
           <p className="text-red-500 font-bold text-xs">
-            {errors.creditcardName?.message}
-          </p>
-          <label
-            className="text-[15px] font-semibold block"
-            htmlFor="card-name-input"
-          >
-            Name on credit card:
-          </label>
-          <input
-            className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
-            id="card-name-input"
-            {...register('creditcardName')}
-            data-test-id="checkout-credit-card-name"
-          />
-        </div>
-        <div>
-          <p className="text-red-500 font-bold text-xs">
             {errors.creditcardNumber?.message}
           </p>
           <label
             className="text-[15px] font-semibold block"
             htmlFor="card-number-input"
           >
-            Card number:
+            Credit card number:
           </label>
           <input
             className="h-[29px] rounded-[5px] border p-2 mb-2 w-full"
@@ -278,7 +257,7 @@ export default function CheckoutForm(props: Props) {
             />
           </div>
         </div>
-        <div className="my-auto flex justify-between gap-2">
+        <div className="mt-[15px] flex justify-between gap-2">
           {/* Shows the "Buy now" button */}
           <button
             data-test-id="checkout-confirm-order"
